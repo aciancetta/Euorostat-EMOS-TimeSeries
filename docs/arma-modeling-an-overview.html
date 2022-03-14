@@ -312,11 +312,11 @@ Note that <span class="math inline">\(\widehat{\text{Var}}[y_t] = \widehat{\text
 <div class="sourceCode" id="cb9"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb9-1"><a href="arma-modeling-an-overview.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#examples</span></span>
 <span id="cb9-2"><a href="arma-modeling-an-overview.html#cb9-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> randn(<span class="fl">1000</span>)<span class="op">;</span></span>
 <span id="cb9-3"><a href="arma-modeling-an-overview.html#cb9-3" aria-hidden="true" tabindex="-1"></a>samplemean(x)</span></code></pre></div>
-<pre><code>## 0.013425414482725873</code></pre>
+<pre><code>## 0.019338841056328125</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb11-1"><a href="arma-modeling-an-overview.html#cb11-1" aria-hidden="true" tabindex="-1"></a>autocov(x<span class="op">,</span><span class="fl">11</span>)</span></code></pre></div>
-<pre><code>## 0.0635113383604794</code></pre>
+<pre><code>## 0.009241265188276216</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb13-1"><a href="arma-modeling-an-overview.html#cb13-1" aria-hidden="true" tabindex="-1"></a>ACF(x<span class="op">,</span> <span class="fl">7</span>)</span></code></pre></div>
-<pre><code>## 0.023384590487799457</code></pre>
+<pre><code>## 0.016061992109006745</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb15-1"><a href="arma-modeling-an-overview.html#cb15-1" aria-hidden="true" tabindex="-1"></a>ACF_plot(x)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-9-J1.png" width="75%" /></p>
 <p>Instead of using simulated data, we can look at these summary statistics for the GDP series:</p>
@@ -363,13 +363,13 @@ From basic linear regression analysis, we know that <span class="math inline">\(
 <div class="sourceCode" id="cb21"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb21-1"><a href="arma-modeling-an-overview.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 2) Formula of the OLS estimator. The result is a 3-elements Array [β₀, β₁, β₂]</span></span>
 <span id="cb21-2"><a href="arma-modeling-an-overview.html#cb21-2" aria-hidden="true" tabindex="-1"></a>β_hat <span class="op">=</span> (X<span class="op">&#39;*</span>X) <span class="op">\</span> X<span class="op">&#39;*</span>y</span></code></pre></div>
 <pre><code>## 3-element Array{Float64,1}:
-##  51.35825363639392
-##   0.6840603389677364
-##  -0.8651128630451332</code></pre>
+##  50.029846734840305
+##   0.6985763269629239
+##  -0.8490354147432188</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb23-1"><a href="arma-modeling-an-overview.html#cb23-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-2"><a href="arma-modeling-an-overview.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">## PACF for the second lag</span></span>
 <span id="cb23-3"><a href="arma-modeling-an-overview.html#cb23-3" aria-hidden="true" tabindex="-1"></a>β₂_hat <span class="op">=</span> β_hat[<span class="fl">3</span>]</span></code></pre></div>
-<pre><code>## -0.8651128630451332</code></pre>
+<pre><code>## -0.8490354147432188</code></pre>
 <p>Note that in the previous code we introduced the <strong>lag operator (L)</strong>, a useful device that has any applications in Time series. This is a function that maps every value of the time series in its previous values: <span class="math inline">\(L Y_t = Y_{t-1},\)</span> <span class="math inline">\(L^2 Y_{t} = Y_{t-2},\)</span> <span class="math inline">\(\ L^3 Y_{t} = Y_{t-3},...\)</span></p>
 <p>The PACF plot is a useful device:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb25-1"><a href="arma-modeling-an-overview.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">## PACF plot</span></span>
@@ -610,8 +610,8 @@ Y_t = \sum_{q = 0}^\infty \rho^q \varepsilon_{t-q} =  \varepsilon_t + \rho \vare
 <span id="cb38-6"><a href="arma-modeling-an-overview.html#cb38-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> Y[<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>]<span class="op">;</span> <span class="co"># Dependent variable</span></span></code></pre></div>
 <div class="sourceCode" id="cb39"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb39-1"><a href="arma-modeling-an-overview.html#cb39-1" aria-hidden="true" tabindex="-1"></a>ρ_hat <span class="op">=</span> (X<span class="op">&#39;*</span>X) <span class="op">\</span> X<span class="op">&#39;*</span>y <span class="co"># Estimated coefficients</span></span></code></pre></div>
 <pre><code>## 2-element Array{Float64,1}:
-##  0.5096837158258511
-##  0.6901344320153076</code></pre>
+##  0.48759394482652246
+##  0.6871217732092965</code></pre>
 <div class="sourceCode" id="cb41"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb41-1"><a href="arma-modeling-an-overview.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Alternative code: X \ y</span></span></code></pre></div>
 <p>We see that these values are close to the true ones. We can use these estimated coefficients to forecast future values of <span class="math inline">\(Y\)</span>:</p>
 <p><span class="math display">\[
@@ -619,7 +619,7 @@ Y_t = \sum_{q = 0}^\infty \rho^q \varepsilon_{t-q} =  \varepsilon_t + \rho \vare
 \]</span></p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb42-1"><a href="arma-modeling-an-overview.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 1 step ahead prediction</span></span>
 <span id="cb42-2"><a href="arma-modeling-an-overview.html#cb42-2" aria-hidden="true" tabindex="-1"></a>Y_hat <span class="op">=</span> ρ_hat[<span class="fl">1</span>] <span class="op">+</span> ρ_hat[<span class="fl">2</span>]<span class="op">*</span>Y[<span class="kw">end</span>]</span></code></pre></div>
-<pre><code>## -0.1538399921841047</code></pre>
+<pre><code>## 0.5324979007050027</code></pre>
 <p>Subsequent values can be forecasted by recursion. We now present a sketch of derivation of the optimal forecast for more steps ahead <span class="math inline">\(E[Z_{t+\ell} | \ Z_t]\)</span>.</p>
 <p>Consider for simplicity a centered on the mean version of the model <span class="math inline">\(Y_t = \mu + \rho_1(Y_{t-1} - \mu) + \varepsilon_t\)</span>. By letting <span class="math inline">\(Z_t = Y_t - \mu\)</span>, this can be rewritten as <span class="math inline">\(Z_t = \rho_1 Z_{t-1} + \varepsilon_t\)</span>. The <span class="math inline">\(t+\ell\)</span> observation will then be:</p>
 <p><span class="math display">\[
@@ -645,10 +645,10 @@ Here a graphical example.</p>
 <span id="cb44-9"><a href="arma-modeling-an-overview.html#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="co">## Estimated coefficients</span></span>
 <span id="cb44-10"><a href="arma-modeling-an-overview.html#cb44-10" aria-hidden="true" tabindex="-1"></a>ρ₀<span class="op">,</span> ρ₁ <span class="op">=</span> X_training <span class="op">\</span> y_training</span></code></pre></div>
 <pre><code>## 2-element Array{Float64,1}:
-##  0.5160296381080233
-##  0.6894062402406806</code></pre>
+##  0.4903332454530149
+##  0.6878416116324183</code></pre>
 <div class="sourceCode" id="cb46"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb46-1"><a href="arma-modeling-an-overview.html#cb46-1" aria-hidden="true" tabindex="-1"></a>μ <span class="op">=</span> samplemean(y_training)</span></code></pre></div>
-<pre><code>## 1.658117771757531</code></pre>
+<pre><code>## 1.5706046797440267</code></pre>
 <div class="sourceCode" id="cb48"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb48-1"><a href="arma-modeling-an-overview.html#cb48-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-2"><a href="arma-modeling-an-overview.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Out of sample forecast</span></span>
 <span id="cb48-3"><a href="arma-modeling-an-overview.html#cb48-3" aria-hidden="true" tabindex="-1"></a>y_forecast <span class="op">=</span> [μ <span class="op">+</span> ρ₁<span class="op">^</span>l <span class="op">*</span> (Y[<span class="kw">end</span>]<span class="op">-</span>μ) <span class="kw">for</span> l <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>]<span class="op">;</span></span>
