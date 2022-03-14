@@ -10,7 +10,6 @@ estimation-and-prediction
 real-world-example-gdp-series
 arp
 ma1
-introduction-to-time-series-analysis
 seasonal-adjustment
 the-components-of-a-time-series
 the-causes-of-seasonality
@@ -35,5 +34,3 @@ definition-of-revisions
 descriptive-statistics
 an-example-in-r
 references-1
-arma
-real-time-datasets
