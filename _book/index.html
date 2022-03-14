@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Time Series Methods for Official Statistics</title>
+  <meta name="description" content="Time Series Methods for Official Statistics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Time Series Methods for Official Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Time Series Methods for Official Statistics" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Time Series Methods for Official Statistics" />
+  
+  <meta name="twitter:description" content="Time Series Methods for Official Statistics" />
+  
+
+<meta name="author" content="Alessandro Ciancetta and Daniele Colombo" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="arma-modeling-an-overview.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series for Official Statistics</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html"><i class="fa fa-check"></i><b>1</b> ARMA modeling: an overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#time-series-analysis"><i class="fa fa-check"></i><b>1.1</b> Time series analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#acf-and-pacf"><i class="fa fa-check"></i><b>1.2</b> ACF and PACF</a></li>
+<li class="chapter" data-level="1.3" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#stationarity"><i class="fa fa-check"></i><b>1.3</b> Stationarity</a></li>
+<li class="chapter" data-level="1.4" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#an-important-stationary-series-the-white-noise-process"><i class="fa fa-check"></i><b>1.4</b> An important stationary series: the white noise process</a></li>
+<li class="chapter" data-level="1.5" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#making-a-time-series-stationary"><i class="fa fa-check"></i><b>1.5</b> Making a time series stationary</a></li>
+<li class="chapter" data-level="1.6" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#wold-representation"><i class="fa fa-check"></i><b>1.6</b> Wold representation</a></li>
+<li class="chapter" data-level="1.7" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#arma"><i class="fa fa-check"></i><b>1.7</b> ARMA</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#ar1"><i class="fa fa-check"></i><b>1.7.1</b> AR(1)</a></li>
+<li class="chapter" data-level="1.7.2" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#estimation-and-prediction"><i class="fa fa-check"></i><b>1.7.2</b> Estimation and prediction</a></li>
+<li class="chapter" data-level="1.7.3" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#real-world-example-gdp-series"><i class="fa fa-check"></i><b>1.7.3</b> Real world example: GDP series</a></li>
+<li class="chapter" data-level="1.7.4" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#arp"><i class="fa fa-check"></i><b>1.7.4</b> AR(p)</a></li>
+<li class="chapter" data-level="1.7.5" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#ma1"><i class="fa fa-check"></i><b>1.7.5</b> MA(1)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html"><i class="fa fa-check"></i><b>2</b> Seasonal Adjustment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#the-components-of-a-time-series"><i class="fa fa-check"></i><b>2.1</b> The components of a time series</a></li>
+<li class="chapter" data-level="2.2" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#the-causes-of-seasonality"><i class="fa fa-check"></i><b>2.2</b> The causes of seasonality</a></li>
+<li class="chapter" data-level="2.3" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#why-to-adjust-for-seasonality"><i class="fa fa-check"></i><b>2.3</b> Why to adjust for seasonality</a></li>
+<li class="chapter" data-level="2.4" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#decomposition-models"><i class="fa fa-check"></i><b>2.4</b> Decomposition models</a></li>
+<li class="chapter" data-level="2.5" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#official-programs-for-seasonal-adjustment"><i class="fa fa-check"></i><b>2.5</b> Official programs for seasonal adjustment</a></li>
+<li class="chapter" data-level="2.6" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#illustrative-example"><i class="fa fa-check"></i><b>2.6</b> Illustrative example</a></li>
+<li class="chapter" data-level="2.7" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#rjdemetra-package"><i class="fa fa-check"></i><b>2.7</b> RJDemetra package</a></li>
+<li class="chapter" data-level="2.8" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#preprocessing"><i class="fa fa-check"></i><b>2.8</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.9" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#decomposition"><i class="fa fa-check"></i><b>2.9</b> Decomposition</a></li>
+<li class="chapter" data-level="2.10" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#additional-output-and-forecast"><i class="fa fa-check"></i><b>2.10</b> Additional output and forecast</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html"><i class="fa fa-check"></i><b>3</b> Temporal aggregation and disaggregation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#aggregation"><i class="fa fa-check"></i><b>3.1</b> Aggregation</a></li>
+<li class="chapter" data-level="3.2" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#disaggregation"><i class="fa fa-check"></i><b>3.2</b> Disaggregation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#denton-and-denton-cholette"><i class="fa fa-check"></i><b>3.2.1</b> Denton and Denton-Cholette</a></li>
+<li class="chapter" data-level="3.2.2" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#chow-lin-fernandez-litterman"><i class="fa fa-check"></i><b>3.2.2</b> Chow-Lin, Fernandez, Litterman</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#an-example-using-eurostat-data"><i class="fa fa-check"></i><b>3.3</b> An example using Eurostat data</a></li>
+<li class="chapter" data-level="3.4" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#references"><i class="fa fa-check"></i><b>3.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="revisions-analysis.html"><a href="revisions-analysis.html"><i class="fa fa-check"></i><b>4</b> Revisions Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="revisions-analysis.html"><a href="revisions-analysis.html#classification-of-revisions"><i class="fa fa-check"></i><b>4.1</b> Classification of revisions</a></li>
+<li class="chapter" data-level="4.2" data-path="revisions-analysis.html"><a href="revisions-analysis.html#definition-of-revisions"><i class="fa fa-check"></i><b>4.2</b> Definition of revisions</a></li>
+<li class="chapter" data-level="4.3" data-path="revisions-analysis.html"><a href="revisions-analysis.html#real-time-datasets"><i class="fa fa-check"></i><b>4.3</b> Real-time datasets</a></li>
+<li class="chapter" data-level="4.4" data-path="revisions-analysis.html"><a href="revisions-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>4.4</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="4.5" data-path="revisions-analysis.html"><a href="revisions-analysis.html#an-example-in-r"><i class="fa fa-check"></i><b>4.5</b> An example in R</a></li>
+<li class="chapter" data-level="4.6" data-path="revisions-analysis.html"><a href="revisions-analysis.html#references-1"><i class="fa fa-check"></i><b>4.6</b> References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Methods for Official Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Time Series Methods for Official Statistics</h1>
+<p class="author"><em>Alessandro Ciancetta and Daniele Colombo</em></p>
+<p class="date"><em>April, 2021</em></p>
+</div>
+<div id="abstract" class="section level1 unnumbered">
+<h1>Abstract</h1>
+<p>This book is an introduction to Time Series Analysis methods for Official Statistics. The book is divided into four chapters. Chapter 1 offers a brief introducion to time series analysis and presents ARMA models, with applications in Julia. Chapter 2 discusses the problem of seasonality in time series and some techniques for seasonal adjustment using the RJDemetra package. Chapter 3 is about aggregation and disaggregation of series having different frequencies, with examples using Eurostat data. Chapter 4 discusses the best-practices in data publication and review, with a focus on revisions analysis.</p>
+<p>This book has been realized on behalf of Eurostat and the University of Pisa (Italy) as a teaching material for the European Masters in Official Statistics (EMOS).</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="arma-modeling-an-overview.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aciancetta/Euorostat-EMOS-TimeSeries/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/aciancetta/Euorostat-EMOS-TimeSeries/blob/master/index.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 1 ARMA modeling: an overview | Time Series for Official Statistics</title>
+  <meta name="description" content="Time Series methods for Official Statistics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 1 ARMA modeling: an overview | Time Series for Official Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Time Series methods for Official Statistics" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 1 ARMA modeling: an overview | Time Series for Official Statistics" />
+  
+  <meta name="twitter:description" content="Time Series methods for Official Statistics" />
+  
+
+<meta name="author" content="Alessandro Ciancetta and Daniele Colombo" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="seasonal-adjustment.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EurostatTimeSeries</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html"><i class="fa fa-check"></i><b>1</b> ARMA modeling: an overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#time-series-analysis"><i class="fa fa-check"></i><b>1.1</b> Time series analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#acf-and-pacf"><i class="fa fa-check"></i><b>1.2</b> ACF and PACF</a></li>
+<li class="chapter" data-level="1.3" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#stationarity"><i class="fa fa-check"></i><b>1.3</b> Stationarity</a></li>
+<li class="chapter" data-level="1.4" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#an-important-stationary-series-the-white-noise-process"><i class="fa fa-check"></i><b>1.4</b> An important stationary series: the white noise process</a></li>
+<li class="chapter" data-level="1.5" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#making-a-time-series-stationary"><i class="fa fa-check"></i><b>1.5</b> Making a time series stationary</a></li>
+<li class="chapter" data-level="1.6" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#wold-representation"><i class="fa fa-check"></i><b>1.6</b> Wold representation</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#ar1"><i class="fa fa-check"></i><b>1.6.1</b> AR(1)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#estimation-and-prediction"><i class="fa fa-check"></i><b>1.6.2</b> Estimation and prediction</a></li>
+<li class="chapter" data-level="1.6.3" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#real-world-example-gdp-series"><i class="fa fa-check"></i><b>1.6.3</b> Real world example: GDP series</a></li>
+<li class="chapter" data-level="1.6.4" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#arp"><i class="fa fa-check"></i><b>1.6.4</b> AR(p)</a></li>
+<li class="chapter" data-level="1.6.5" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#ma1"><i class="fa fa-check"></i><b>1.6.5</b> MA(1)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html"><i class="fa fa-check"></i><b>2</b> Seasonal Adjustment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#the-components-of-a-time-series"><i class="fa fa-check"></i><b>2.1</b> The components of a time series</a></li>
+<li class="chapter" data-level="2.2" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#the-causes-of-seasonality"><i class="fa fa-check"></i><b>2.2</b> The causes of seasonality</a></li>
+<li class="chapter" data-level="2.3" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#why-to-adjust-for-seasonality"><i class="fa fa-check"></i><b>2.3</b> Why to adjust for seasonality</a></li>
+<li class="chapter" data-level="2.4" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#decomposition-models"><i class="fa fa-check"></i><b>2.4</b> Decomposition models</a></li>
+<li class="chapter" data-level="2.5" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#official-programs-for-seasonal-adjustment"><i class="fa fa-check"></i><b>2.5</b> Official programs for seasonal adjustment</a></li>
+<li class="chapter" data-level="2.6" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#illustrative-example"><i class="fa fa-check"></i><b>2.6</b> Illustrative example</a></li>
+<li class="chapter" data-level="2.7" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#rjdemetra-package"><i class="fa fa-check"></i><b>2.7</b> RJDemetra package</a></li>
+<li class="chapter" data-level="2.8" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#preprocessing"><i class="fa fa-check"></i><b>2.8</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.9" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#decomposition"><i class="fa fa-check"></i><b>2.9</b> Decomposition</a></li>
+<li class="chapter" data-level="2.10" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#additional-output-and-forecast"><i class="fa fa-check"></i><b>2.10</b> Additional output and forecast</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html"><i class="fa fa-check"></i><b>3</b> Temporal aggregation and disaggregation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#aggregation"><i class="fa fa-check"></i><b>3.1</b> Aggregation</a></li>
+<li class="chapter" data-level="3.2" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#disaggregation"><i class="fa fa-check"></i><b>3.2</b> Disaggregation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#denton-and-denton-cholette"><i class="fa fa-check"></i><b>3.2.1</b> Denton and Denton-Cholette</a></li>
+<li class="chapter" data-level="3.2.2" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#chow-lin-fernandez-litterman"><i class="fa fa-check"></i><b>3.2.2</b> Chow-Lin, Fernandez, Litterman</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#an-example-using-eurostat-data"><i class="fa fa-check"></i><b>3.3</b> An example using Eurostat data</a></li>
+<li class="chapter" data-level="3.4" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#references"><i class="fa fa-check"></i><b>3.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="revisions-analysis.html"><a href="revisions-analysis.html"><i class="fa fa-check"></i><b>4</b> Revisions Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="revisions-analysis.html"><a href="revisions-analysis.html#classification-of-revisions"><i class="fa fa-check"></i><b>4.1</b> Classification of revisions</a></li>
+<li class="chapter" data-level="4.2" data-path="revisions-analysis.html"><a href="revisions-analysis.html#definition-of-revisions"><i class="fa fa-check"></i><b>4.2</b> Definition of revisions</a></li>
+<li class="chapter" data-level="4.3" data-path="revisions-analysis.html"><a href="revisions-analysis.html#real-time-datasets"><i class="fa fa-check"></i><b>4.3</b> Real-time datasets</a></li>
+<li class="chapter" data-level="4.4" data-path="revisions-analysis.html"><a href="revisions-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>4.4</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="4.5" data-path="revisions-analysis.html"><a href="revisions-analysis.html#an-example-in-r"><i class="fa fa-check"></i><b>4.5</b> An example in R</a></li>
+<li class="chapter" data-level="4.6" data-path="revisions-analysis.html"><a href="revisions-analysis.html#references-1"><i class="fa fa-check"></i><b>4.6</b> References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series for Official Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="arma-modeling-an-overview" class="section level1" number="1">
+<h1><span class="header-section-number">Topic 1</span> ARMA modeling: an overview</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb1-1"><a href="arma-modeling-an-overview.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> Plots</span>
+<span id="cb1-2"><a href="arma-modeling-an-overview.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> ShiftedArrays</span></code></pre></div>
+<div id="time-series-analysis" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Time series analysis</h2>
+<p>One of the main problems in statistics in general is that of building good models from observed data. But when we deal with time series this is particularly challenging for two main reasons. First of all, we typically have only a single historical sample available, unlike other kinds of statistical analysis where it’s usually possible to build a larger sample (if you dispose of the necessary time and money to collect new data). Furthermore, a time series can in theory have an infinite time domain, but in practice we always dispose only of a finite number of observations. Therefore, since in most cases we have to deal with a sample size of <span class="math inline">\(n=1\)</span> (we observe <em>one unit</em> over time) and an uncomplete series, building probabilistic models is particularly challenging. This has required the development of specific techniques, giving Time series analysis the status of autonomous discipline inside the broader field of econometrics.</p>
+<p>A <strong>time series</strong> is a sequence of observations <span class="math inline">\(y_1, y_2, ... , y_T\)</span> indexed in time order, each being recorded at a specific time <span class="math inline">\(\text{t}\)</span>. Most commonly, these are taken at successively equally spaced points in time. When this is the case, we speak of a discrete-time series. A series is said instead continuous when the observations are recorded continuously over some time interval.</p>
+<p>The objectives of Time series analysis are diverse and depend on the specific application, but they are all based on the idea that a time series is a realization from a sequence of random variables or a stochastic process <span class="math inline">\(\{Y_t\}_{t=1}^T\)</span>. Therefore, a fundamental task is that of shedding light on the probability laws that govern the observed process. These laws can be used to:</p>
+<ul>
+<li>understand what are the factors that drive the dynamics of the series, that is, the underlying causal relationships;<br />
+</li>
+<li>forecast future values of the variable;</li>
+</ul>
+<p>Often, these goals are relevant also to understand how a variable might respond to interventions.</p>
+<p>To illustrate the concepts that will be presented we will use the United States GDP series as example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb2-1"><a href="arma-modeling-an-overview.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#import Pkg; Pkg.add(&quot;FredData&quot;);</span></span>
+<span id="cb2-2"><a href="arma-modeling-an-overview.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> FredData<span class="op">;</span></span>
+<span id="cb2-3"><a href="arma-modeling-an-overview.html#cb2-3" aria-hidden="true" tabindex="-1"></a>api_key <span class="op">=</span> <span class="st">&quot;insert_your_api_key_here&quot;</span> <span class="co"># an api key can be requested at https://research.stlouisfed.org/docs/api/api_key.html</span></span>
+<span id="cb2-4"><a href="arma-modeling-an-overview.html#cb2-4" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> Fred(api_key)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb3-1"><a href="arma-modeling-an-overview.html#cb3-1" aria-hidden="true" tabindex="-1"></a>gdp <span class="op">=</span> get_data(f<span class="op">,</span> <span class="st">&quot;GDPC1&quot;</span><span class="op">;</span> frequency<span class="op">=</span><span class="st">&quot;q&quot;</span>)</span></code></pre></div>
+<pre><code>## FredSeries
+##  id: GDPC1
+##  title: Real Gross Domestic Product
+##  units: Billions of Chained 2012 Dollars
+##  seas_adj (native): Seasonally Adjusted Annual Rate
+##  freq (native): Quarterly
+##  realtime_start: 2022-03-14
+##  realtime_end: 2022-03-14
+##  last_updated: 2022-02-24T13:57:02
+##  notes: BEA Account Code: A191RX Real gross domestic product is the inflation adjusted value of the goods and services produced by labor and property located in the United States.For more information see the Guide to the National Income and Product Accounts of the United States (NIPA). For more information, please visit the Bureau of Economic Analysis (http://www.bea.gov/national/pdf/nipaguid.pdf).
+##  trans_short: lin
+##  data: 300x4 DataFrame with columns [&quot;realtime_start&quot;, &quot;realtime_end&quot;, &quot;date&quot;, &quot;value&quot;]</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb5-1"><a href="arma-modeling-an-overview.html#cb5-1" aria-hidden="true" tabindex="-1"></a>gdp.data</span></code></pre></div>
+<pre><code>## 300×4 DataFrame
+##  Row │ realtime_start  realtime_end  date        value
+##      │ Date            Date          Date        Float64
+## ─────┼────────────────────────────────────────────────────
+##    1 │ 2022-03-14      2022-03-14    1947-01-01   2034.45
+##    2 │ 2022-03-14      2022-03-14    1947-04-01   2029.02
+##    3 │ 2022-03-14      2022-03-14    1947-07-01   2024.83
+##    4 │ 2022-03-14      2022-03-14    1947-10-01   2056.51
+##    5 │ 2022-03-14      2022-03-14    1948-01-01   2087.44
+##    6 │ 2022-03-14      2022-03-14    1948-04-01   2121.9
+##    7 │ 2022-03-14      2022-03-14    1948-07-01   2134.06
+##    8 │ 2022-03-14      2022-03-14    1948-10-01   2136.44
+##   ⋮  │       ⋮              ⋮            ⋮          ⋮
+##  294 │ 2022-03-14      2022-03-14    2020-04-01  17258.2
+##  295 │ 2022-03-14      2022-03-14    2020-07-01  18560.8
+##  296 │ 2022-03-14      2022-03-14    2020-10-01  18767.8
+##  297 │ 2022-03-14      2022-03-14    2021-01-01  19055.7
+##  298 │ 2022-03-14      2022-03-14    2021-04-01  19368.3
+##  299 │ 2022-03-14      2022-03-14    2021-07-01  19478.9
+##  300 │ 2022-03-14      2022-03-14    2021-10-01  19810.6
+##                                           285 rows omitted</code></pre>
+<p>After retrieving the data, we apply a log-diff transformation in order to obtain the GDP growth rate and make the series stationary.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb7-1"><a href="arma-modeling-an-overview.html#cb7-1" aria-hidden="true" tabindex="-1"></a>gdp.data[<span class="op">!,</span> <span class="op">:</span>DY] .<span class="op">=</span> (log.(gdp.data[<span class="op">!,:</span>value]) .<span class="op">-</span> (lag(log.(gdp.data[<span class="op">!,:</span>value]))))<span class="op">*</span><span class="fl">100</span><span class="op">*</span><span class="fl">4</span><span class="op">;</span></span>
+<span id="cb7-2"><a href="arma-modeling-an-overview.html#cb7-2" aria-hidden="true" tabindex="-1"></a>GDP <span class="op">=</span> gdp.data[<span class="op">!,</span> <span class="op">:</span>DY][<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>]<span class="op">;</span></span></code></pre></div>
+<p>To start understanding the basic features of a specific time series we can use some descriptive statistics.</p>
+<p>The <strong>sample mean</strong> is the average value of the observations in the observed time series:</p>
+<p><span class="math display">\[
+\bar{y} = \frac{1}{T}(y_1 + y_2 + ... + y_T) = \frac{1}{T} \sum^T_{t=1} y_t
+\]</span>
+The <strong>sample variance</strong> is a measure of the quadratic deviation of the observations from the sample mean:</p>
+<p><span class="math display">\[
+\text{Var}[y_t]=\frac{\sum^T_{t=1}(\bar{y_t} - y_t)^2}{T}
+\]</span>
+The higher the variance, the higher the variability of the observations with respect to the average value.</p>
+<p>A more specific statistic to time series analysis is the <strong>autocorrelation</strong> or <strong>serial correlation function</strong>, which measures how strongly a series is related to it’s lagged version. The number of lags is usually indicated with <span class="math inline">\(j\)</span>.</p>
+<p><span class="math display">\[
+\widehat{\rho}(j) = \frac{\widehat{\text{Cov}}[y_t, y_{t-j}]}{\widehat{\text{Var}}[y_t]}
+\]</span>
+where <span class="math inline">\(\widehat{\text{Cov}}[y_t, y_{t-j}]\)</span> is the <strong>autocovariance function</strong>:</p>
+<p><span class="math display">\[
+\widehat{\text{Cov}}[y_t, y_{t-j}]  = \frac{1}{T-j} \sum_{t=j+1}^{T}(y_t - \bar{y})(y_{t-j} - \bar{y})
+\]</span>
+Note that <span class="math inline">\(\widehat{\text{Var}}[y_t] = \widehat{\text{Cov}}[y_t, y_t]\)</span>.</p>
+<p>When the values of <span class="math inline">\(y\)</span> at time <span class="math inline">\(t\)</span> and <span class="math inline">\(t-j\)</span> are both above or below the average value, then <span class="math inline">\((y_t - \bar{y})\)</span> and <span class="math inline">\((y_{t-j} - \bar{y})\)</span> have the same sign and <span class="math inline">\((y_t - \bar{y})(y_{t-j} - \bar{y}) &gt; 0\)</span>. If this happens for most observations, the series shows a <em>positive</em> autocovariance, <span class="math inline">\(\widehat{\text{Cov}}[y_t, y_{t-j}]&gt;0\)</span>.</p>
+<p>On the contrary, when <span class="math inline">\(y_t\)</span> is above the average value and <span class="math inline">\(y_{t-j}\)</span> below (or vice-versa), then <span class="math inline">\((y_t - \bar{y})\)</span> and <span class="math inline">\((y_{t-j} - \bar{y})\)</span> have opposite signs and we have <span class="math inline">\((y_t - \bar{y})(y_{t-j} - \bar{y}) &lt; 0\)</span>. If this happens for most observations, the series shows a <em>negative</em> autocovariance, <span class="math inline">\(\widehat{\text{Cov}}[y_t, y_{t-j}] &lt; 0\)</span>.</p>
+<p>If there is not a systematic pattern between the observations in the time series and their lagged values, then the sample covariance will be approximately zero.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb8-1"><a href="arma-modeling-an-overview.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> samplemean(Y<span class="op">::</span><span class="dt">Array</span>)</span>
+<span id="cb8-2"><a href="arma-modeling-an-overview.html#cb8-2" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> length(Y)</span>
+<span id="cb8-3"><a href="arma-modeling-an-overview.html#cb8-3" aria-hidden="true" tabindex="-1"></a>    mean <span class="op">=</span> sum(Y)<span class="op">/</span>T</span>
+<span id="cb8-4"><a href="arma-modeling-an-overview.html#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> mean</span>
+<span id="cb8-5"><a href="arma-modeling-an-overview.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span><span class="op">;</span></span>
+<span id="cb8-6"><a href="arma-modeling-an-overview.html#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="arma-modeling-an-overview.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> autocov(Y<span class="op">::</span><span class="dt">Array</span><span class="op">,</span> lag<span class="op">::</span><span class="dt">Int64</span>)</span>
+<span id="cb8-8"><a href="arma-modeling-an-overview.html#cb8-8" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> length(Y)</span>
+<span id="cb8-9"><a href="arma-modeling-an-overview.html#cb8-9" aria-hidden="true" tabindex="-1"></a>    lag1(x<span class="op">;</span> j <span class="op">=</span> <span class="fl">1</span>) <span class="op">=</span> vcat([<span class="cn">NaN</span> <span class="kw">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>j]<span class="op">,</span> x[<span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span>j])</span>
+<span id="cb8-10"><a href="arma-modeling-an-overview.html#cb8-10" aria-hidden="true" tabindex="-1"></a>    Ybar <span class="op">=</span> samplemean(Y) </span>
+<span id="cb8-11"><a href="arma-modeling-an-overview.html#cb8-11" aria-hidden="true" tabindex="-1"></a>    DeltaY <span class="op">=</span> Y .<span class="op">-</span> Ybar </span>
+<span id="cb8-12"><a href="arma-modeling-an-overview.html#cb8-12" aria-hidden="true" tabindex="-1"></a>    DeltaY_lag <span class="op">=</span> lag1(DeltaY<span class="op">,</span> j<span class="op">=</span>lag)</span>
+<span id="cb8-13"><a href="arma-modeling-an-overview.html#cb8-13" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> DeltaY <span class="op">.*</span> DeltaY_lag</span>
+<span id="cb8-14"><a href="arma-modeling-an-overview.html#cb8-14" aria-hidden="true" tabindex="-1"></a>    autocovariance <span class="op">=</span> sum(p[lag<span class="op">+</span><span class="fl">1</span><span class="op">:</span><span class="kw">end</span>])<span class="op">/</span>(T<span class="op">-</span>lag) </span>
+<span id="cb8-15"><a href="arma-modeling-an-overview.html#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> autocovariance</span>
+<span id="cb8-16"><a href="arma-modeling-an-overview.html#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span><span class="op">;</span></span>
+<span id="cb8-17"><a href="arma-modeling-an-overview.html#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="arma-modeling-an-overview.html#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> ACF(Y<span class="op">::</span><span class="dt">Array</span><span class="op">,</span> lag<span class="op">::</span><span class="dt">Int64</span>)</span>
+<span id="cb8-19"><a href="arma-modeling-an-overview.html#cb8-19" aria-hidden="true" tabindex="-1"></a>    autocov(Y<span class="op">,</span>lag)<span class="op">/</span>autocov(Y<span class="op">,</span><span class="fl">0</span>)</span>
+<span id="cb8-20"><a href="arma-modeling-an-overview.html#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span><span class="op">;</span></span>
+<span id="cb8-21"><a href="arma-modeling-an-overview.html#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="arma-modeling-an-overview.html#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> ACF_plot(Y<span class="op">::</span><span class="dt">Array</span><span class="op">;</span> lags <span class="op">=</span> <span class="fl">14</span>)</span>
+<span id="cb8-23"><a href="arma-modeling-an-overview.html#cb8-23" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> length(Y)</span>
+<span id="cb8-24"><a href="arma-modeling-an-overview.html#cb8-24" aria-hidden="true" tabindex="-1"></a>    ACF_vector <span class="op">=</span> [ACF(Y<span class="op">,</span> k) <span class="kw">for</span> k <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>lags]   </span>
+<span id="cb8-25"><a href="arma-modeling-an-overview.html#cb8-25" aria-hidden="true" tabindex="-1"></a>    bar(ACF_vector<span class="op">,</span> legend<span class="op">=:</span>topright<span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;Lags&quot;</span><span class="op">,</span> title <span class="op">=</span> <span class="st">&quot;Auto-Correlation Function&quot;</span><span class="op">,</span> titlelocation <span class="op">=</span> <span class="op">:</span>left<span class="op">,</span> label <span class="op">=</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb8-26"><a href="arma-modeling-an-overview.html#cb8-26" aria-hidden="true" tabindex="-1"></a>    zero_pivot <span class="op">=</span> <span class="fl">1.96</span><span class="op">/</span>sqrt(T) </span>
+<span id="cb8-27"><a href="arma-modeling-an-overview.html#cb8-27" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">!</span>(seriestype<span class="op">=:</span>hline<span class="op">,</span> [<span class="op">-</span>zero_pivot<span class="op">,</span> <span class="op">+</span>zero_pivot]<span class="op">,</span> linestyle<span class="op">=:</span>dash<span class="op">,</span>  alpha<span class="op">=</span><span class="fl">0.5</span><span class="op">,</span> lw<span class="op">=</span><span class="fl">2</span><span class="op">,</span> label<span class="op">=</span><span class="st">&quot;Statistical zero interval&quot;</span>)</span>
+<span id="cb8-28"><a href="arma-modeling-an-overview.html#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span><span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb9-1"><a href="arma-modeling-an-overview.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#examples</span></span>
+<span id="cb9-2"><a href="arma-modeling-an-overview.html#cb9-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> randn(<span class="fl">1000</span>)<span class="op">;</span></span>
+<span id="cb9-3"><a href="arma-modeling-an-overview.html#cb9-3" aria-hidden="true" tabindex="-1"></a>samplemean(x)</span></code></pre></div>
+<pre><code>## 0.04452144629268967</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb11-1"><a href="arma-modeling-an-overview.html#cb11-1" aria-hidden="true" tabindex="-1"></a>autocov(x<span class="op">,</span><span class="fl">11</span>)</span></code></pre></div>
+<pre><code>## -0.03402725027530168</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb13-1"><a href="arma-modeling-an-overview.html#cb13-1" aria-hidden="true" tabindex="-1"></a>ACF(x<span class="op">,</span> <span class="fl">7</span>)</span></code></pre></div>
+<pre><code>## 0.0023935384797626434</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb15-1"><a href="arma-modeling-an-overview.html#cb15-1" aria-hidden="true" tabindex="-1"></a>ACF_plot(x)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-9-J1.png" width="75%" /></p>
+<p>Instead of using simulated data, we can look at these summary statistics for the GDP series:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb16-1"><a href="arma-modeling-an-overview.html#cb16-1" aria-hidden="true" tabindex="-1"></a>samplemean(GDP)</span></code></pre></div>
+<pre><code>## 3.0448029732505866</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb18-1"><a href="arma-modeling-an-overview.html#cb18-1" aria-hidden="true" tabindex="-1"></a>ACF_plot(GDP)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-11-J1.png" width="75%" /></p>
+<p>These simple statistics give us some insights about the GDP-growth time series. The sample mean is 2.92, meaning that the average GDP growth in the considered period (1947:Q1 - 2020:Q2) has been 2.92%. The ACF plot shows that the series is positively correlated with its own first two lags. This means that today’s GDP tends to have the same sign of last quarter’s and last semester’s GDP.</p>
+</div>
+<div id="acf-and-pacf" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> ACF and PACF</h2>
+<p>The Auto-Correlation Function (ACF) is a very useful statistic in time series analysis. It measures how much the time series is correlated with its own lagged values, that is, how much the present values of the series moves together with its past values. For example, consider the price of some good. It seems reasonable to think that today’s price <span class="math inline">\(P_t\)</span> is some way related to the price of one month, one quarter or one year ago: <span class="math inline">\(P_{t-1}, P_{t-3}, P_{t-12}\)</span>. This is an important idea in time series: past observations can embed systematic information about the future realizations of the same process.</p>
+<p>However, the ACF measures how much lagged values of a series affect successive values both <em>directly</em> and <em>indirectly</em>. That is, it measures how much today’s price is affected by the price of two months ago <em>via</em> the effect on last month’s price as well as the direct effect of the price of two months ago. To be more precise, it doesn’t disentangle between the two relationships <span class="math inline">\(P_{\text{Jan}} \rightarrow P_{\text{Mar}}\)</span> and <span class="math inline">\(P_{\text{Jan}} \rightarrow P_{\text{Feb}} \rightarrow P_{\text{Mar}}\)</span>. Nonetheless, it’s often interesting to capture only the direct effect. Consider the case of a fair coming to town every two months, which causes the supply and possibly the demand of a given good to change. In this case, there is a direct relationship <span class="math inline">\(P_{\text{Jan}} \rightarrow P_{\text{Mar}}\)</span>, which embeds the information about this event, and <span class="math inline">\(P_{t-2}\)</span> might be a good predictor of <span class="math inline">\(P_t\)</span>.</p>
+<p>To detect these direct effects, we can use the Partial Auto-Correlation Function (PACF). The idea here is to get rid of all the indirect effects and isolate the direct impact that a past value has on the present. To do that, we just need to estimate a simple linear regression of the series on its lagged varsions:</p>
+<p><span class="math display">\[
+P_t = \beta_0 + \beta_1 P_{t-1} + \beta_2 P_{t-2} + \varepsilon_t
+\]</span>
+From basic linear regression analysis, we know that <span class="math inline">\(\beta_2\)</span> isolates only the direct effect of the second lag. Therefore, the PACF between the series <span class="math inline">\(P_t\)</span> and its second lag <span class="math inline">\(P_{t-2}\)</span> is exactly the coefficient of the regression, <span class="math inline">\(\beta_2\)</span>, which can be estimated with OLS as <span class="math inline">\(\hat{\beta}_{OLS}\)</span> Let’s see this in practice.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb19-1"><a href="arma-modeling-an-overview.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">## PACF</span></span>
+<span id="cb19-2"><a href="arma-modeling-an-overview.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulated data generating process</span></span>
+<span id="cb19-3"><a href="arma-modeling-an-overview.html#cb19-3" aria-hidden="true" tabindex="-1"></a>β₀ <span class="op">=</span> <span class="fl">50.0</span><span class="op">;</span> </span>
+<span id="cb19-4"><a href="arma-modeling-an-overview.html#cb19-4" aria-hidden="true" tabindex="-1"></a>β₁ <span class="op">=</span> <span class="fl">0.7</span><span class="op">;</span></span>
+<span id="cb19-5"><a href="arma-modeling-an-overview.html#cb19-5" aria-hidden="true" tabindex="-1"></a>β₂ <span class="op">=</span> <span class="op">-</span><span class="fl">0.85</span><span class="op">;</span> </span>
+<span id="cb19-6"><a href="arma-modeling-an-overview.html#cb19-6" aria-hidden="true" tabindex="-1"></a>P₀ <span class="op">=</span> <span class="fl">50.0</span><span class="op">;</span> </span>
+<span id="cb19-7"><a href="arma-modeling-an-overview.html#cb19-7" aria-hidden="true" tabindex="-1"></a>P₁ <span class="op">=</span> <span class="fl">50.5</span><span class="op">;</span> </span>
+<span id="cb19-8"><a href="arma-modeling-an-overview.html#cb19-8" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="fl">1000</span><span class="op">;</span></span>
+<span id="cb19-9"><a href="arma-modeling-an-overview.html#cb19-9" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> vcat(P₀<span class="op">,</span> P₁<span class="op">,</span> zeros(T))<span class="op">;</span></span>
+<span id="cb19-10"><a href="arma-modeling-an-overview.html#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> t <span class="kw">in</span> <span class="fl">3</span><span class="op">:</span>length(P)</span>
+<span id="cb19-11"><a href="arma-modeling-an-overview.html#cb19-11" aria-hidden="true" tabindex="-1"></a>    P[t] <span class="op">=</span> β₀ <span class="op">+</span> β₁<span class="op">*</span>P[t<span class="op">-</span><span class="fl">1</span>] <span class="op">+</span> β₂<span class="op">*</span>P[t<span class="op">-</span><span class="fl">2</span>] <span class="op">+</span> randn()</span>
+<span id="cb19-12"><a href="arma-modeling-an-overview.html#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb19-13"><a href="arma-modeling-an-overview.html#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="arma-modeling-an-overview.html#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co">## Generated time series</span></span>
+<span id="cb19-15"><a href="arma-modeling-an-overview.html#cb19-15" aria-hidden="true" tabindex="-1"></a>plot(P<span class="op">,</span>color<span class="op">=:</span>blue<span class="op">,</span> lw<span class="op">=</span><span class="fl">1</span><span class="op">,</span> alpha<span class="op">=</span><span class="fl">0.6</span><span class="op">,</span> label<span class="op">=</span><span class="st">&quot;Price&quot;</span><span class="op">,</span> </span>
+<span id="cb19-16"><a href="arma-modeling-an-overview.html#cb19-16" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=:</span>topright<span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;Months&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-12-J1.png" width="75%" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb20-1"><a href="arma-modeling-an-overview.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">## OLS estimation of the PACF</span></span>
+<span id="cb20-2"><a href="arma-modeling-an-overview.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">## 1) Building the regressors matrix</span></span>
+<span id="cb20-3"><a href="arma-modeling-an-overview.html#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="arma-modeling-an-overview.html#cb20-4" aria-hidden="true" tabindex="-1"></a>P_1 <span class="op">=</span> lag(P<span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span> <span class="co"># First lag</span></span>
+<span id="cb20-5"><a href="arma-modeling-an-overview.html#cb20-5" aria-hidden="true" tabindex="-1"></a>P_2 <span class="op">=</span> lag(P<span class="op">,</span> <span class="fl">2</span>)<span class="op">;</span> <span class="co"># Second lag</span></span>
+<span id="cb20-6"><a href="arma-modeling-an-overview.html#cb20-6" aria-hidden="true" tabindex="-1"></a>constant <span class="op">=</span> [<span class="fl">1</span> <span class="kw">for</span> t <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>length(P_2[<span class="fl">3</span><span class="op">:</span><span class="kw">end</span>])]<span class="op">;</span> <span class="co"># Intercept</span></span>
+<span id="cb20-7"><a href="arma-modeling-an-overview.html#cb20-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> hcat(constant<span class="op">,</span> P_1[<span class="fl">3</span><span class="op">:</span><span class="kw">end</span>]<span class="op">,</span> P_2[<span class="fl">3</span><span class="op">:</span><span class="kw">end</span>])<span class="op">;</span> <span class="co"># Regressors&#39; matrix</span></span>
+<span id="cb20-8"><a href="arma-modeling-an-overview.html#cb20-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> P[<span class="fl">3</span><span class="op">:</span><span class="kw">end</span>]<span class="op">;</span>  <span class="co"># Dependent variable</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb21-1"><a href="arma-modeling-an-overview.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 2) Formula of the OLS estimator. The result is a 3-elements Array [β₀, β₁, β₂]</span></span>
+<span id="cb21-2"><a href="arma-modeling-an-overview.html#cb21-2" aria-hidden="true" tabindex="-1"></a>β_hat <span class="op">=</span> (X<span class="op">&#39;*</span>X) <span class="op">\</span> X<span class="op">&#39;*</span>y</span></code></pre></div>
+<pre><code>## 3-element Array{Float64,1}:
+##  49.96566231870704
+##   0.6965750998630642
+##  -0.8461934171022097</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb23-1"><a href="arma-modeling-an-overview.html#cb23-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-2"><a href="arma-modeling-an-overview.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">## PACF for the second lag</span></span>
+<span id="cb23-3"><a href="arma-modeling-an-overview.html#cb23-3" aria-hidden="true" tabindex="-1"></a>β₂_hat <span class="op">=</span> β_hat[<span class="fl">3</span>]</span></code></pre></div>
+<pre><code>## -0.8461934171022097</code></pre>
+<p>Note that in the previous code we introduced the <strong>lag operator (L)</strong>, a useful device that has any applications in Time series. This is a function that maps every value of the time series in its previous values: <span class="math inline">\(L Y_t = Y_{t-1},\)</span> <span class="math inline">\(L^2 Y_{t} = Y_{t-2},\)</span> <span class="math inline">\(\ L^3 Y_{t} = Y_{t-3},...\)</span></p>
+<p>The PACF plot is a useful device:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb25-1"><a href="arma-modeling-an-overview.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">## PACF plot</span></span>
+<span id="cb25-2"><a href="arma-modeling-an-overview.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> PACF_plot(Y<span class="op">::</span><span class="dt">Array</span><span class="op">;</span> lags <span class="op">=</span> <span class="fl">14</span>)</span>
+<span id="cb25-3"><a href="arma-modeling-an-overview.html#cb25-3" aria-hidden="true" tabindex="-1"></a>PACF_vector <span class="op">=</span> zeros(lags)</span>
+<span id="cb25-4"><a href="arma-modeling-an-overview.html#cb25-4" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> length(Y)</span>
+<span id="cb25-5"><a href="arma-modeling-an-overview.html#cb25-5" aria-hidden="true" tabindex="-1"></a>lag(x<span class="op">;</span> j <span class="op">=</span> <span class="fl">1</span>) <span class="op">=</span> vcat([<span class="cn">NaN</span> <span class="kw">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>j]<span class="op">,</span> x[<span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span>j]) </span>
+<span id="cb25-6"><a href="arma-modeling-an-overview.html#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>lags</span>
+<span id="cb25-7"><a href="arma-modeling-an-overview.html#cb25-7" aria-hidden="true" tabindex="-1"></a>        constant <span class="op">=</span> [<span class="fl">1</span> <span class="kw">for</span> t <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>T<span class="op">-</span>i]</span>
+<span id="cb25-8"><a href="arma-modeling-an-overview.html#cb25-8" aria-hidden="true" tabindex="-1"></a>        regressors <span class="op">=</span> hcat([lag(Y<span class="op">,</span> j <span class="op">=</span> h) <span class="kw">for</span> h <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>i ]<span class="op">...</span>)[i<span class="op">+</span><span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">,</span> <span class="op">:</span>]</span>
+<span id="cb25-9"><a href="arma-modeling-an-overview.html#cb25-9" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> hcat(constant<span class="op">,</span> regressors)</span>
+<span id="cb25-10"><a href="arma-modeling-an-overview.html#cb25-10" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> Y[i<span class="op">+</span><span class="fl">1</span><span class="op">:</span><span class="kw">end</span>]  </span>
+<span id="cb25-11"><a href="arma-modeling-an-overview.html#cb25-11" aria-hidden="true" tabindex="-1"></a>        β_hat <span class="op">=</span> X<span class="op">\</span>y  <span class="co"># Shortcut for β_hat = (X&#39;*X) \ X&#39;*y</span></span>
+<span id="cb25-12"><a href="arma-modeling-an-overview.html#cb25-12" aria-hidden="true" tabindex="-1"></a>        PACF <span class="op">=</span> β_hat[i<span class="op">+</span><span class="fl">1</span>]</span>
+<span id="cb25-13"><a href="arma-modeling-an-overview.html#cb25-13" aria-hidden="true" tabindex="-1"></a>        PACF_vector[i] <span class="op">=</span> PACF</span>
+<span id="cb25-14"><a href="arma-modeling-an-overview.html#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb25-15"><a href="arma-modeling-an-overview.html#cb25-15" aria-hidden="true" tabindex="-1"></a>bar(PACF_vector<span class="op">,</span> legend<span class="op">=:</span>topright<span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;Lags&quot;</span><span class="op">,</span> label <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">,</span> title <span class="op">=</span> <span class="st">&quot;Partial Auto-Correlation Function&quot;</span><span class="op">,</span> titlelocation <span class="op">=</span> <span class="op">:</span>left)</span>
+<span id="cb25-16"><a href="arma-modeling-an-overview.html#cb25-16" aria-hidden="true" tabindex="-1"></a>zero_pivot <span class="op">=</span> <span class="fl">1.96</span><span class="op">/</span>sqrt(T)</span>
+<span id="cb25-17"><a href="arma-modeling-an-overview.html#cb25-17" aria-hidden="true" tabindex="-1"></a>plot<span class="op">!</span>(seriestype<span class="op">=:</span>hline<span class="op">,</span> [<span class="op">-</span>zero_pivot<span class="op">,</span> <span class="op">+</span>zero_pivot]<span class="op">,</span> linestyle<span class="op">=:</span>dash<span class="op">,</span> alpha<span class="op">=</span><span class="fl">0.5</span><span class="op">,</span> lw<span class="op">=</span><span class="fl">2</span><span class="op">,</span> label<span class="op">=</span><span class="st">&quot;Statistical zero interval&quot;</span>)</span>
+<span id="cb25-18"><a href="arma-modeling-an-overview.html#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
+<pre><code>## PACF_plot (generic function with 1 method)</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb27-1"><a href="arma-modeling-an-overview.html#cb27-1" aria-hidden="true" tabindex="-1"></a>PACF_plot(P)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-18-J1.png" width="75%" /></p>
+<p>As we can see from the plot, only the first two lags are significantly affecting the present price. Indeed, the other estimated prtial autocorrelations are not statistically different from zero: we have no evidence that prices from 3,6,12… months ago affect new prices. Since in this “artificial” example we know the true data generating process (as we built the series) we can see that the estimates reflect pretty well the true relationships between the variables and that the PACF plot shows clearly that only the two first lags are involved in price formation. We will get back on this when discussing auto-regressive <span class="math inline">\(AR(p)\)</span> models.</p>
+<p>Let’s apply this function to the GDP series:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb28-1"><a href="arma-modeling-an-overview.html#cb28-1" aria-hidden="true" tabindex="-1"></a>PACF_plot(GDP)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-19-J1.png" width="75%" /></p>
+<p>This suggests that the first lag might be a good predictor of the GDP series.</p>
+</div>
+<div id="stationarity" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Stationarity</h2>
+<p>Even when focusing on models which postulate simple relationships involving only first order and second-order moments, it is necessary to assume that some features of the probability law underlying the model are stable over time. This is because if the moments of the process change arbitrarily, it can be difficult to forecast future values of the series, since this would mean that the data referring to different points in time in our sample are realizations of random variables that can differ substantially.</p>
+<p><strong>Stationarity</strong> is an assumption about the stability of the properties of the stochastic process. The simplest type of stationarity is weak stationarity, also called covariance stationarity.</p>
+<p><strong>Definition (Weak stationarity)</strong>: A time series <span class="math inline">\(Y_1, Y_2, Y_3, \dots\)</span> is <em>stationary</em> if <span class="math inline">\(E[Y_t^2] &lt; \infty\)</span>, for each <span class="math inline">\(t\)</span>, and</p>
+<ul>
+<li><p>The expected value of any observation is constant and does not change over time:</p>
+<p><span class="math inline">\(E[Y_t] = \mu\)</span>.</p></li>
+<li><p>The autocovariance is constant, given the number of lags. That is, the autocovariance is independent of <span class="math inline">\(t\)</span>:</p>
+<p><span class="math inline">\(\gamma(h) = \text{Cov}(Y_t, Y_{t+h}) = \text{Cov}(Y_{t+k}, Y_{t+k+h})\)</span>, <span class="math inline">\(\forall k \in \mathbb{Z}\)</span>.</p></li>
+</ul>
+<p>A first practical way to check for stationarity is to look at the plot of the time series. Let’s have a look of a counter-example with non-constant mean.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb29-1"><a href="arma-modeling-an-overview.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Non-stationary time series</span></span>
+<span id="cb29-2"><a href="arma-modeling-an-overview.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="arma-modeling-an-overview.html#cb29-3" aria-hidden="true" tabindex="-1"></a>ns2 <span class="op">=</span> [sqrt(i) <span class="op">+</span> randn() <span class="kw">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">400</span>]<span class="op">;</span></span>
+<span id="cb29-4"><a href="arma-modeling-an-overview.html#cb29-4" aria-hidden="true" tabindex="-1"></a>plot(ns2<span class="op">,</span> color<span class="op">=:</span>blue<span class="op">,</span> lw<span class="op">=</span><span class="fl">1</span><span class="op">,</span> alpha<span class="op">=</span><span class="fl">0.6</span><span class="op">,</span> label<span class="op">=</span><span class="st">&quot;&quot;</span><span class="op">,</span> legend<span class="op">=:</span>bottomright<span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;Time&quot;</span><span class="op">,</span> title<span class="op">=</span><span class="st">&quot;Non-constant mean&quot;</span><span class="op">,</span> titlelocation <span class="op">=</span> <span class="op">:</span>left)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-20-J1.png" width="75%" /></p>
+<p>The GDP series in levels is also non-stationary:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb30-1"><a href="arma-modeling-an-overview.html#cb30-1" aria-hidden="true" tabindex="-1"></a>plot(gdp.data.date<span class="op">,</span> gdp.data[<span class="op">:,</span> <span class="op">:</span>value]<span class="op">,</span> label<span class="op">=</span><span class="st">&quot;&quot;</span><span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;Time&quot;</span><span class="op">,</span> ylabel<span class="op">=</span><span class="st">&quot;GDP (Billion USD)&quot;</span><span class="op">,</span> legend <span class="op">=</span> <span class="op">:</span>bottomright<span class="op">,</span> ylim <span class="op">=</span> (<span class="fl">0</span><span class="op">,</span> <span class="fl">20000</span>)<span class="op">,</span> yformatter <span class="op">=</span> <span class="op">:</span>plain)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-21-J1.png" width="75%" /></p>
+<p>Covariance stationarity assumes that only the first two moments of the time series are time-invariant. This assumption is crucial for linear time series, such as ARMA processes. Stricter concepts of stationarity impose time-invariant conditions on the joint distribution of series. Such conditions may be required when dealing with non-linear relationships among variables at different times, which go beyond the scope of this course.</p>
+<p>If the time series <span class="math inline">\(Y_1, Y_2, \dots\)</span> is weakly stationary, we can write <span class="math inline">\(\gamma_t(h) = \gamma(h)\)</span> and the autocorrelation function becomes</p>
+<p><span class="math display">\[
+\rho(h) = \frac{\gamma(h)}{\gamma(0)}
+\]</span></p>
+</div>
+<div id="an-important-stationary-series-the-white-noise-process" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> An important stationary series: the white noise process</h2>
+<p><strong>Definition (White Noise)</strong>: A process <span class="math inline">\(\varepsilon_1, \varepsilon_2, \varepsilon_3,\dots\)</span> is called white noise if it has mean zero, constant variance and it is not autocorrelated:</p>
+<p><span class="math display">\[E[\varepsilon_t] = 0;\]</span></p>
+<p><span class="math display">\[
+\gamma(h) =
+\begin{cases}
+ \sigma^2  &amp;\text{for} \ h=0 \\
+0 \quad &amp;\text{for} \ h&gt;0 \\
+\end{cases}
+\]</span></p>
+<p>Let’s have a look at a couple of counter-examples:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb31-1"><a href="arma-modeling-an-overview.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Not white-noise</span></span>
+<span id="cb31-2"><a href="arma-modeling-an-overview.html#cb31-2" aria-hidden="true" tabindex="-1"></a>nw1 <span class="op">=</span> [cos(t<span class="op">/</span><span class="fl">20</span>) <span class="op">+</span> randn()<span class="op">/</span><span class="fl">5</span> <span class="kw">for</span> t <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">400</span>]<span class="op">;</span></span>
+<span id="cb31-3"><a href="arma-modeling-an-overview.html#cb31-3" aria-hidden="true" tabindex="-1"></a>nw1_plot <span class="op">=</span> plot(nw1<span class="op">,</span> color<span class="op">=:</span>blue<span class="op">,</span> lw<span class="op">=</span><span class="fl">1</span><span class="op">,</span> alpha<span class="op">=</span><span class="fl">0.6</span><span class="op">,</span> title<span class="op">=</span><span class="st">&quot;Presence of autocorrelation&quot;</span><span class="op">,</span> titlelocation <span class="op">=</span> <span class="op">:</span>left<span class="op">,</span> label<span class="op">=</span><span class="st">&quot;&quot;</span><span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;Time&quot;</span>)<span class="op">;</span></span>
+<span id="cb31-4"><a href="arma-modeling-an-overview.html#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="arma-modeling-an-overview.html#cb31-5" aria-hidden="true" tabindex="-1"></a>nw2 <span class="op">=</span> [cos(t<span class="op">/</span><span class="fl">50</span>) <span class="op">*</span> randn()<span class="op">/</span><span class="fl">100</span> <span class="kw">for</span> t <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">400</span>]<span class="op">;</span></span>
+<span id="cb31-6"><a href="arma-modeling-an-overview.html#cb31-6" aria-hidden="true" tabindex="-1"></a>nw2_plot <span class="op">=</span> plot(nw2<span class="op">,</span> color<span class="op">=:</span>blue<span class="op">,</span> lw<span class="op">=</span><span class="fl">1</span><span class="op">,</span> alpha<span class="op">=</span><span class="fl">0.6</span><span class="op">,</span> title<span class="op">=</span><span class="st">&quot;Variable standard deviation&quot;</span><span class="op">,</span> titlelocation <span class="op">=</span> <span class="op">:</span>left<span class="op">,</span> label<span class="op">=</span><span class="st">&quot;&quot;</span><span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;Time&quot;</span>)<span class="op">;</span></span>
+<span id="cb31-7"><a href="arma-modeling-an-overview.html#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="arma-modeling-an-overview.html#cb31-8" aria-hidden="true" tabindex="-1"></a>plot(nw1_plot<span class="op">,</span> nw2_plot<span class="op">,</span> layout<span class="op">=</span>(<span class="fl">2</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> size<span class="op">=</span>(<span class="fl">700</span><span class="op">,</span><span class="fl">500</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-22-J1.png" width="75%" /></p>
+<p>These series cannot be white noises because they show a clear pattern over time, either in terms of autocorrelation or standard deviation. This roughly means that there is some information in the data that could be modelled to grasp the regularities of the process. For instance, in the first example, the value of the series at one point in time gives us a good idea of what the value will be in the subsequent period, which is not the case when dealing with white noises.</p>
+<p>Indeed, the most important property of the white noise is that it is <em>not predictable</em>. This is a main feature, which allows us to consider a white noise time series as a sort of yardstick for our analysis. Most often, in Time series econometrics we treat series as composed by a predictable signal and a noise. If we manage to build a model that captures almost all the signal and all we are left with is just an unpredictable white noise, then our model is likely to be fitting the data well, in the sense that it efficiently uses all the available information.</p>
+</div>
+<div id="making-a-time-series-stationary" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Making a time series stationary</h2>
+<p>In many cases, it is possible to reduce a non-stationary series to a stationary one by applying some simple transformations.</p>
+<p>For instance, consider the following data generating process: <span class="math inline">\(y_t = \beta_0 + \beta_1 t + \varepsilon_t\)</span>.</p>
+<p>The series is clearly non-stationary, as we can deduce by the increasing trend shown in the plot:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb32-1"><a href="arma-modeling-an-overview.html#cb32-1" aria-hidden="true" tabindex="-1"></a>β₀ <span class="op">=</span> <span class="fl">2</span><span class="op">;</span></span>
+<span id="cb32-2"><a href="arma-modeling-an-overview.html#cb32-2" aria-hidden="true" tabindex="-1"></a>β₁ <span class="op">=</span> <span class="fl">0.4</span><span class="op">;</span></span>
+<span id="cb32-3"><a href="arma-modeling-an-overview.html#cb32-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [β₀ <span class="op">+</span> β₁<span class="op">*</span>t <span class="op">+</span> randn() <span class="kw">for</span> t <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>]<span class="op">;</span></span>
+<span id="cb32-4"><a href="arma-modeling-an-overview.html#cb32-4" aria-hidden="true" tabindex="-1"></a>plot(y<span class="op">,</span> color<span class="op">=:</span>blue<span class="op">,</span> lw<span class="op">=</span><span class="fl">1</span><span class="op">,</span> alpha<span class="op">=</span><span class="fl">0.6</span><span class="op">,</span> label <span class="op">=</span> <span class="st">&quot;y&quot;</span><span class="op">,</span> legend <span class="op">=</span> <span class="op">:</span>bottomright<span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;Time&quot;</span><span class="op">,</span> title<span class="op">=</span><span class="st">&quot;Non-stationary time series&quot;</span><span class="op">,</span> titlelocation<span class="op">=:</span>left)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-23-J1.png" width="75%" /></p>
+<p>A strategy here is to apply a <strong>first-difference transformation</strong>. Let <span class="math inline">\(\Delta y_t = y_t - y_{t-1}\)</span>. By substituting the expressions for <span class="math inline">\(y_t\)</span>, we can write</p>
+<p><span class="math inline">\(\Delta y_t = (\beta_0 + \beta_1 t + \varepsilon_t) - (\beta_0 + \beta_1 (t-1) + \varepsilon_{t-1}) = \beta_1 + \varepsilon_{t} - \varepsilon_{t-1}\)</span></p>
+<p>which has indeed constant mean: <span class="math inline">\(E[\Delta y_t] = E[\beta_1 + \varepsilon_{t} - \varepsilon_{t-1}] = \beta_1\)</span>.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb33-1"><a href="arma-modeling-an-overview.html#cb33-1" aria-hidden="true" tabindex="-1"></a>Δy <span class="op">=</span> y.<span class="op">-</span>lag(y)<span class="op">;</span></span>
+<span id="cb33-2"><a href="arma-modeling-an-overview.html#cb33-2" aria-hidden="true" tabindex="-1"></a>plot(Δy[<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>]<span class="op">,</span>color<span class="op">=:</span>blue<span class="op">,</span> lw<span class="op">=</span><span class="fl">1</span><span class="op">,</span> alpha<span class="op">=</span><span class="fl">0.6</span><span class="op">,</span> label <span class="op">=</span> <span class="st">&quot;y (First Difference)&quot;</span><span class="op">,</span> legend <span class="op">=</span> <span class="op">:</span>bottomright<span class="op">,</span>xlabel<span class="op">=</span><span class="st">&quot;Time&quot;</span><span class="op">,</span> title <span class="op">=</span> <span class="st">&quot;Transformed time series&quot;</span><span class="op">,</span> titlelocation <span class="op">=</span> <span class="op">:</span>left)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-24-J1.png" width="75%" /></p>
+<p>Making a series stationary before proceding with further analysis is good practice since it’s a substantive assumption upon which many models are based on.</p>
+<p>For the GDP series a convenient transformation is <strong>log-difference</strong>, which not only makes the series stationary, but also allows to interpret the resulting variable as GDP growth. We already applied this transformation in the introductory paragraph since ACF and PACF are meaningful only when applied to stationary series.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb34-1"><a href="arma-modeling-an-overview.html#cb34-1" aria-hidden="true" tabindex="-1"></a>plot(gdp.data.date[<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>]<span class="op">,</span> GDP<span class="op">,</span> label<span class="op">=</span><span class="st">&quot;&quot;</span><span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;Time&quot;</span><span class="op">,</span> ylabel<span class="op">=</span><span class="st">&quot;GDP growth (%)&quot;</span><span class="op">,</span> legend <span class="op">=</span> <span class="op">:</span>topright)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-25-J1.png" width="75%" /></p>
+</div>
+<div id="wold-representation" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> Wold representation</h2>
+<p>It’s worth mentioning a very important result in time series, the Wold’s decomposition theorem, which states that every covariance stationary process (with mean zero) can be written as an infinite sum of current and past white noise terms with weights that are independent of <span class="math inline">\(\text{t}\)</span>.</p>
+<p>The basic intuition of the Wold’s decomposition theorem is that if a series is covariance stationary, we can always think of its every new observation as influenced by past white noise shocks and a current shock; and the magnitude of this effects dependent on the lag between each shock and the observation, as expressed by the coefficient <span class="math inline">\(\psi_j\)</span>.</p>
+$$
+<span class="math display">\[\begin{aligned}
+Y_t &amp;= \sum_{j=0}^\infty \psi_j \varepsilon_{t-j} + \eta_t \\
+
+\end{aligned}\]</span>
+<p>$$
+That is, the process can be represented by a system of the following kind:</p>
+<p>$$</p>
+<span class="math display">\[\begin{cases}
+Y_1 = \psi_0 \varepsilon_1\\
+Y_2 = \psi_0\varepsilon_2 + \psi_1 \varepsilon_1 \\
+Y_3 = \psi_0\varepsilon_3 + \psi_1 \varepsilon_2 + \psi_2 \varepsilon_1 \\
+\vdots \\
+Y_t = \psi_0\varepsilon_t + \psi_1 \varepsilon_{t-1} + \psi_2 \varepsilon_{t-2}+\dots+ \psi_{t-1} \varepsilon_2 + \psi_{t} \varepsilon_1 \\
+\vdots
+
+\end{cases}\]</span>
+<p>$$
+## ARMA</p>
+<p>A cornerstone of Time series analysis are<span class="math inline">\(ARMA\)</span> models, which are a very general class of models used for forcasting time series, and can be written as</p>
+<p><span class="math display">\[
+Y_t = \rho_0 + \rho_1 Y_{t-1} + \cdots + \rho_p Y_{t-p} + \varepsilon_t + \theta_{1} \varepsilon_{t-1} + \cdots + \theta_{p} \varepsilon_{t-q}
+\]</span>
+If we look closely at the above equation, we can see that it has the typical structure of a regression model in which the regressors are of two different kinds: we have lagged versions of the response variable along with lagged values of a white noise shock. Indeed, this is because <span class="math inline">\(ARMA\)</span> models are nothing but the combination of two simpler classes of models.</p>
+<p>The first is that of “Auto-Regressive” or <span class="math inline">\(AR(p)\)</span> models, where the response at time <span class="math inline">\(\text{t}\)</span> is modelled as a linear function of its <span class="math inline">\(p\)</span> previous values. It takes the form:</p>
+<p><span class="math display">\[
+Y_t = \rho_0 + \rho_1 Y_{t-1} + \cdots + \rho_p Y_{t-p} + \varepsilon_t
+\]</span>
+The basic idea behind these models is that if the series exhibits some kind of repeated pattern over time, then looking at its past values might be a good way to extract information on the behaviour of the series and eventually be able to predict new observations.</p>
+<p>The second class is that of “Moving-Average” or <span class="math inline">\(MA(q)\)</span> models, where the response at time <span class="math inline">\(t\)</span> is modelled as a linear combination of <span class="math inline">\(q\)</span> lagged versions of a white noise process. These models are of the form:</p>
+<p><span class="math display">\[
+Y_t = \mu + \theta_{1} \varepsilon_{t-1} + \cdots + \theta_{p} \varepsilon_{t-q} + \varepsilon_t  
+\]</span>
+Here, the main idea is that when the values that a series takes on fluctuate around a constant mean <span class="math inline">\((\mu)\)</span>, a good way to start the prediction is just by using the mean of the series and adjusting it with the information coming from past prediction errors.</p>
+<p>So, by combining these models we obtain <span class="math inline">\(ARMA(p,q)\)</span> models, where the <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> refer to the number of auto- regressive and moving average components included. We will look at some of these models in further detail.</p>
+<div id="ar1" class="section level3" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> AR(1)</h3>
+<p>The <span class="math inline">\(AR(1)\)</span> is perhaps the simplest model in Time series analysis. The response is represented as a linear function of it’s first lag and sometimes an intercept is also included:</p>
+<p><span class="math display">\[
+Y_t = \rho_0 + \rho_1 Y_{t-1} + \varepsilon_t
+\]</span>
+The first important question we need to ask is under what conditions this process is stationary, and it turns out that it is the case only if <span class="math inline">\(|\rho_1| &lt;1\)</span>. The intuition is that if this were not the case, every new observation of <span class="math inline">\(Y\)</span> would have a value that is further away from the intercept than it’s previous value. Therefore, the process would not satisfy the first condition that we gave for stationarity, since it’s expected value would not be constant. Indeed we have:</p>
+<p><span class="math display">\[
+E[Y_t]=E[\rho_0 + \rho_1 Y_{t-1} + \varepsilon_t]= \rho_0 + \rho_1E[Y_{t-1}]
+\]</span>
+noting that <span class="math inline">\(Y_{t-1} = \rho_0 + \rho_1 Y_{t-2} + \varepsilon_{t-1}\)</span> and that it holds for every <span class="math inline">\(t\)</span>, we can write</p>
+$$
+<span class="math display">\[\begin{aligned}
+E[Y_t] &amp;= \rho_0 + \rho_1E[\rho_0 + \rho_1 Y_{t-2} + \varepsilon_{t-1}] = \rho_0(1+\rho_1) +\rho_1^2E[Y_{t-2}] = \\
+
+&amp; = \rho_0(1+\rho_1 + \rho_1^2) +\rho_1^3 E[Y_{t-3}] = \dots  = \rho_0 \sum_{t=0}^\infty \rho_1^t +  \lim_{t\to \infty}\rho_1^t E[Y_0]
+\end{aligned}\]</span>
+<p>$$
+which converges if and only if <span class="math inline">\(|\rho_1| &lt;1\)</span>. In that case, by the properties of the geometric series, we get <span class="math inline">\(E[Y_t]=\frac{\rho_0}{1-\rho_1}\)</span>.</p>
+<p>We can check by looking at some graphs of simulated <span class="math inline">\(AR(1)\)</span>s that only when <span class="math inline">\(|\rho_1| &lt;1\)</span> the process is stationary.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb35-1"><a href="arma-modeling-an-overview.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Picture of simulated AR(1) for different values of rho</span></span>
+<span id="cb35-2"><a href="arma-modeling-an-overview.html#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="arma-modeling-an-overview.html#cb35-3" aria-hidden="true" tabindex="-1"></a>plots <span class="op">=</span> [plot() <span class="kw">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>]<span class="op">;</span></span>
+<span id="cb35-4"><a href="arma-modeling-an-overview.html#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="arma-modeling-an-overview.html#cb35-5" aria-hidden="true" tabindex="-1"></a>ρ₀ <span class="op">=</span> <span class="fl">0.0</span><span class="op">;</span></span>
+<span id="cb35-6"><a href="arma-modeling-an-overview.html#cb35-6" aria-hidden="true" tabindex="-1"></a>Y₀ <span class="op">=</span> <span class="fl">0.1</span><span class="op">;</span></span>
+<span id="cb35-7"><a href="arma-modeling-an-overview.html#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> (i<span class="op">,</span> ρ₁) <span class="kw">in</span> enumerate((<span class="op">-</span><span class="fl">0.6</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="fl">0.9</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="op">-</span><span class="fl">1.1</span>))</span>
+<span id="cb35-8"><a href="arma-modeling-an-overview.html#cb35-8" aria-hidden="true" tabindex="-1"></a> Y <span class="op">=</span> zeros(<span class="fl">1001</span>)</span>
+<span id="cb35-9"><a href="arma-modeling-an-overview.html#cb35-9" aria-hidden="true" tabindex="-1"></a> Y[<span class="fl">1</span>] <span class="op">=</span> Y₀</span>
+<span id="cb35-10"><a href="arma-modeling-an-overview.html#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> k <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>length(Y)<span class="op">-</span><span class="fl">1</span></span>
+<span id="cb35-11"><a href="arma-modeling-an-overview.html#cb35-11" aria-hidden="true" tabindex="-1"></a>        Y[k<span class="op">+</span><span class="fl">1</span>] <span class="op">=</span>  ρ₀ <span class="op">+</span> ρ₁<span class="op">*</span>Y[k] <span class="op">+</span> randn() </span>
+<span id="cb35-12"><a href="arma-modeling-an-overview.html#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb35-13"><a href="arma-modeling-an-overview.html#cb35-13" aria-hidden="true" tabindex="-1"></a> label <span class="op">=</span> <span class="st">&quot;rho_1 = $ρ₁&quot;</span></span>
+<span id="cb35-14"><a href="arma-modeling-an-overview.html#cb35-14" aria-hidden="true" tabindex="-1"></a> plot<span class="op">!</span>(plots[i]<span class="op">,</span> Y<span class="op">,</span> color<span class="op">=:</span>blue<span class="op">,</span> lw<span class="op">=</span><span class="fl">0.5</span><span class="op">,</span>  marker<span class="op">=:</span>circle<span class="op">,</span>markersize<span class="op">=</span><span class="fl">0.0</span><span class="op">,</span>alpha<span class="op">=</span><span class="fl">0.6</span><span class="op">,</span> label<span class="op">=</span>label)</span>
+<span id="cb35-15"><a href="arma-modeling-an-overview.html#cb35-15" aria-hidden="true" tabindex="-1"></a> plot<span class="op">!</span>(plots[i]<span class="op">,</span> legend<span class="op">=:</span>topright<span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;time&quot;</span><span class="op">,</span> xlim<span class="op">=</span>(<span class="fl">0</span><span class="op">,</span><span class="fl">1005</span>))</span>
+<span id="cb35-16"><a href="arma-modeling-an-overview.html#cb35-16" aria-hidden="true" tabindex="-1"></a> plot<span class="op">!</span>(plots[i]<span class="op">,</span> seriestype<span class="op">=:</span>hline<span class="op">,</span> [<span class="fl">0</span>]<span class="op">,</span> linestyle<span class="op">=:</span>dash<span class="op">,</span> alpha<span class="op">=</span><span class="fl">0.7</span><span class="op">,</span> lw<span class="op">=</span><span class="fl">1</span><span class="op">,</span>  label<span class="op">=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb35-17"><a href="arma-modeling-an-overview.html#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb35-18"><a href="arma-modeling-an-overview.html#cb35-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-19"><a href="arma-modeling-an-overview.html#cb35-19" aria-hidden="true" tabindex="-1"></a>plot(plots<span class="op">...,</span> layout<span class="op">=</span>(<span class="fl">5</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> size<span class="op">=</span>(<span class="fl">700</span><span class="op">,</span><span class="fl">900</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-26-J1.png" width="75%" /></p>
+<p>It can be shown that the autocovariance function of an <span class="math inline">\(AR(1)\)</span> process is expressed by</p>
+<p><span class="math display">\[
+\gamma(h) = \rho_1^h \frac{\sigma^2}{1-\rho_1^2}, \quad h=0,1,2,\dots
+\]</span>
+since this expression depends only on the number of lags <span class="math inline">\(h\)</span>, the second condition for weak stationarity is also satisfied.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb36-1"><a href="arma-modeling-an-overview.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Picture of the autocovariance function for different values of ρ₁</span></span>
+<span id="cb36-2"><a href="arma-modeling-an-overview.html#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="arma-modeling-an-overview.html#cb36-3" aria-hidden="true" tabindex="-1"></a>plots <span class="op">=</span> [plot() <span class="kw">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>]<span class="op">;</span></span>
+<span id="cb36-4"><a href="arma-modeling-an-overview.html#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="arma-modeling-an-overview.html#cb36-5" aria-hidden="true" tabindex="-1"></a>σ <span class="op">=</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb36-6"><a href="arma-modeling-an-overview.html#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> (i<span class="op">,</span> ρ₁) <span class="kw">in</span> enumerate((<span class="fl">0.75</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.75</span>))</span>
+<span id="cb36-7"><a href="arma-modeling-an-overview.html#cb36-7" aria-hidden="true" tabindex="-1"></a>    times <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">24</span></span>
+<span id="cb36-8"><a href="arma-modeling-an-overview.html#cb36-8" aria-hidden="true" tabindex="-1"></a>    acov <span class="op">=</span> [σ <span class="op">*</span> (ρ₁<span class="op">.^</span>k <span class="op">./</span> (<span class="fl">1</span> <span class="op">-</span> ρ₁<span class="op">.^</span><span class="fl">2</span>)) <span class="kw">for</span> k <span class="kw">in</span> times]</span>
+<span id="cb36-9"><a href="arma-modeling-an-overview.html#cb36-9" aria-hidden="true" tabindex="-1"></a>    label <span class="op">=</span> <span class="st">&quot;rho = $ρ₁&quot;</span></span>
+<span id="cb36-10"><a href="arma-modeling-an-overview.html#cb36-10" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">!</span>(plots[i]<span class="op">,</span> times<span class="op">,</span> acov<span class="op">,</span> color<span class="op">=:</span>blue<span class="op">,</span> lw<span class="op">=</span><span class="fl">2</span><span class="op">,</span> marker<span class="op">=:</span>circle<span class="op">,</span>markersize<span class="op">=</span><span class="fl">3</span><span class="op">,</span>alpha<span class="op">=</span><span class="fl">0.6</span><span class="op">,</span> label<span class="op">=</span>label)</span>
+<span id="cb36-11"><a href="arma-modeling-an-overview.html#cb36-11" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">!</span>(plots[i]<span class="op">,</span> legend<span class="op">=:</span>topright<span class="op">,</span> xlabel<span class="op">=</span><span class="st">&quot;Time&quot;</span><span class="op">,</span> xlim<span class="op">=</span>(<span class="fl">0</span><span class="op">,</span><span class="fl">25</span>))</span>
+<span id="cb36-12"><a href="arma-modeling-an-overview.html#cb36-12" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">!</span>(plots[i]<span class="op">,</span> seriestype<span class="op">=:</span>hline<span class="op">,</span> [<span class="fl">0</span>]<span class="op">,</span> linestyle<span class="op">=:</span>dash<span class="op">,</span> alpha<span class="op">=</span><span class="fl">0.5</span><span class="op">,</span> lw<span class="op">=</span><span class="fl">2</span><span class="op">,</span> label<span class="op">=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb36-13"><a href="arma-modeling-an-overview.html#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb36-14"><a href="arma-modeling-an-overview.html#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="arma-modeling-an-overview.html#cb36-15" aria-hidden="true" tabindex="-1"></a>plot(plots<span class="op">...,</span> layout<span class="op">=</span>(<span class="fl">2</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> size<span class="op">=</span>(<span class="fl">700</span><span class="op">,</span><span class="fl">500</span>)<span class="op">,</span> title<span class="op">=</span><span class="st">&quot;Autocovariance function of an AR(1) process&quot;</span><span class="op">,</span> titlelocation<span class="op">=:</span>left)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-27-J1.png" width="75%" /></p>
+<p>We know by the Wold’s theorem that when an <span class="math inline">\(AR(1)\)</span> process is stationary, it can be represented as an infinite sum of white noise shocks:</p>
+<p><span class="math display">\[
+Y_t = \sum^{\infty}_{j=0}\psi^j \varepsilon_{t-j}
+\]</span>
+Indeed, when <span class="math inline">\(|\rho_1| &lt;1\)</span>, we say that the process is invertible and it can be represented as an <span class="math inline">\(MA(\infty)\)</span>. This can be shown by exploiting the properties of geometric series. Indeed, we can use the lag operator to rewrite $Y_t = Y_{t-1} + _t = L Y_t + _t $. We can rearrange the terms to get <span class="math inline">\(Y_t(1-\rho L) = \varepsilon_t\)</span> and so</p>
+<p><span class="math display">\[
+Y_t = \frac{\varepsilon_t}{1-\rho L}
+\]</span>
+If <span class="math inline">\(|\rho| &lt;1\)</span>, this can be seen as the result of a converging geometric series:</p>
+<p><span class="math display">\[
+\frac{\varepsilon_t}{1-\rho L}= \varepsilon_t(1+\rho L + \rho^2 L^2 + \rho^3 L^3 + \cdots ) 
+\]</span>
+Therefore, an AR(1) process can be rewritten as a MA(<span class="math inline">\(\infty\)</span>):</p>
+<p><span class="math display">\[
+Y_t = \sum_{q = 0}^\infty \rho^q \varepsilon_{t-q} =  \varepsilon_t + \rho \varepsilon_{t-1}+ \rho^2 \varepsilon_{t-2} + \rho^3 \varepsilon_{t-3} + \dots 
+\]</span></p>
+</div>
+<div id="estimation-and-prediction" class="section level3" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> Estimation and prediction</h3>
+<p>Estimating an <span class="math inline">\(AR(1)\)</span> is pretty straightforward, as it is simple OLS.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb37-1"><a href="arma-modeling-an-overview.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate an AR data generating process</span></span>
+<span id="cb37-2"><a href="arma-modeling-an-overview.html#cb37-2" aria-hidden="true" tabindex="-1"></a>ρ₀ <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb37-3"><a href="arma-modeling-an-overview.html#cb37-3" aria-hidden="true" tabindex="-1"></a>ρ₁ <span class="op">=</span> <span class="fl">0.7</span><span class="op">;</span></span>
+<span id="cb37-4"><a href="arma-modeling-an-overview.html#cb37-4" aria-hidden="true" tabindex="-1"></a>Y₀ <span class="op">=</span> <span class="fl">0.35</span><span class="op">;</span> </span>
+<span id="cb37-5"><a href="arma-modeling-an-overview.html#cb37-5" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="fl">1000</span><span class="op">;</span></span>
+<span id="cb37-6"><a href="arma-modeling-an-overview.html#cb37-6" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> vcat(Y₀<span class="op">,</span> zeros(T))<span class="op">;</span></span>
+<span id="cb37-7"><a href="arma-modeling-an-overview.html#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> t <span class="kw">in</span> <span class="fl">2</span><span class="op">:</span>length(Y)</span>
+<span id="cb37-8"><a href="arma-modeling-an-overview.html#cb37-8" aria-hidden="true" tabindex="-1"></a>    Y[t] <span class="op">=</span> ρ₀ <span class="op">+</span> ρ₁<span class="op">*</span>Y[t<span class="op">-</span><span class="fl">1</span>] <span class="op">+</span> randn()</span>
+<span id="cb37-9"><a href="arma-modeling-an-overview.html#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb37-10"><a href="arma-modeling-an-overview.html#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="arma-modeling-an-overview.html#cb37-11" aria-hidden="true" tabindex="-1"></a>plot(Y<span class="op">,</span>color<span class="op">=:</span>blue<span class="op">,</span> lw<span class="op">=</span><span class="fl">1</span><span class="op">,</span> alpha<span class="op">=</span><span class="fl">0.6</span><span class="op">,</span> xlabel <span class="op">=</span> <span class="st">&quot;Time&quot;</span><span class="op">,</span> label <span class="op">=</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-28-J1.png" width="75%" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb38-1"><a href="arma-modeling-an-overview.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Estimate the model</span></span>
+<span id="cb38-2"><a href="arma-modeling-an-overview.html#cb38-2" aria-hidden="true" tabindex="-1"></a>Y_1 <span class="op">=</span> Y[<span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">1</span>]<span class="op">;</span> <span class="co"># First lag</span></span>
+<span id="cb38-3"><a href="arma-modeling-an-overview.html#cb38-3" aria-hidden="true" tabindex="-1"></a>constant <span class="op">=</span> [<span class="fl">1</span> <span class="kw">for</span> t <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>length(Y_1)]<span class="op">;</span> <span class="co"># Intercept</span></span>
+<span id="cb38-4"><a href="arma-modeling-an-overview.html#cb38-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> hcat(constant<span class="op">,</span> Y_1)<span class="op">;</span> <span class="co"># Regressors&#39; matrix</span></span>
+<span id="cb38-5"><a href="arma-modeling-an-overview.html#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="arma-modeling-an-overview.html#cb38-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> Y[<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>]<span class="op">;</span> <span class="co"># Dependent variable</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb39-1"><a href="arma-modeling-an-overview.html#cb39-1" aria-hidden="true" tabindex="-1"></a>ρ_hat <span class="op">=</span> (X<span class="op">&#39;*</span>X) <span class="op">\</span> X<span class="op">&#39;*</span>y <span class="co"># Estimated coefficients</span></span></code></pre></div>
+<pre><code>## 2-element Array{Float64,1}:
+##  0.5427523491507078
+##  0.692368191360864</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb41-1"><a href="arma-modeling-an-overview.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Alternative code: X \ y</span></span></code></pre></div>
+<p>We see that these values are close to the true ones. We can use these estimated coefficients to forecast future values of <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math display">\[
+\hat{Y}_{t+1} = \hat{\rho}_0 +  \hat{\rho}_1 Y_{t}
+\]</span></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb42-1"><a href="arma-modeling-an-overview.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 1 step ahead prediction</span></span>
+<span id="cb42-2"><a href="arma-modeling-an-overview.html#cb42-2" aria-hidden="true" tabindex="-1"></a>Y_hat <span class="op">=</span> ρ_hat[<span class="fl">1</span>] <span class="op">+</span> ρ_hat[<span class="fl">2</span>]<span class="op">*</span>Y[<span class="kw">end</span>]</span></code></pre></div>
+<pre><code>## 1.6649137396637854</code></pre>
+<p>Subsequent values can be forecasted by recursion. We now present a sketch of derivation of the optimal forecast for more steps ahead <span class="math inline">\(E[Z_{t+\ell} | \ Z_t]\)</span>.</p>
+<p>Consider for simplicity a centered on the mean version of the model <span class="math inline">\(Y_t = \mu + \rho_1(Y_{t-1} - \mu) + \varepsilon_t\)</span>. By letting <span class="math inline">\(Z_t = Y_t - \mu\)</span>, this can be rewritten as <span class="math inline">\(Z_t = \rho_1 Z_{t-1} + \varepsilon_t\)</span>. The <span class="math inline">\(t+\ell\)</span> observation will then be:</p>
+<p><span class="math display">\[
+\begin{aligned}
+Z_{t+\ell} &amp;= \rho_1 Z_{t+\ell-1} + \varepsilon_t =  \\
+&amp; = \rho_1(\rho_1 Z_{t+\ell-2} + \varepsilon_{t-1}) + \varepsilon_{t} = \rho^2 Z_{t+\ell-2} + \rho_1 \varepsilon_{t-1} + \varepsilon_t = \\
+&amp;=\rho_1^3 Z_{t+\ell-3} + \rho_1^2 \varepsilon_{t-1} + \rho_1 \varepsilon_{t-2} + \varepsilon_t = \dots
+\end{aligned}
+\]</span></p>
+<p>Since the errors have an expected value of zero (there is not a systematic error in the model), we have that <span class="math inline">\(E[Z_{t+\ell} | \ Z_t] = \rho_1^\ell Z_t\)</span>, that is <span class="math inline">\(E[Y_{t+\ell} | \ Y_t] = \mu + \rho_1^\ell (Y_t - \mu)\)</span>. The optimal forecast is therefore</p>
+<p><span class="math display">\[
+\hat{Y}_{t+\ell} = \hat{\mu} + \hat{\rho}_1^\ell(Y_t - \hat{\mu})
+\]</span>
+Here a graphical example.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb44-1"><a href="arma-modeling-an-overview.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Plotting l periods ahead forecast</span></span>
+<span id="cb44-2"><a href="arma-modeling-an-overview.html#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="arma-modeling-an-overview.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Forecast</span></span>
+<span id="cb44-4"><a href="arma-modeling-an-overview.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">## Training sample</span></span>
+<span id="cb44-5"><a href="arma-modeling-an-overview.html#cb44-5" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> <span class="fl">12</span><span class="op">;</span></span>
+<span id="cb44-6"><a href="arma-modeling-an-overview.html#cb44-6" aria-hidden="true" tabindex="-1"></a>X_training <span class="op">=</span> X[<span class="fl">1</span><span class="op">:</span>size(X<span class="op">,</span><span class="fl">1</span>)<span class="op">-</span>l<span class="op">-</span><span class="fl">1</span><span class="op">,</span> <span class="op">:</span>]<span class="op">;</span></span>
+<span id="cb44-7"><a href="arma-modeling-an-overview.html#cb44-7" aria-hidden="true" tabindex="-1"></a>y_training <span class="op">=</span> y[<span class="fl">1</span><span class="op">:</span>length(y)<span class="op">-</span>l<span class="op">-</span><span class="fl">1</span>]<span class="op">;</span></span>
+<span id="cb44-8"><a href="arma-modeling-an-overview.html#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="arma-modeling-an-overview.html#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="co">## Estimated coefficients</span></span>
+<span id="cb44-10"><a href="arma-modeling-an-overview.html#cb44-10" aria-hidden="true" tabindex="-1"></a>ρ₀<span class="op">,</span> ρ₁ <span class="op">=</span> X_training <span class="op">\</span> y_training</span></code></pre></div>
+<pre><code>## 2-element Array{Float64,1}:
+##  0.5394017860222038
+##  0.6940419569446066</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb46-1"><a href="arma-modeling-an-overview.html#cb46-1" aria-hidden="true" tabindex="-1"></a>μ <span class="op">=</span> samplemean(y_training)</span></code></pre></div>
+<pre><code>## 1.7659253234515564</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb48-1"><a href="arma-modeling-an-overview.html#cb48-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-2"><a href="arma-modeling-an-overview.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Out of sample forecast</span></span>
+<span id="cb48-3"><a href="arma-modeling-an-overview.html#cb48-3" aria-hidden="true" tabindex="-1"></a>y_forecast <span class="op">=</span> [μ <span class="op">+</span> ρ₁<span class="op">^</span>l <span class="op">*</span> (Y[<span class="kw">end</span>]<span class="op">-</span>μ) <span class="kw">for</span> l <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>]<span class="op">;</span></span>
+<span id="cb48-4"><a href="arma-modeling-an-overview.html#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="arma-modeling-an-overview.html#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Compare with actual data</span></span>
+<span id="cb48-6"><a href="arma-modeling-an-overview.html#cb48-6" aria-hidden="true" tabindex="-1"></a>plot(Y[<span class="kw">end</span><span class="op">-</span><span class="fl">60</span><span class="op">:</span><span class="kw">end</span>]<span class="op">,</span> xlabel <span class="op">=</span> <span class="st">&quot;Time&quot;</span><span class="op">,</span> label <span class="op">=</span> <span class="st">&quot;Observed values&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-32-J1.png" width="75%" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb49-1"><a href="arma-modeling-an-overview.html#cb49-1" aria-hidden="true" tabindex="-1"></a>plot<span class="op">!</span>(vcat([<span class="cn">NaN</span> <span class="kw">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">48</span>]<span class="op">,</span> y_forecast)<span class="op">,</span> label <span class="op">=</span> <span class="st">&quot;Forecasted values&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-32-J2.png" width="75%" /></p>
+</div>
+<div id="real-world-example-gdp-series" class="section level3" number="1.6.3">
+<h3><span class="header-section-number">1.6.3</span> Real world example: GDP series</h3>
+<p>We can now proceed to fit an AR(1) model for the series of GDP growth. Indeed, the PACF plot presented in the first paragraph suggests that including only the first lag might be a good choice.</p>
+<p>As a first step, we split the series in two parts. Data up to 2018:Q2 are used as a training sample for our model, meaning that we use these data to estimate the coefficients via OLS. The remaining sample (up to 2020:Q2) is used to assess the performances of the model in predicting future values of the GDP growth.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb50-1"><a href="arma-modeling-an-overview.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">## AR(1) estimation and prediction</span></span>
+<span id="cb50-2"><a href="arma-modeling-an-overview.html#cb50-2" aria-hidden="true" tabindex="-1"></a>GDP_1 <span class="op">=</span> GDP[<span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">1</span>]<span class="op">;</span> <span class="co"># First lag</span></span>
+<span id="cb50-3"><a href="arma-modeling-an-overview.html#cb50-3" aria-hidden="true" tabindex="-1"></a>constant <span class="op">=</span> [<span class="fl">1</span> <span class="kw">for</span> t <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>length(GDP_1)]<span class="op">;</span> <span class="co"># Intercept</span></span>
+<span id="cb50-4"><a href="arma-modeling-an-overview.html#cb50-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> hcat(constant<span class="op">,</span> GDP_1)<span class="op">;</span> <span class="co"># Regressors&#39; matrix</span></span>
+<span id="cb50-5"><a href="arma-modeling-an-overview.html#cb50-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> GDP[<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>]<span class="op">;</span> <span class="co"># Dependent variableρ_hat = X \ y </span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb51-1"><a href="arma-modeling-an-overview.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimated coefficients</span></span>
+<span id="cb51-2"><a href="arma-modeling-an-overview.html#cb51-2" aria-hidden="true" tabindex="-1"></a>ρ_hat <span class="op">=</span> X <span class="op">\</span> y</span></code></pre></div>
+<pre><code>## 2-element Array{Union{Missing, Float64},1}:
+##  2.68919146087404
+##  0.12182394815798535</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb53-1"><a href="arma-modeling-an-overview.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 1 step ahead prediction</span></span>
+<span id="cb53-2"><a href="arma-modeling-an-overview.html#cb53-2" aria-hidden="true" tabindex="-1"></a>GDP_hat <span class="op">=</span> ρ_hat[<span class="fl">1</span>] <span class="op">+</span> ρ_hat[<span class="fl">2</span>]<span class="op">*</span>GDP[<span class="kw">end</span>]</span></code></pre></div>
+<pre><code>## 3.5119546156010912</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb55-1"><a href="arma-modeling-an-overview.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="bu">Dates</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb56-1"><a href="arma-modeling-an-overview.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Eight periods ahead forecast (2 years)</span></span>
+<span id="cb56-2"><a href="arma-modeling-an-overview.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Define the training sample</span></span>
+<span id="cb56-3"><a href="arma-modeling-an-overview.html#cb56-3" aria-hidden="true" tabindex="-1"></a>dates_training <span class="op">=</span> filter(x  <span class="op">-&gt;</span> x <span class="op">&lt;=</span> <span class="dt">Date</span>(<span class="fl">2018</span><span class="op">,</span> <span class="fl">4</span>)<span class="op">,</span> gdp.data.date)<span class="op">;</span></span>
+<span id="cb56-4"><a href="arma-modeling-an-overview.html#cb56-4" aria-hidden="true" tabindex="-1"></a>GDP_training <span class="op">=</span> [gdp.data[i<span class="op">,</span> <span class="op">:</span>DY] <span class="kw">for</span> i <span class="kw">in</span> <span class="fl">2</span><span class="op">:</span>size(gdp.data<span class="op">,</span><span class="fl">1</span>) <span class="kw">if</span> gdp.data[i<span class="op">,</span> <span class="op">:</span>date] <span class="kw">in</span> dates_training ]<span class="op">;</span></span>
+<span id="cb56-5"><a href="arma-modeling-an-overview.html#cb56-5" aria-hidden="true" tabindex="-1"></a>GDP_outsample <span class="op">=</span> gdp.data[<span class="fl">1</span><span class="op">+</span>length(GDP_training)<span class="op">+</span><span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">,</span> <span class="op">:</span>DY]<span class="op">;</span>  <span class="co"># Don&#39;t count the first NaN!</span></span>
+<span id="cb56-6"><a href="arma-modeling-an-overview.html#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="arma-modeling-an-overview.html#cb56-7" aria-hidden="true" tabindex="-1"></a>T_training <span class="op">=</span> length(GDP_training)<span class="op">;</span></span>
+<span id="cb56-8"><a href="arma-modeling-an-overview.html#cb56-8" aria-hidden="true" tabindex="-1"></a>T_outsample <span class="op">=</span> length(GDP_outsample)<span class="op">;</span></span>
+<span id="cb56-9"><a href="arma-modeling-an-overview.html#cb56-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-10"><a href="arma-modeling-an-overview.html#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="co">## Estimation</span></span>
+<span id="cb56-11"><a href="arma-modeling-an-overview.html#cb56-11" aria-hidden="true" tabindex="-1"></a>GDP_training1 <span class="op">=</span> GDP_training[<span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">1</span>]<span class="op">;</span> <span class="co"># First lag</span></span>
+<span id="cb56-12"><a href="arma-modeling-an-overview.html#cb56-12" aria-hidden="true" tabindex="-1"></a>constant <span class="op">=</span> [<span class="fl">1</span> <span class="kw">for</span> t <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>length(GDP_training1)]<span class="op">;</span> <span class="co"># Intercept</span></span>
+<span id="cb56-13"><a href="arma-modeling-an-overview.html#cb56-13" aria-hidden="true" tabindex="-1"></a>X_training <span class="op">=</span> hcat(constant<span class="op">,</span> GDP_training1)<span class="op">;</span></span>
+<span id="cb56-14"><a href="arma-modeling-an-overview.html#cb56-14" aria-hidden="true" tabindex="-1"></a>y_training <span class="op">=</span> GDP_training[<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>]<span class="op">;</span></span>
+<span id="cb56-15"><a href="arma-modeling-an-overview.html#cb56-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-16"><a href="arma-modeling-an-overview.html#cb56-16" aria-hidden="true" tabindex="-1"></a>ρ₀<span class="op">,</span> ρ₁ <span class="op">=</span> X_training <span class="op">\</span> y_training</span>
+<span id="cb56-17"><a href="arma-modeling-an-overview.html#cb56-17" aria-hidden="true" tabindex="-1"></a>μ <span class="op">=</span> samplemean(GDP_training)</span>
+<span id="cb56-18"><a href="arma-modeling-an-overview.html#cb56-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-19"><a href="arma-modeling-an-overview.html#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="co">## Out of sample forecast</span></span>
+<span id="cb56-20"><a href="arma-modeling-an-overview.html#cb56-20" aria-hidden="true" tabindex="-1"></a>y_forecast <span class="op">=</span> [μ <span class="op">+</span> ρ₁<span class="op">^</span>l <span class="op">*</span> (GDP_training[<span class="kw">end</span>]<span class="op">-</span>μ) <span class="kw">for</span> l <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>T_outsample]<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb57-1"><a href="arma-modeling-an-overview.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Comparison with true data</span></span>
+<span id="cb57-2"><a href="arma-modeling-an-overview.html#cb57-2" aria-hidden="true" tabindex="-1"></a>time_period <span class="op">=</span> gdp.data.date[<span class="kw">end</span><span class="op">-</span><span class="fl">4</span><span class="op">*</span><span class="fl">10</span><span class="op">:</span><span class="kw">end</span>]<span class="op">;</span></span>
+<span id="cb57-3"><a href="arma-modeling-an-overview.html#cb57-3" aria-hidden="true" tabindex="-1"></a>plot(time_period<span class="op">,</span> GDP[<span class="kw">end</span><span class="op">-</span>(<span class="fl">4</span><span class="op">*</span><span class="fl">10</span>)<span class="op">:</span><span class="kw">end</span>]<span class="op">,</span> xlabel <span class="op">=</span> <span class="st">&quot;Time&quot;</span><span class="op">,</span> label <span class="op">=</span> <span class="st">&quot;Observed values&quot;</span>)<span class="op">;</span></span>
+<span id="cb57-4"><a href="arma-modeling-an-overview.html#cb57-4" aria-hidden="true" tabindex="-1"></a>plot<span class="op">!</span>(time_period<span class="op">,</span> vcat([<span class="cn">NaN</span> <span class="kw">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">40</span><span class="op">-</span>T_outsample]<span class="op">,</span> y_forecast)<span class="op">,</span> label <span class="op">=</span> <span class="st">&quot;Forecasted values&quot;</span><span class="op">,</span> legend <span class="op">=</span> <span class="op">:</span>bottomleft)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-37-J1.png" width="75%" /></p>
+</div>
+<div id="arp" class="section level3" number="1.6.4">
+<h3><span class="header-section-number">1.6.4</span> AR(p)</h3>
+<p>As previously noted, when we introduce more lags we speak of <span class="math inline">\(AR(p)\)</span> models. The first question that arises is “how many lags should we introduce in our model?” We’ve indirectly already given an answer to this question. Indeed, a common rule of thumb to decide how many and which lags to include in a model is by looking at the PACF: we should include all those lags that have a statistically different from zero partial autocorrelation.</p>
+<p>Once the number of lags has been decided the procedures for estimation and prediction are the same as for an <span class="math inline">\(AR(1)\)</span>.</p>
+<p>Another important issue is whether the process is stationary. Unfortunately, answering this question is not as straightforward as with an <span class="math inline">\(AR(1)\)</span>. Instead, to see if a model is stationary, we need to look at what are called “roots”.</p>
+<p>Note that an <span class="math inline">\(AR(p)\)</span> can be rewritten by using the lag operator as</p>
+<p><span class="math display">\[
+Y_t = \rho_1 \text{L}Y_{t} + \rho_2\text{L}^2 Y_{t}+\cdots + \rho_p\text{L}^p Y_{t} + \epsilon_t
+\]</span>
+from which</p>
+<p><span class="math display">\[
+(1-\rho_1L-\rho_2L^2- \cdots - \rho_p L^p)Y_t = \epsilon_t
+\]</span>
+The process is stationary if all the roots of the polynomial <span class="math inline">\((1-\rho_1L-\rho_2L^2- \cdots - \rho_p L^p)\)</span> “lie outside the unit circle”, that is, if they’re all greater than 1 in absolute value. If this is the case the process also admits an <span class="math inline">\(MA(\infty)\)</span> representation.</p>
+</div>
+<div id="ma1" class="section level3" number="1.6.5">
+<h3><span class="header-section-number">1.6.5</span> MA(1)</h3>
+<p>This process can be represented as <span class="math inline">\(Y_t = \mu + \phi \varepsilon_{t-1} + \varepsilon_t\)</span>, where the process of <span class="math inline">\({\varepsilon_t}\)</span> is an i.i.d. white noise with mean zero and constant variance <span class="math inline">\(\sigma^2_{\varepsilon}\)</span>. The process is always stationary as it is a linear combination of white noise processes with constant mean and variance.</p>
+<p>Its mean is <span class="math inline">\(\mu\)</span>, its variance <span class="math inline">\((1 + \phi_1^2)\sigma^2\)</span> and its covariance</p>
+<p><span class="math display">\[
+\begin{cases}
+\gamma(0) = (1 + \phi^2)\sigma^2_\varepsilon \\
+\gamma(1) = \phi\sigma^2_\varepsilon \\
+\gamma(h) = 0 \qquad \forall h&gt;1
+\end{cases}
+\]</span>
+The basic idea underlying this model is that the stochastic realizations of the process move around an average value. The distance from this value depends on previos period’s forecast error. Let’s consider an example. Suppose that a firm operating in a relatively stable market has to choose the quantity of production. The firm knows that on average the demand for its products will be <span class="math inline">\(\mu\)</span>, but a stochastic component makes the decision difficult in each period. In the first period, the management decides to produce exactly <span class="math inline">\(\mu.\)</span> For concreteness, suppose <span class="math inline">\(\mu = 10\)</span>. In the same period, the observed demand is instead <span class="math inline">\(Y_1 = 12\)</span>, and so the forecast error is <span class="math inline">\(\varepsilon_1 = \hat{Y_1} - Y_1 = 10-12 = -2\)</span>, meaning that the firm produced two units less than the demanded quantity. In the following period, the firm adjusts its production by increasing the mean proportionally to the previous period’s error: for instance it decides to adjust by half the error,<span class="math inline">\(Y_2 = 10 + 0.5 \cdot (-2)\)</span>, and it does the same for the following periods. An <span class="math inline">\(MA(1)\)</span> model tries to capture this kind of patterns in the data.</p>
+<p>An <span class="math inline">\(MA(1)\)</span> can also be inverted in an <span class="math inline">\(AR(\infty)\)</span> in a similar fashion as we did above, again provided that <span class="math inline">\(|\phi|&lt;1\)</span> .</p>
+<p><span class="math display">\[
+\begin{aligned}
+Y_t &amp;= \phi \epsilon_{t-1} + \epsilon_t \\
+Y_t &amp;= (1-\phi L)\epsilon_t \\
+\epsilon_t &amp;=  \frac{Y_t}{1-\phi L}\\
+\epsilon_t &amp;= Y_t(1+\phi L + \phi^2 L^2 + \cdots + \phi^\infty L^\infty) \\
+Y_t &amp;= - \phi Y_{t-1} - \phi^2 Y_{t-2} - \cdots - \phi^\infty Y_{t-\infty} + \epsilon_t \\
+Y_t &amp;= -\sum^\infty_{j=1}\phi^jY_{t-j} + \epsilon_t
+\end{aligned}
+\]</span>
+When presenting <span class="math inline">\(AR\)</span> models we saw that the PACF plot gives a rule of thumb to decide how many lags to include in the model. In the same way, we can use the ACF plot to decide how many lags of the white noise shock to include. For example, if we were to forecast GDP using an <span class="math inline">\(MA\)</span> model, by looking at the graph presented in the first section we would pick the first two lags.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="seasonal-adjustment.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aciancetta/Euorostat-EMOS-TimeSeries/edit/master/01-ARMA-models.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/aciancetta/Euorostat-EMOS-TimeSeries/blob/master/01-ARMA-models.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 3 Temporal aggregation and disaggregation | Time Series for Official Statistics</title>
+  <meta name="description" content="Time Series methods for Official Statistics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 3 Temporal aggregation and disaggregation | Time Series for Official Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Time Series methods for Official Statistics" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 3 Temporal aggregation and disaggregation | Time Series for Official Statistics" />
+  
+  <meta name="twitter:description" content="Time Series methods for Official Statistics" />
+  
+
+<meta name="author" content="Alessandro Ciancetta and Daniele Colombo" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="seasonal-adjustment.html"/>
+<link rel="next" href="revisions-analysis.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EurostatTimeSeries</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html"><i class="fa fa-check"></i><b>1</b> ARMA modeling: an overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#time-series-analysis"><i class="fa fa-check"></i><b>1.1</b> Time series analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#acf-and-pacf"><i class="fa fa-check"></i><b>1.2</b> ACF and PACF</a></li>
+<li class="chapter" data-level="1.3" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#stationarity"><i class="fa fa-check"></i><b>1.3</b> Stationarity</a></li>
+<li class="chapter" data-level="1.4" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#an-important-stationary-series-the-white-noise-process"><i class="fa fa-check"></i><b>1.4</b> An important stationary series: the white noise process</a></li>
+<li class="chapter" data-level="1.5" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#making-a-time-series-stationary"><i class="fa fa-check"></i><b>1.5</b> Making a time series stationary</a></li>
+<li class="chapter" data-level="1.6" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#wold-representation"><i class="fa fa-check"></i><b>1.6</b> Wold representation</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#ar1"><i class="fa fa-check"></i><b>1.6.1</b> AR(1)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#estimation-and-prediction"><i class="fa fa-check"></i><b>1.6.2</b> Estimation and prediction</a></li>
+<li class="chapter" data-level="1.6.3" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#real-world-example-gdp-series"><i class="fa fa-check"></i><b>1.6.3</b> Real world example: GDP series</a></li>
+<li class="chapter" data-level="1.6.4" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#arp"><i class="fa fa-check"></i><b>1.6.4</b> AR(p)</a></li>
+<li class="chapter" data-level="1.6.5" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#ma1"><i class="fa fa-check"></i><b>1.6.5</b> MA(1)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html"><i class="fa fa-check"></i><b>2</b> Seasonal Adjustment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#the-components-of-a-time-series"><i class="fa fa-check"></i><b>2.1</b> The components of a time series</a></li>
+<li class="chapter" data-level="2.2" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#the-causes-of-seasonality"><i class="fa fa-check"></i><b>2.2</b> The causes of seasonality</a></li>
+<li class="chapter" data-level="2.3" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#why-to-adjust-for-seasonality"><i class="fa fa-check"></i><b>2.3</b> Why to adjust for seasonality</a></li>
+<li class="chapter" data-level="2.4" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#decomposition-models"><i class="fa fa-check"></i><b>2.4</b> Decomposition models</a></li>
+<li class="chapter" data-level="2.5" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#official-programs-for-seasonal-adjustment"><i class="fa fa-check"></i><b>2.5</b> Official programs for seasonal adjustment</a></li>
+<li class="chapter" data-level="2.6" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#illustrative-example"><i class="fa fa-check"></i><b>2.6</b> Illustrative example</a></li>
+<li class="chapter" data-level="2.7" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#rjdemetra-package"><i class="fa fa-check"></i><b>2.7</b> RJDemetra package</a></li>
+<li class="chapter" data-level="2.8" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#preprocessing"><i class="fa fa-check"></i><b>2.8</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.9" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#decomposition"><i class="fa fa-check"></i><b>2.9</b> Decomposition</a></li>
+<li class="chapter" data-level="2.10" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#additional-output-and-forecast"><i class="fa fa-check"></i><b>2.10</b> Additional output and forecast</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html"><i class="fa fa-check"></i><b>3</b> Temporal aggregation and disaggregation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#aggregation"><i class="fa fa-check"></i><b>3.1</b> Aggregation</a></li>
+<li class="chapter" data-level="3.2" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#disaggregation"><i class="fa fa-check"></i><b>3.2</b> Disaggregation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#denton-and-denton-cholette"><i class="fa fa-check"></i><b>3.2.1</b> Denton and Denton-Cholette</a></li>
+<li class="chapter" data-level="3.2.2" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#chow-lin-fernandez-litterman"><i class="fa fa-check"></i><b>3.2.2</b> Chow-Lin, Fernandez, Litterman</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#an-example-using-eurostat-data"><i class="fa fa-check"></i><b>3.3</b> An example using Eurostat data</a></li>
+<li class="chapter" data-level="3.4" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#references"><i class="fa fa-check"></i><b>3.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="revisions-analysis.html"><a href="revisions-analysis.html"><i class="fa fa-check"></i><b>4</b> Revisions Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="revisions-analysis.html"><a href="revisions-analysis.html#classification-of-revisions"><i class="fa fa-check"></i><b>4.1</b> Classification of revisions</a></li>
+<li class="chapter" data-level="4.2" data-path="revisions-analysis.html"><a href="revisions-analysis.html#definition-of-revisions"><i class="fa fa-check"></i><b>4.2</b> Definition of revisions</a></li>
+<li class="chapter" data-level="4.3" data-path="revisions-analysis.html"><a href="revisions-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>4.3</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="4.4" data-path="revisions-analysis.html"><a href="revisions-analysis.html#an-example-in-r"><i class="fa fa-check"></i><b>4.4</b> An example in R</a></li>
+<li class="chapter" data-level="4.5" data-path="revisions-analysis.html"><a href="revisions-analysis.html#references-1"><i class="fa fa-check"></i><b>4.5</b> References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series for Official Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="temporal-aggregation-and-disaggregation" class="section level1" number="3">
+<h1><span class="header-section-number">Topic 3</span> Temporal aggregation and disaggregation</h1>
+<p>Very often, time series data that is required in empirical analyses consists of variables at different frequencies. Unless one is willing to use specific mixed-frequencies models, it is usually necessary to convert some of the series so that all the data has the same frequency. In what follows, we will present the techniques for both reducing and increasing the frequency of a time series: these techniques are, respectively, temporal <em>aggregation</em> and temporal <em>disaggregation</em>. We will complete the theoretical exposition with some examples using macroeconomic data from the Eurostat’s national account database. In particular, we will show the usage of the <code>tempdisagg</code> library, which offers some useful functions for both temporal aggregation and disaggregation.</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="temporal-aggregation-and-disaggregation.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;tempdisagg&quot;)</span></span>
+<span id="cb189-2"><a href="temporal-aggregation-and-disaggregation.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;eurostat&quot;)</span></span>
+<span id="cb189-3"><a href="temporal-aggregation-and-disaggregation.html#cb189-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;knitr&quot;)</span></span>
+<span id="cb189-4"><a href="temporal-aggregation-and-disaggregation.html#cb189-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tempdisagg) </span>
+<span id="cb189-5"><a href="temporal-aggregation-and-disaggregation.html#cb189-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eurostat) </span>
+<span id="cb189-6"><a href="temporal-aggregation-and-disaggregation.html#cb189-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="temporal-aggregation-and-disaggregation.html#cb190-1" aria-hidden="true" tabindex="-1"></a>gdp.q <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;gdp.q.csv&quot;</span>)</span>
+<span id="cb190-2"><a href="temporal-aggregation-and-disaggregation.html#cb190-2" aria-hidden="true" tabindex="-1"></a>gdp.q <span class="ot">&lt;-</span> <span class="fu">ts</span>(gdp.q<span class="sc">$</span>values, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1995</span>,<span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2019</span>, <span class="dv">4</span>), <span class="at">frequency =</span> <span class="dv">4</span>)</span>
+<span id="cb190-3"><a href="temporal-aggregation-and-disaggregation.html#cb190-3" aria-hidden="true" tabindex="-1"></a>gdp.a <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;gdp.a.csv&quot;</span>)</span>
+<span id="cb190-4"><a href="temporal-aggregation-and-disaggregation.html#cb190-4" aria-hidden="true" tabindex="-1"></a>gdp.a <span class="ot">&lt;-</span> <span class="fu">ts</span>(gdp.a<span class="sc">$</span>values, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1995</span>,<span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2019</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">1</span>)</span>
+<span id="cb190-5"><a href="temporal-aggregation-and-disaggregation.html#cb190-5" aria-hidden="true" tabindex="-1"></a>exports.q <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;exports.q.csv&quot;</span>)</span>
+<span id="cb190-6"><a href="temporal-aggregation-and-disaggregation.html#cb190-6" aria-hidden="true" tabindex="-1"></a>exports.q <span class="ot">&lt;-</span> <span class="fu">ts</span>(exports.q<span class="sc">$</span>values, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1995</span>,<span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2019</span>, <span class="dv">4</span>), <span class="at">frequency =</span> <span class="dv">4</span>)</span>
+<span id="cb190-7"><a href="temporal-aggregation-and-disaggregation.html#cb190-7" aria-hidden="true" tabindex="-1"></a>imports.q <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;imports.q.csv&quot;</span>)</span>
+<span id="cb190-8"><a href="temporal-aggregation-and-disaggregation.html#cb190-8" aria-hidden="true" tabindex="-1"></a>imports.q <span class="ot">&lt;-</span> <span class="fu">ts</span>(imports.q<span class="sc">$</span>values, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1995</span>,<span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2019</span>, <span class="dv">4</span>), <span class="at">frequency =</span> <span class="dv">4</span>)</span>
+<span id="cb190-9"><a href="temporal-aggregation-and-disaggregation.html#cb190-9" aria-hidden="true" tabindex="-1"></a>employment.a <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;employment.a.csv&quot;</span>)</span>
+<span id="cb190-10"><a href="temporal-aggregation-and-disaggregation.html#cb190-10" aria-hidden="true" tabindex="-1"></a>employment.a <span class="ot">&lt;-</span> <span class="fu">ts</span>(employment.a<span class="sc">$</span>values, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1995</span>,<span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2019</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">1</span>) </span>
+<span id="cb190-11"><a href="temporal-aggregation-and-disaggregation.html#cb190-11" aria-hidden="true" tabindex="-1"></a>employment.q <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;employment.q.csv&quot;</span>)</span>
+<span id="cb190-12"><a href="temporal-aggregation-and-disaggregation.html#cb190-12" aria-hidden="true" tabindex="-1"></a>employment.q <span class="ot">&lt;-</span> <span class="fu">ts</span>(employment.q<span class="sc">$</span>values, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1995</span>,<span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2019</span>, <span class="dv">4</span>), <span class="at">frequency =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div id="aggregation" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Aggregation</h2>
+<p>Time aggregation consists of manipulating a series in order to make it available at a lower frequency. For instance, we could need to retrieve annualized GDP given the quarterly data, or the weekly price change of a stock for which data at a daily frequency is available.</p>
+<p>Of course, aggregating a time series reduces the number of observations, which results in the loss of some information. A large literature has studied the effects of aggregation on forecast performances and on the statistical properties of time series models, showing that the impact can be large. Intuitively, since the information is condensed in a lower number of observations, aggregation reduces the <em>variability</em> of the data, at the cost of part of this information being lost. In practice, we usually take the average value of different observations, which tends to smooth the time series: even if smoothing can be desirable in some contexts (e.g. for seasonal adjustment), it deletes the variation at the high-frequency level, and it can therefore preclude the model from detecting regularities at this level. As a consequence, the resulting model will produce predictions that are more stable and less volatile than those that would be obtained using disaggregated data: this is not good news, since it means that we are missing part of the story that the data contains.</p>
+<p>Temporal aggregation of a time series is a quite straightforward operation, which requires to keep in mind only a few caveats regarding the nature of the variable being temporally aggregated. Indeed, there are four main techniques of temporal aggregation which should be used depending on whether we are considering stock or flow variables. All aggregation methods ensure that either the sum, the average, the first or the last value of the resulting low-frequency series is consistent with the high-frequency series.</p>
+<p><strong>Flow variables.</strong> Consider, for instance, the case of quarterly GDP. If we want to retrieve annual GDP, what we have to do is summing each year’s quarterly values to get the total amount produced in a given country each year. This is how we usually deal with flow variables: the total low-frequency flow is the sum of all its high-frequency flows. In our example, 2020 GDP of a given country will be the sum of 2020:Q1, …, 2020:Q4 GDP:</p>
+<p><span class="math display">\[
+\text{GDP}_{2020} = \text{GDP}_{2020:Q1} + \text{GDP}_{2020:Q2} + \text{GDP}_{2020:Q3} + \text{GDP}_{2020:Q4}
+\]</span></p>
+<p><strong>Stock variables.</strong> Consider the example of the total stock of capital in a country. Of course, summing all the values of the total capital of each quarter would make no sense, as we would end up counting four times the same capital stock. Temporal aggregation, in this case, can be performed in three ways, depending on the nature of the variable considered and on the aim of the empirical researcher:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Taking the average of the high-frequency observations.</strong> For instance, if we want to consider the annual stock of capital as the average level of its quarterly values, the annual capital in 2020 will be:</p>
+<p><span class="math display">\[
+\text{Capital}_{2020} = \frac{\text{Capital}_{2020:Q1} + \text{Capital}_{2020:Q2} + \text{Capital}_{2020:Q3} + \text{Capital}_{2020:Q4}}{4}
+\]</span></p></li>
+<li><p><strong>Taking only the last observation of the high-frequency variable.</strong> For instance, we could consider as the most reliable measure of the total capital stock the last data collected by Eurostat:</p>
+<p><span class="math display">\[
+\text{Capital}_{2020} = \text{Capital}_{2020:Q4}
+\]</span></p></li>
+<li><p><strong>Taking only the first observation of the high-frequency variable.</strong> On the contrary, for our study, we could be interested in considering as the annual capital stock its value at the beginning of the year:</p>
+<p><span class="math display">\[
+\text{Capital}_{2020} = \text{Capital}_{2020:Q1}
+\]</span></p></li>
+</ol>
+<p>We report below an example using Eurostat data for the GDP of the United Kingdom.</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="temporal-aggregation-and-disaggregation.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="do">## True annual GDP</span></span>
+<span id="cb191-2"><a href="temporal-aggregation-and-disaggregation.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gdp.a)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="temporal-aggregation-and-disaggregation.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Annualized GDP</span></span>
+<span id="cb192-2"><a href="temporal-aggregation-and-disaggregation.html#cb192-2" aria-hidden="true" tabindex="-1"></a>gdp.annualized <span class="ot">&lt;-</span> <span class="fu">ta</span>(gdp.q, <span class="at">conversion =</span> <span class="st">&quot;sum&quot;</span>, <span class="at">to =</span> <span class="st">&quot;annual&quot;</span>)</span>
+<span id="cb192-3"><a href="temporal-aggregation-and-disaggregation.html#cb192-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gdp.annualized)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="temporal-aggregation-and-disaggregation.html#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="do">## True annual total employment (in thousands)</span></span>
+<span id="cb193-2"><a href="temporal-aggregation-and-disaggregation.html#cb193-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(employment.a)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="temporal-aggregation-and-disaggregation.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Annualized total employment </span></span>
+<span id="cb194-2"><a href="temporal-aggregation-and-disaggregation.html#cb194-2" aria-hidden="true" tabindex="-1"></a>employment.annualized <span class="ot">&lt;-</span> <span class="fu">ta</span>(employment.q, <span class="at">conversion =</span> <span class="st">&quot;average&quot;</span>, <span class="at">to =</span> <span class="st">&quot;annual&quot;</span>)</span>
+<span id="cb194-3"><a href="temporal-aggregation-and-disaggregation.html#cb194-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(employment.annualized)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+</div>
+<div id="disaggregation" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Disaggregation</h2>
+<p>Temporal disaggregation refers to the process of transforming a low-frequency time series (for example annual) into a higher frequency series (for example quarterly or monthly).</p>
+<p>Temporal disaggregation can be performed with or without one or more high-frequency indicator series, useful to inform the process. The most common procedures to perform disaggregation are <strong>Denton</strong> and <strong>Denton-Cholette</strong>, which are concerned with movement preservation and generate a series similar to the indicator but can also be performed without it, and <strong>Chow-Lin</strong>, <strong>Litterman</strong> and <strong>Fernandez</strong>, which are regression-based methods that always use one or more indicator series. The Chow-Lin procedure is best for stationary or cointegrated series, while Litterman and Fernandez non-cointegrated series.</p>
+<p>All of these procedures can be presented in a general framework. Suppose that you observe a low frequency series, denoted by <span class="math inline">\(y_l\)</span>, and that you want to retrieve the higher frequency variable <span class="math inline">\(y\)</span>, which is unobserved. The first step to do so is to tale an indicator series, denoted by <span class="math inline">\(x\)</span>, which is available at quarterly frequency. Of course a good indicator series is one that moves together with the unobserved series <span class="math inline">\(y\)</span>. The next step is to perform the aggregation of the indicator series so that it matches the freqency of <span class="math inline">\(y_l\)</span>. This is performed by means of the conversion matrix <span class="math inline">\(C\)</span>:</p>
+<p><span class="math display">\[
+x_l = Cx,
+\]</span>
+All disaggregation methods ensure that either the sum, the average, the first or the last value of the resulting high frequency series is consistent with the low frequency series, and this aspect is controlled by the matrix <span class="math inline">\(C\)</span>. For example, if <span class="math inline">\(x\)</span> is at a quarterly frequency and we want to perform annualization so that the sum is consistent with <span class="math inline">\(y_l\)</span>, we will use a matrix of the form:</p>
+<p><span class="math display">\[
+C = I_{n_l} \otimes [1,1,1,1] = 
+\underset{n_l \times n}{
+\begin{bmatrix}
+1 &amp; 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+ &amp; \vdots &amp;&amp;&amp; &amp;&amp;&amp;&amp; &amp;&amp;&amp; \vdots &amp; \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1 &amp; 1 &amp; 1 &amp; 1 
+\end{bmatrix}}
+\]</span>
+If instead we require average-consistency, <span class="math inline">\(C\)</span> will be of the form:</p>
+<p><span class="math display">\[
+C = I_{n_l} \otimes [0.25,0.25,0.25,0.25] = 
+\underset{n_l \times n}{
+\begin{bmatrix}
+0.25 &amp; 0.25 &amp; 0.25 &amp; 0.25 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+ &amp; \vdots &amp;&amp;&amp; \ddots &amp;&amp;&amp;  \vdots &amp; \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp;  \cdots &amp; 0.25 &amp; 0.25 &amp; 0.25 &amp; 0.25 
+\end{bmatrix}}
+\]</span>
+You then subtract <span class="math inline">\(x_l\)</span> (pointwise) from <span class="math inline">\(y_l\)</span>, obtaining the vector of residuals <span class="math inline">\(u_l\)</span>. Finally, is estimated according to:</p>
+<p><span class="math display">\[
+\hat{y} = x + Dx_l , 
+\]</span>
+where <span class="math inline">\(D\)</span> is a distribution matrix. The different disaggregation methods differ for the assumptions they rely on and on how the <span class="math inline">\(D\)</span> matrix are constructed. They can also differ in the number of indicator series employed.</p>
+<div id="denton-and-denton-cholette" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Denton and Denton-Cholette</h3>
+<ul>
+<li><p><strong>Indicator series</strong> - one or no indicator series. <span class="math inline">\(x\)</span> is simply a vector, using a vector of ones (a constant), is equivalent to having no indicator series.</p></li>
+<li><p><strong>Distribution matrix</strong> - minimizes the squared absolute (or relative) deviations from a (differenced) indicator series, where the parameter h defines the degree of differencing. For the additive Denton methods and for <span class="math inline">\(h = 0\)</span>, the sum of the squared absolute deviations between the indicator and the final series is minimized. For <span class="math inline">\(h = 1\)</span>, the deviations of first differences are minimized, for <span class="math inline">\(h = 2\)</span>, the deviations of the differences of the first differences, and so on. For the proportional Denton methods, deviations are measured in relative terms.</p>
+<p>The Denton-Cholette method is generally preferable and differs from the simple Cholette in that it removes the spurious transient movement at the beginning of the resulting series. In this case the distribution matrix is indicated with <span class="math inline">\(D_{DC}\)</span>.</p></li>
+</ul>
+</div>
+<div id="chow-lin-fernandez-litterman" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Chow-Lin, Fernandez, Litterman</h3>
+<p>These are regression based methods that perform GLS of <span class="math inline">\(y_l\)</span> on the annualized indicator series <span class="math inline">\(x_l = Cx\)</span> . Note that in this case <span class="math inline">\(x\)</span> can be a matrix since more than one indicator series can be employed. The critical assumption of these methods is that the linear relationship between the annualized indicator series and <span class="math inline">\(y_l\)</span> also holds between the quarterly indicator series and <span class="math inline">\(y\)</span>.</p>
+<ul>
+<li><p><strong>Indicator series</strong> - one or more indicator series. In this case the vector <span class="math inline">\(u_l\)</span> is obtained by subtracting a transformed version of the indicator series:</p>
+<p><span class="math display">\[
+u_l = y_l - C\widetilde{x}
+\]</span>
+where <span class="math inline">\(\widetilde{x}=\hat{\beta}x\)</span> . <span class="math inline">\(\hat{\beta}\)</span> is the regression coefficient obtained by regressing <span class="math inline">\(y_l\)</span> on the aggregated version of the indicator series, <span class="math inline">\(x_l = Cx\)</span>. For a given variance-covariance matrix, <span class="math inline">\(\Sigma\)</span>, the GLS estimator, <span class="math inline">\(\hat{\beta}\)</span> , is calculated in the standard way:</p></li>
+</ul>
+<p><span class="math display">\[
+\hat{\beta}(\Sigma) = [x&#39;C&#39;(C\Sigma C&#39;)^{-1}Cx]^{-1}x&#39;C&#39;((C\Sigma C&#39;)^{-1})y_l
+\]</span>
+* <strong>Distribution matrix</strong> - these methods use <span class="math inline">\(D = \Sigma&#39;C&#39;(C\Sigma C&#39;)^{-1}\)</span> as distribution matrix.</p>
+<p>The 3 methods differ in how the <span class="math inline">\(\Sigma\)</span> matrix is calculated. Chow-Lin assumes that the quarterly residuals follow an autoregressive process of order 1 (AR1) where the innovations are <span class="math inline">\(WN(0, \sigma_e)\)</span> and the autoregressive parameter <span class="math inline">\(\rho &lt; 1\)</span>. The resulting covariance matrix has the following form:</p>
+<p><span class="math display">\[
+\Sigma_{CL}(\rho) = 
+\frac{\sigma^2_{\epsilon}}{1-\rho^2}
+\begin{bmatrix}
+1 &amp; \rho &amp; \cdots \rho^{n-1} \\
+\rho &amp; 1 &amp; \cdots &amp; \rho^{n-2} \\
+\vdots &amp; \vdots &amp; &amp; \vdots \\
+\rho^{n-1} &amp; \rho^{n-2} &amp; \cdots &amp; 1
+\end{bmatrix}
+\]</span>
+Fernandez and Litterman deal with cases when the quarterly indicators and the annual series are not cointegrated. They assume that the quarterly residuals follow a nonstationary process (Fernandez is a special case of Litterman, where <span class="math inline">\(\rho = 0\)</span>). The resulting covariance matrix has the following form:</p>
+<p><span class="math display">\[
+\Sigma_{L}(\rho) = \sigma^2_{\epsilon} \left(\Delta&#39;H(\rho)&#39;H(\rho) \Delta\right)^{-1}
+\]</span>
+where</p>
+<p><span class="math display">\[
+\Delta = 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+-1 &amp; 1 &amp; 0 &amp; \cdots &amp; 0 \\
+ 0 &amp; -1 &amp; 1 &amp;\cdots &amp; 0 \\
+   &amp; \vdots &amp;  &amp; &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1 \\
+\end{bmatrix}
+\]</span>
+and</p>
+<p><span class="math display">\[
+H(\rho) = 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+-\rho &amp; 1 &amp; 0 &amp; \cdots &amp; 0 \\
+ 0 &amp; -\rho &amp; 1 &amp;\cdots &amp; 0 \\
+   &amp; \vdots &amp;  &amp; &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1 \\
+\end{bmatrix}
+\]</span>
+The autoregressive parameter <span class="math inline">\(\rho\)</span> in the Chow-Lin and Litterman methods can be estimated in several different ways. An introductory exposition can be found in the references.</p>
+</div>
+</div>
+<div id="an-example-using-eurostat-data" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> An example using Eurostat data</h2>
+<p>In the following example we use Eurostat data for UK, we take annual GDP as <span class="math inline">\(y_l\)</span> and we use quarterly exports and imports as indicator series to disaggregate GDP and obtain <span class="math inline">\(\hat{y}\)</span>. Of course we dispose also of the true <span class="math inline">\(y\)</span>, quarterly GDP, which we use to evaluate our results. We first retrieve the data with the <code>eurostat</code> package:</p>
+<pre><code>## Obtain the GDP data from Eurostat
+query &lt;- search_eurostat(pattern = &quot;GDP&quot;, type = &quot;dataset&quot;, fixed = F)
+id.a &lt;- query$code[1]
+id.q &lt;- query$code[2]
+
+## True quarterly data
+gdp.q_raw &lt;- get_eurostat(id.q, 
+                  #type = &quot;label&quot;,
+                  #select_time = &quot;Y&quot;, 
+                  time_format = &quot;date&quot;, # alternative, &quot;num&quot;
+                  filters = list(geo = &quot;UK&quot;,        ## Germany (until 1990 former territory of the FRG) 
+                                 na_item = &quot;B1GQ&quot;,  ## Gross domestic product at market prices  
+                                 unit = &quot;CP_MEUR&quot;,  ## Euro series (CP MEUR ) are derived from 
+                                                     #transmitted national currency series using historic exchange rates. 
+                                                     #They are suitable for internal comparison and aggregation. 
+                                                     #When comparing them over time, account must be taken of exchange rate effects.
+                                 s_adj = &quot;NSA&quot;))    ## Not seasonal nor calendar adjustment
+label_eurostat_vars(gdp.q_raw) ## Variables
+gdp.q &lt;- gdp.q_raw[, c(&quot;time&quot;, &quot;values&quot;)]
+kable(head(gdp.q))
+plot(gdp.q, type = &quot;l&quot;)
+
+## Annual data
+gdp.a_raw &lt;- get_eurostat(id.a, 
+                          time_format = &quot;date&quot;,
+                          filters = list(geo = &quot;UK&quot;,        
+                                         na_item = &quot;B1GQ&quot;,      
+                                         unit = &quot;CP_MEUR&quot;,  
+                                         s_adj = &quot;NSA&quot;)) 
+gdp.a &lt;- gdp.a_raw[, c(&quot;time&quot;, &quot;values&quot;)]
+kable(head(gdp.a))
+plot(gdp.a, type = &quot;l&quot;)
+
+
+## Indicator series: industrial production
+query &lt;- search_eurostat(pattern = &quot;industr&quot;, type = &quot;dataset&quot;, fixed = T)
+query$title
+
+exports.q_raw &lt;- get_eurostat(&quot;namq_10_exi&quot;,
+                        filters = list(geo = &quot;UK&quot;,        
+                                       na_item = &quot;P6&quot;,      ## Exports = P6, Imports = P7
+                                       unit = &quot;CP_MEUR&quot;,  
+                                       s_adj = &quot;NSA&quot;))
+exports.q &lt;- exports.q_raw[,c(&quot;time&quot;, &quot;values&quot;)]
+plot(exports.q$values, type = &quot;l&quot;)
+
+
+## Consider the data from 1995:Q1
+gdp.q_1995 &lt;- subset(gdp.q, time &gt;= as.Date(&quot;1995-01-01&quot;) &amp; time &lt; as.Date(&quot;2020-01-01&quot;))
+gdp.a_1995 &lt;- subset(gdp.a, time &gt;= as.Date(&quot;1995-01-01&quot;) &amp; time &lt; as.Date(&quot;2020-01-01&quot;))
+exports.q_1995 &lt;- subset(exports.q, time &gt;= as.Date(&quot;1995-01-01&quot;) &amp; time &lt; as.Date(&quot;2020-01-01&quot;))
+
+par(mfrow = c(2,1))
+plot(gdp.q_1995, type = &quot;l&quot;)
+plt(exports.q_1995, type = &quot;l&quot;)</code></pre>
+<p>We plot the annual and quarterly GDP series:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="temporal-aggregation-and-disaggregation.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gdp.a)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="temporal-aggregation-and-disaggregation.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gdp.q)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p>To perform the disaggregation we use the <code>tempdisagg</code>package. It’s main function is <code>td()</code>, of which the argument <code>conversion</code> allows to specify wether the resulting disaggregated series should be consistent with either the sum, the average, the first or the last value of low frequency series, <code>to</code> specifies the frequency to which convert the series and <code>method</code> specifies the disaggregation procedure to be employed.</p>
+<ul>
+<li>Denton-Cholette with no indicator series</li>
+</ul>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="temporal-aggregation-and-disaggregation.html#cb198-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">td</span>(gdp.a <span class="sc">~</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="st">&quot;quarterly&quot;</span>, <span class="at">method =</span> <span class="st">&quot;denton-cholette&quot;</span>)</span>
+<span id="cb198-2"><a href="temporal-aggregation-and-disaggregation.html#cb198-2" aria-hidden="true" tabindex="-1"></a>data.q1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1)</span>
+<span id="cb198-3"><a href="temporal-aggregation-and-disaggregation.html#cb198-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data.q1)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<ul>
+<li>Denton-Cholette with exports as indicator series</li>
+</ul>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="temporal-aggregation-and-disaggregation.html#cb199-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">td</span>(gdp.a <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> exports.q, <span class="at">method =</span> <span class="st">&quot;denton-cholette&quot;</span>)</span>
+<span id="cb199-2"><a href="temporal-aggregation-and-disaggregation.html#cb199-2" aria-hidden="true" tabindex="-1"></a>data.q2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m2) </span>
+<span id="cb199-3"><a href="temporal-aggregation-and-disaggregation.html#cb199-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data.q2)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<ul>
+<li>Chow-lin with exports as indicator series</li>
+</ul>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="temporal-aggregation-and-disaggregation.html#cb200-1" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">td</span>(gdp.a <span class="sc">~</span> exports.q)</span>
+<span id="cb200-2"><a href="temporal-aggregation-and-disaggregation.html#cb200-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## td(formula = gdp.a ~ exports.q)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -177379 -103357   38746   98012  210569 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.066e+05  3.817e+04   2.793   0.0103 *  
+## exports.q   2.832e+00  2.702e-01  10.478 3.14e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## &#39;chow-lin-maxlog&#39; disaggregation with &#39;sum&#39; conversion
+## 25 low-freq. obs. converted to 100 high-freq. obs.
+## Adjusted R-squared: 0.8193   AR1-Parameter: 0.8916</code></pre>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="temporal-aggregation-and-disaggregation.html#cb202-1" aria-hidden="true" tabindex="-1"></a>data.q3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m3) </span>
+<span id="cb202-2"><a href="temporal-aggregation-and-disaggregation.html#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data.q3)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<ul>
+<li>Chow-Lin with exports and imports as indicator series:</li>
+</ul>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="temporal-aggregation-and-disaggregation.html#cb203-1" aria-hidden="true" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">td</span>(gdp.a <span class="sc">~</span> exports.q <span class="sc">+</span> imports.q)</span>
+<span id="cb203-2"><a href="temporal-aggregation-and-disaggregation.html#cb203-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m4)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## td(formula = gdp.a ~ exports.q + imports.q)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -109890  -44755  -19502   32780  189382 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 119229.917  17137.396   6.957 5.53e-07 ***
+## exports.q       -4.267      1.286  -3.319  0.00312 ** 
+## imports.q        6.652      1.210   5.496 1.60e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## &#39;chow-lin-maxlog&#39; disaggregation with &#39;sum&#39; conversion
+## 25 low-freq. obs. converted to 100 high-freq. obs.
+## Adjusted R-squared: 0.956    AR1-Parameter: 0.6064</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="temporal-aggregation-and-disaggregation.html#cb205-1" aria-hidden="true" tabindex="-1"></a>data.q5 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m4) </span>
+<span id="cb205-2"><a href="temporal-aggregation-and-disaggregation.html#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data.q5)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<ul>
+<li>Fernandez with exports and imports as indicator series:</li>
+</ul>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="temporal-aggregation-and-disaggregation.html#cb206-1" aria-hidden="true" tabindex="-1"></a>m5 <span class="ot">&lt;-</span> <span class="fu">td</span>(gdp.a <span class="sc">~</span> exports.q <span class="sc">+</span> imports.q, <span class="at">method =</span> <span class="st">&quot;fernandez&quot;</span>)</span>
+<span id="cb206-2"><a href="temporal-aggregation-and-disaggregation.html#cb206-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m5)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## td(formula = gdp.a ~ exports.q + imports.q, method = &quot;fernandez&quot;)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -87829 -36629  63931 128978 201063 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept) 81223.664  32659.025   2.487   0.0210 *
+## exports.q      -1.011      2.090  -0.484   0.6333  
+## imports.q       3.747      1.952   1.920   0.0679 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## &#39;fernandez&#39; disaggregation with &#39;sum&#39; conversion
+## 25 low-freq. obs. converted to 100 high-freq. obs.
+## Adjusted R-squared: 0.6897   AR1-Parameter:     0</code></pre>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="temporal-aggregation-and-disaggregation.html#cb208-1" aria-hidden="true" tabindex="-1"></a>data.q5 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m5) </span>
+<span id="cb208-2"><a href="temporal-aggregation-and-disaggregation.html#cb208-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data.q5)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<ul>
+<li>Litterman with exports and imports as indicator series:</li>
+</ul>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="temporal-aggregation-and-disaggregation.html#cb209-1" aria-hidden="true" tabindex="-1"></a>m6 <span class="ot">&lt;-</span> <span class="fu">td</span>(gdp.a <span class="sc">~</span> exports.q <span class="sc">+</span> imports.q, <span class="at">method =</span> <span class="st">&quot;litterman-maxlog&quot;</span>)</span>
+<span id="cb209-2"><a href="temporal-aggregation-and-disaggregation.html#cb209-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m6)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## td(formula = gdp.a ~ exports.q + imports.q, method = &quot;litterman-maxlog&quot;)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -87829 -36629  63931 128978 201063 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept) 81223.664  32659.025   2.487   0.0210 *
+## exports.q      -1.011      2.090  -0.484   0.6333  
+## imports.q       3.747      1.952   1.920   0.0679 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## &#39;litterman-maxlog&#39; disaggregation with &#39;sum&#39; conversion
+## 25 low-freq. obs. converted to 100 high-freq. obs.
+## Adjusted R-squared: 0.6897   AR1-Parameter:     0 (truncated)</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="temporal-aggregation-and-disaggregation.html#cb211-1" aria-hidden="true" tabindex="-1"></a>data.q6 <span class="ot">&lt;-</span> <span class="fu">predict</span>(m6) </span>
+<span id="cb211-2"><a href="temporal-aggregation-and-disaggregation.html#cb211-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data.q6)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p>Finally we evaluate the results by comparing them with the true series, by applying a simple squared deviation measure:</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="temporal-aggregation-and-disaggregation.html#cb212-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">sum</span>((gdp.q <span class="sc">-</span> data.q6)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb212-2"><a href="temporal-aggregation-and-disaggregation.html#cb212-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">sum</span>((gdp.q <span class="sc">-</span> data.q6)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb212-3"><a href="temporal-aggregation-and-disaggregation.html#cb212-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">sum</span>((gdp.q <span class="sc">-</span> data.q6)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb212-4"><a href="temporal-aggregation-and-disaggregation.html#cb212-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">sum</span>((gdp.q <span class="sc">-</span> data.q6)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb212-5"><a href="temporal-aggregation-and-disaggregation.html#cb212-5" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">sum</span>((gdp.q <span class="sc">-</span> data.q6)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb212-6"><a href="temporal-aggregation-and-disaggregation.html#cb212-6" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">sum</span>((gdp.q <span class="sc">-</span> data.q6)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+</div>
+<div id="references" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> References</h2>
+<ul>
+<li><em>ESS guidelines on temporal disaggregation, benchmarking and reconciliation</em>, 2018 edition, Eurostat. <a href="https://ec.europa.eu/eurostat/documents/3859598/9441376/KS-06-18-355-EN.pdf/fce32fc9-966f-4c13-9d20-8ce6ccf079b6" class="uri">https://ec.europa.eu/eurostat/documents/3859598/9441376/KS-06-18-355-EN.pdf/fce32fc9-966f-4c13-9d20-8ce6ccf079b6</a></li>
+<li>Sax, Christoph, et al. <em>Package ‘tempdisagg’,</em> 2020. <a href="http://cran.pau.edu.tr/web/packages/tempdisagg/tempdisagg.pdf" class="uri">http://cran.pau.edu.tr/web/packages/tempdisagg/tempdisagg.pdf</a></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="seasonal-adjustment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="revisions-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aciancetta/Euorostat-EMOS-TimeSeries/edit/master/03-temporal-disaggregation.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/aciancetta/Euorostat-EMOS-TimeSeries/blob/master/03-temporal-disaggregation.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+# Seasonal Adjustment
+
+Many socio-economic time series present seasonal patterns. Agricultural production is inherently related with seasonal climatic conditions, the sales of many goods are higher during the Christmas period, air traffic is heavier during the summer... We can easily think of many such real-world examples. 
+
+Indeed, seasonal variations are a main component in many observed time series and they depend on the relative importance that a specific month or quarter has for an activity. Of course, these variations cannot be observed in time series collected at an annual frequency (for which there are no observations in different periods of the year), so that seasonal adjustment is needed only for data with more than one observation per year.
+
+There are other sources of seasonality that can be harder to handle, for example moving-holidays and trading days variations.
+
+The **moving-holiday** component depends on holidays that are not always on the same day of a month and that vary according to each country's religion and tradition. It has a strong impact on many variables: consider, for instance, the level of sales, car and air traffic, gasoline sales, etc. during Easter, the Chineese New Year, or the effect that Ramadan has on the food industry in Islamic countries. On the other hand, **trading-days variations** refer to the number of working days and weekends in the considered period. Many economic events occur with different frequency or intensity during Saturday or Sunday, making it important to correct the series for the number of weekends in the given month or quarter. Indeed, when we are given the observations of two different periods, this procedure allows distinguishing between the variations due merely to the presence of more weekends and the differences testifying deeper trends.
+
+## The components of a time series
+
+A time series can be considered as made up by one or more of the following components: a **trend** component, which is the long term dynamics of the time series; a **cycle** components, which accounts for a repeating pattern in the stochastic process and is typical of macroeconomic time series such as GDP; a **seasonal** component, which gathers the fluctuations that repeat with a certain degree of regularity from year to year; a **calendar-effect** component, which is related to the *working-days variations* (one more Saturday or Sunday in a month could have some effects: consider for instance the higher consumption of gasoline during the week-end) and to the *moving-holidays*; an **irregular** component, formed by the residuals and that does not depend on other systematic components; **outliers**, which need to be specifically treated when estimating the models and are not removed by the procedure of seasonal adjustment. 
+
+Outliers can be classified into three categories:
+
+* *Additive Outlier (AO)*: a single value outside the expected range of the time series. It can be caused by random effects or by an identifiable event, such as a strike or a flood. 
+* *Temporary Change (TC)*: after an extremely high or low value is observed, it takes some time for the series to come back to its initial level. The Covid-19 pandemic could be considered  as such. 
+* *Level Shift (LS)*: a sudden and permanent change in the level of the time series after a given period. It often depends on changes in the definition of the survey population and in the collection method.
+
+## The causes of seasonality
+
+Seasonality can arise for different reasons, as in the examples above. It can be caused by **climatic cycles**, as the differences in temperature and weather in different seasons, or by **institutions**, namely the social habits, traditional festivals and also administrative rules and deadlines.
+
+## Why to adjust for seasonality
+
+The main reason for seasonal adjustment is to distinguish between the seasonal component and the other sources of variability in the original data. Indeed, seasonally-adjusted data reflect the variations due only to the other components. This allows for a more consisten **comparation** across time and space. For instance, we can use adjusted data to compare the industrial production in March with that of the Christmas holidays, or to compare countries with different climates or vacations. Moreover, the seasonally adjusted series gives far more perspicuous information about current economic conditions, which is essential to **business cycle analysis**. For this reason, it is the ground for forecasting and decision making. 
+
+## Decomposition models
+
+We can think the different components of a time series to build the series in different ways. 
+
+The **additive model** consider the series as the sum of the components:
+
+$$
+Y_t = T_t + C_t + S_t + I_t
+$$
+The **multiplicative mode**, instead, considers the product of the components:
+
+$$
+Y_t = T_t \cdot C_t \cdot S_t \cdot I_t
+$$
+While the additive models are a good choice for series that (even if not trend-stationary) present changing variance, the multiplicative models are better suited to deal with time series whose variance changes over time.
+
+## Official programs for seasonal adjustment
+
+Seasonal adjustment is usually performed by official statistics institutions, which publish already-deseasonalized time series. There are two standard software and procedures for seasonal adjustment:
+
+* X-13-ARIMA, developed by the Census Bureau. It uses a filter-based, non-parametric approach to estimate the seasonal component.
+* TRAMO-SEATS, developed by the Bank of Spain.It uses a model-based, parametric method to decompose the time series.
+
+The software JDemetra+, developed by Eurostat, easily allows to perform the seasonal adjustment with both the X13-ARIMA and TRAMO-SEATS methods. In what follows, we will show how to use the R interface to JDemetra+ provided by the `RJDemetra` package. Before doing that, we will present a simple example giving an intuition of the procedure.
+
+## Illustrative example
+
+We will now display a simple procedure to seasonally adjust a time series. 
+
+Consider the following time series (which we will denote as `time_series`), collecting observations over four years, measured with a quarter-year frequency. If we plot it we can see that it displays a clear recurring pattern.  
+
+```{R}
+time_series <- c(19,21,34,9,15,18,39,11,19,22,31,13,19,18,31,11)
+T_ts <- length(time_series)
+plot(time_series, type="b", xaxt="n", xlab = "Quarter")
+axis(1, at = 1:T_ts, labels=rep(paste0("Q", 1:4), T_ts/4), cex.axis=0.7)
+```
+
+
+As a first step, we collect the data into a table. As already highlighted by the plot, we can note that, in every year, the highest observation is the one corresponding to the third quarter, and the lowest corresponds to the fourth quarter.  
+
+```{R}
+tble <- time_series
+dim(tble)=c(4,4)
+tble <- t(tble)
+rownames(tble) <- 1990:1993
+colnames(tble) <- paste0("Q", 1:4)
+tble
+```
+
+
+We can then compute the average value of the series for every year: 
+
+```{R}
+average=rowMeans(tble)
+tble_1=cbind(tble, average)
+tble_1
+```
+
+
+We then divide each value by the average of its corresponding year. In doing so, we obtain a table collecting all the percentage deviations from each year's average. 
+
+```{R}
+tble_2 <- tble_1[,1:4]/average
+tble_2
+```
+
+
+We  now average over each quarter to get what are called "Seasonal Indices". These express, for each quarter, how much the corresponding observations tend to deviate from the average. They are therefore a measure of the seasonal effect present in the series. 
+
+```{R}
+SIndex <- colMeans(tble_2)
+tble_3 <- rbind(tble_2, SIndex)
+tble_3
+```
+
+
+Interestingly, the sum of the indices is always equal to the number of "seasons" (in our case of quarters) present. 
+
+```{R}
+sum(SIndex)
+```
+
+Finally, to deseasonalize the original series (that is to remove the "seasonal effect" as summarized by the seasonal indices), we divide each observation by the corresponding seasonal indicex according to the formula: 
+
+$$
+\text{Deseasonalized} = \frac{\text{Observed}}{\text{Seasonal Index}}
+$$
+
+```{R}
+tble_4 <- tble/SIndex[col(tble)]
+tble_4
+```
+
+
+We can finally plot the resulting series:  
+
+```{R}
+result=as.vector(t(tble_4))
+plot(result, type="b", ylim=c(10,40), xlab="Quarter", ylab="Deseasonalized time_series", xaxt = "n")
+axis(1, at = 1:T_ts, labels=rep(paste0("Q", 1:4), T_ts/4), cex.axis=0.7)
+```
+
+
+We can appreciate how the resulting time series is way smoother than the original and, more importantly, no longer exhibits a clear seasonal pattern. 
+
+The actual algorithms and models employed to perform seasonal adjustment are more sophisticated, but the previous example can still gives good insight of what seasonal adjustment is about. 
+
+## RJDemetra package
+
+**Remark:** the RJDemetra package requires the preliminary installation of Java SE 8 (or later versions) and the R pakcage [rJava](https://cran.r-project.org/package=rJava). 
+
+```{R}
+#install.packages("rJava")
+#install.packages("RJDemetra")
+library(RJDemetra)
+```
+
+To illustrate the functioning of the package we will usa the dataset embedded in it, `ipi_c_eu`, which collects monthly industrial production indices in manifacturing in the EU. The baseline year is 2015 and the series are unadjusted. 
+
+When using your own data, you shall transform them in a Time-Series object. Here we provide an example:
+
+```{R}
+example_data <- c(1943.1,1951.53,1983.23,1927.27,2054.57,2056.27,2019.18,2072.2,2069.99,2082.86,2111.94,2099.29,2094.14,2039.87,1944.41,2024.81,2080.62,2054.08,1918.6,1904.42,2021.95,2075.54,2065.55,2083.89,2148.9,2170.95,2157.69,2143.02,2164.99,2246.63,2275.12,2329.91,2366.82,2359.31,2395.35,2433.99)
+
+example_ts <- ts(example_data, start = c(2010,1), frequency = 12)
+example_ts
+```
+
+We take as an example the data for France from `ipi_c_eu`: 
+
+```{R}
+ipi_fr <- ipi_c_eu[,"FR"]  
+plot(ipi_fr)
+```
+
+As explained in the first section, the two most common procedures are the  X-13ARIMA-SEATS method and the TRAMO-SEATS method. They both consist of two linked parts: the preprocessing step and the decomposition step. The first is common to both procedures and is based on fitting a RegARIMA model to estimate the effect of trading day variations and outliers and remove them from the original series. 
+
+## Preprocessing
+
+The RegARIMA model (model with ARIMA errors)  is specified as
+
+$$
+z_t=y_t \cdot \beta+x_t
+$$
+where
+
+• $z_t$  is the original series; 
+
+• $β = (β_1, ..., β_n)$ is a vector of regression coefficients; 
+
+• $y_t = (y_{1t}, ..., y_{nt})$ are $n$ regression variables (outliers, calendar effects, user-defined variables); 
+
+• $x_t$ is a disturbance that follows the general ARIMA process. 
+
+Note that the automatically identified specification of the RegARIMA model might differ between X-13 and TRAMO-SEATS (meaning that the number of RA or MA components can be different) but the fitting procedure is the same. 
+
+```{R}
+x13(ipi_fr)$regarima
+tramoseats(ipi_fr)$regarima
+```
+
+As we can see, the functions `x13` and `tramoseats` automatically fit the best RegARIMA model for the given time series.  For the regressive part ($y_t$), the functions include several dummy variables to check for the effects of the weekdays (Monday-Saturday) and outliers. The outliers are reported in parentheses and classified according to their type (Additive Outliers, Transitory Change, Level Shift). The ARIMA model is automatically selected to best fit the data, by choosing the number of  autoregressive and moving average components (both regular and seasonal). Regular components are constrained to be at most 3, while seasonal components can be at most 1 per type. The frequency of observations per year (that is, the number of observations per year) is automatically detected. The output reports the estimated coefficients and the standard errors. 
+
+## Decomposition
+
+The second part instead differs across the two procedures. X-13 is based on a non-parametric filter approach and exploits the X-11 algorithm, while TRAMO-SEATS is parametric. 
+
+The main idea here is that a time series, depending on its characteristics, can be decomposed into trend, cycle, seasonal component and residual. That is: 
+
+$$
+x_t  = T_t + C_t + S_t + I_t
+$$
+
+ An alternative model is the multiplicative one, which is used when the variance of the time series is not constant but increases over time: 
+
+$$
+x_t  = T_t\cdot C_t \cdot S_t \cdot I_t
+$$
+or
+
+$$
+x_t  = T_t\cdot (1 + C_t) \cdot (1 + S_t) \cdot (1 + I_t)
+$$
+For this example we use the X-13 procedure.
+
+```{R}
+x13_model <- x13(ipi_fr)
+```
+
+ We begin by plotting the series, and noting right away that the seasonal component is very strong: every year, during summer, industrial production in France is notably lower than during the rest of the year
+
+```{R}
+## Original series
+plot(x13_model$final$series[,1])
+```
+
+Next, the trend is recovered by means of an n-order polynomial smoothing procedure. This can be thought of as a simple approximation of the series' shape. 
+
+```{R}
+## Trend of the series
+plot(x13_model$final$series[,3])
+```
+
+By subtracting the trend to the original series we are left with the seasonal component: 
+
+```{R}
+## Seasonal component
+plot(x13_model$final$series[,4])
+```
+
+At this stage, the seasonal components are averaged across every year to get the Seasonal Indices (one per month in our case). 
+
+```{R}
+## Seasonal indices
+seasonal_index <- colMeans(matrix(x13_model$final$series[,4], nrow = 30, ncol = 12, byrow = T))
+plot(seasonal_index, type = "l")
+```
+
+which repeated for every year gives
+
+```{R}
+## Overall period
+seasonal_index_repeated <- rep(seasonal_index, times = 30)
+plot(seasonal_index_repeated, type = "l")
+```
+
+By subtracting the last series to the original data we obtain the seasonally adjusted series (that is the series where the seasonal component has been removed). 
+
+```{R}
+## Seasonally adjusted series
+plot(x13_model$final$series[,2])
+```
+
+Finally, this resulting series is newly approximated with the polynomial smoothing procedure and the difference between the seasonally adjusted series and this last result gives the residuals: 
+
+```{R}
+## Residuals
+plot(x13_model$final$series[,5])
+```
+
+## Additional output and forecast
+
+**M and Q statistics**
+
+The X-13 function also provides the M-statistic and the Q-statistic. These can be found under the `decomposition` section of the output:  
+
+```{R}
+x13_model[2]
+```
+
+The M-statistics are a set of 11 statistics that check the quality of the seasonal adjustment. Their value varies between 0 and 3 but only values smaller than 1 are considered acceptable. The statistics from M1 to M6 check the characteristics of the irregular component; M7 the presence of seasonality; M8 to M11 the stability of the seasonal component. The Q-statistics are linear combinations of the M-statistics that summarize in a single number all theis information on the decomposition.
+
+**Filters** 
+
+Under the `decomposition` section it's also possible to find the specification of the filters that have been used in the estimation of the different factors. These include seasonal filters and trend filters. 
+
+The main idea of a filter is that of smoothing the observations of a time series. This is usually done by replacing each original value with linear combinations of its adjacent values. 
+
+Trend filters smooth the original series to isolate stable trends in the data. For example, a 2x4 filter can be outlined as follows:
+
+$$
+\begin{aligned}
+2002.1 &+& 2002.2 &+& 2002.3 &+& 2003.4 \\
+&& 2002.2 &+& 2002.3 &+& 2002.4 &+& 2003.1\\
+
+\hline
+&& && 8 &&   && 
+\end{aligned}
+$$
+2x4 in the above example refers to the number of "sliding windows" (2) and the number of observations in each window (4). 
+
+Seasonal filters are instead applied only to observations pertaining to the same season. For example, a 3x5 seasonal filter works as follows:
+
+$$
+\begin{aligned}
+2002.1 &+& 2003.1 &+& 2004.1 &+& 2005.1 &+& 2006.1 \\
+&& 2003.1 &+& 2004.1 &+& 2005.1 &+& 2006.1 &+& 2007.1 \\
+&& && 2004.1 &+& 2005.1 &+& 2006.1 &+& 2007.1 &+& 2008.1 \\
+\hline
+&& && &&  15 && &&
+\end{aligned}
+$$
+Here, the value of observation for the first quarter of 2005 is replaced with a linear combination of the previous and subsequent values of the series during the same season.
+
+**Forecast**
+
+The `Final` section of the X-13 function's output lists the final part of the original series, its adjusted version and explicits the different components' contribution (trend, seasonal, irregular) to each observation of the time series.  
+
+```{R}
+x13_model[3]
+```
+
+This section also provides forecast for a period after the last observations. This is based on the ARIMA model. 
+
+**Diagnostics** 
+
+The final part of the output of the X-13 function provides some additional statistics such as the Kruskall-Wallis test, the test for the presence of seasonality assuming stability, the Evolutive Seasonality test and Residual seasonality tests. 
+

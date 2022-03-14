@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 2 Seasonal Adjustment | Time Series for Official Statistics</title>
+  <meta name="description" content="Time Series methods for Official Statistics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 2 Seasonal Adjustment | Time Series for Official Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Time Series methods for Official Statistics" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 2 Seasonal Adjustment | Time Series for Official Statistics" />
+  
+  <meta name="twitter:description" content="Time Series methods for Official Statistics" />
+  
+
+<meta name="author" content="Alessandro Ciancetta and Daniele Colombo" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="arma-modeling-an-overview.html"/>
+<link rel="next" href="temporal-aggregation-and-disaggregation.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EurostatTimeSeries</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html"><i class="fa fa-check"></i><b>1</b> ARMA modeling: an overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#time-series-analysis"><i class="fa fa-check"></i><b>1.1</b> Time series analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#acf-and-pacf"><i class="fa fa-check"></i><b>1.2</b> ACF and PACF</a></li>
+<li class="chapter" data-level="1.3" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#stationarity"><i class="fa fa-check"></i><b>1.3</b> Stationarity</a></li>
+<li class="chapter" data-level="1.4" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#an-important-stationary-series-the-white-noise-process"><i class="fa fa-check"></i><b>1.4</b> An important stationary series: the white noise process</a></li>
+<li class="chapter" data-level="1.5" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#making-a-time-series-stationary"><i class="fa fa-check"></i><b>1.5</b> Making a time series stationary</a></li>
+<li class="chapter" data-level="1.6" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#wold-representation"><i class="fa fa-check"></i><b>1.6</b> Wold representation</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#ar1"><i class="fa fa-check"></i><b>1.6.1</b> AR(1)</a></li>
+<li class="chapter" data-level="1.6.2" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#estimation-and-prediction"><i class="fa fa-check"></i><b>1.6.2</b> Estimation and prediction</a></li>
+<li class="chapter" data-level="1.6.3" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#real-world-example-gdp-series"><i class="fa fa-check"></i><b>1.6.3</b> Real world example: GDP series</a></li>
+<li class="chapter" data-level="1.6.4" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#arp"><i class="fa fa-check"></i><b>1.6.4</b> AR(p)</a></li>
+<li class="chapter" data-level="1.6.5" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html#ma1"><i class="fa fa-check"></i><b>1.6.5</b> MA(1)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html"><i class="fa fa-check"></i><b>2</b> Seasonal Adjustment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#the-components-of-a-time-series"><i class="fa fa-check"></i><b>2.1</b> The components of a time series</a></li>
+<li class="chapter" data-level="2.2" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#the-causes-of-seasonality"><i class="fa fa-check"></i><b>2.2</b> The causes of seasonality</a></li>
+<li class="chapter" data-level="2.3" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#why-to-adjust-for-seasonality"><i class="fa fa-check"></i><b>2.3</b> Why to adjust for seasonality</a></li>
+<li class="chapter" data-level="2.4" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#decomposition-models"><i class="fa fa-check"></i><b>2.4</b> Decomposition models</a></li>
+<li class="chapter" data-level="2.5" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#official-programs-for-seasonal-adjustment"><i class="fa fa-check"></i><b>2.5</b> Official programs for seasonal adjustment</a></li>
+<li class="chapter" data-level="2.6" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#illustrative-example"><i class="fa fa-check"></i><b>2.6</b> Illustrative example</a></li>
+<li class="chapter" data-level="2.7" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#rjdemetra-package"><i class="fa fa-check"></i><b>2.7</b> RJDemetra package</a></li>
+<li class="chapter" data-level="2.8" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#preprocessing"><i class="fa fa-check"></i><b>2.8</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.9" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#decomposition"><i class="fa fa-check"></i><b>2.9</b> Decomposition</a></li>
+<li class="chapter" data-level="2.10" data-path="seasonal-adjustment.html"><a href="seasonal-adjustment.html#additional-output-and-forecast"><i class="fa fa-check"></i><b>2.10</b> Additional output and forecast</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html"><i class="fa fa-check"></i><b>3</b> Temporal aggregation and disaggregation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#aggregation"><i class="fa fa-check"></i><b>3.1</b> Aggregation</a></li>
+<li class="chapter" data-level="3.2" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#disaggregation"><i class="fa fa-check"></i><b>3.2</b> Disaggregation</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#denton-and-denton-cholette"><i class="fa fa-check"></i><b>3.2.1</b> Denton and Denton-Cholette</a></li>
+<li class="chapter" data-level="3.2.2" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#chow-lin-fernandez-litterman"><i class="fa fa-check"></i><b>3.2.2</b> Chow-Lin, Fernandez, Litterman</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#an-example-using-eurostat-data"><i class="fa fa-check"></i><b>3.3</b> An example using Eurostat data</a></li>
+<li class="chapter" data-level="3.4" data-path="temporal-aggregation-and-disaggregation.html"><a href="temporal-aggregation-and-disaggregation.html#references"><i class="fa fa-check"></i><b>3.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="revisions-analysis.html"><a href="revisions-analysis.html"><i class="fa fa-check"></i><b>4</b> Revisions Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="revisions-analysis.html"><a href="revisions-analysis.html#classification-of-revisions"><i class="fa fa-check"></i><b>4.1</b> Classification of revisions</a></li>
+<li class="chapter" data-level="4.2" data-path="revisions-analysis.html"><a href="revisions-analysis.html#definition-of-revisions"><i class="fa fa-check"></i><b>4.2</b> Definition of revisions</a></li>
+<li class="chapter" data-level="4.3" data-path="revisions-analysis.html"><a href="revisions-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>4.3</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="4.4" data-path="revisions-analysis.html"><a href="revisions-analysis.html#an-example-in-r"><i class="fa fa-check"></i><b>4.4</b> An example in R</a></li>
+<li class="chapter" data-level="4.5" data-path="revisions-analysis.html"><a href="revisions-analysis.html#references-1"><i class="fa fa-check"></i><b>4.5</b> References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series for Official Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="seasonal-adjustment" class="section level1" number="2">
+<h1><span class="header-section-number">Topic 2</span> Seasonal Adjustment</h1>
+<p>Many socio-economic time series present seasonal patterns. Agricultural production is inherently related with seasonal climatic conditions, the sales of many goods are higher during the Christmas period, air traffic is heavier during the summer… We can easily think of many such real-world examples.</p>
+<p>Indeed, seasonal variations are a main component in many observed time series and they depend on the relative importance that a specific month or quarter has for an activity. Of course, these variations cannot be observed in time series collected at an annual frequency (for which there are no observations in different periods of the year), so that seasonal adjustment is needed only for data with more than one observation per year.</p>
+<p>There are other sources of seasonality that can be harder to handle, for example moving-holidays and trading days variations.</p>
+<p>The <strong>moving-holiday</strong> component depends on holidays that are not always on the same day of a month and that vary according to each country’s religion and tradition. It has a strong impact on many variables: consider, for instance, the level of sales, car and air traffic, gasoline sales, etc. during Easter, the Chineese New Year, or the effect that Ramadan has on the food industry in Islamic countries. On the other hand, <strong>trading-days variations</strong> refer to the number of working days and weekends in the considered period. Many economic events occur with different frequency or intensity during Saturday or Sunday, making it important to correct the series for the number of weekends in the given month or quarter. Indeed, when we are given the observations of two different periods, this procedure allows distinguishing between the variations due merely to the presence of more weekends and the differences testifying deeper trends.</p>
+<div id="the-components-of-a-time-series" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> The components of a time series</h2>
+<p>A time series can be considered as made up by one or more of the following components: a <strong>trend</strong> component, which is the long term dynamics of the time series; a <strong>cycle</strong> components, which accounts for a repeating pattern in the stochastic process and is typical of macroeconomic time series such as GDP; a <strong>seasonal</strong> component, which gathers the fluctuations that repeat with a certain degree of regularity from year to year; a <strong>calendar-effect</strong> component, which is related to the <em>working-days variations</em> (one more Saturday or Sunday in a month could have some effects: consider for instance the higher consumption of gasoline during the week-end) and to the <em>moving-holidays</em>; an <strong>irregular</strong> component, formed by the residuals and that does not depend on other systematic components; <strong>outliers</strong>, which need to be specifically treated when estimating the models and are not removed by the procedure of seasonal adjustment.</p>
+<p>Outliers can be classified into three categories:</p>
+<ul>
+<li><em>Additive Outlier (AO)</em>: a single value outside the expected range of the time series. It can be caused by random effects or by an identifiable event, such as a strike or a flood.</li>
+<li><em>Temporary Change (TC)</em>: after an extremely high or low value is observed, it takes some time for the series to come back to its initial level. The Covid-19 pandemic could be considered as such.</li>
+<li><em>Level Shift (LS)</em>: a sudden and permanent change in the level of the time series after a given period. It often depends on changes in the definition of the survey population and in the collection method.</li>
+</ul>
+</div>
+<div id="the-causes-of-seasonality" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> The causes of seasonality</h2>
+<p>Seasonality can arise for different reasons, as in the examples above. It can be caused by <strong>climatic cycles</strong>, as the differences in temperature and weather in different seasons, or by <strong>institutions</strong>, namely the social habits, traditional festivals and also administrative rules and deadlines.</p>
+</div>
+<div id="why-to-adjust-for-seasonality" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Why to adjust for seasonality</h2>
+<p>The main reason for seasonal adjustment is to distinguish between the seasonal component and the other sources of variability in the original data. Indeed, seasonally-adjusted data reflect the variations due only to the other components. This allows for a more consisten <strong>comparation</strong> across time and space. For instance, we can use adjusted data to compare the industrial production in March with that of the Christmas holidays, or to compare countries with different climates or vacations. Moreover, the seasonally adjusted series gives far more perspicuous information about current economic conditions, which is essential to <strong>business cycle analysis</strong>. For this reason, it is the ground for forecasting and decision making.</p>
+</div>
+<div id="decomposition-models" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Decomposition models</h2>
+<p>We can think the different components of a time series to build the series in different ways.</p>
+<p>The <strong>additive model</strong> consider the series as the sum of the components:</p>
+<p><span class="math display">\[
+Y_t = T_t + C_t + S_t + I_t
+\]</span>
+The <strong>multiplicative mode</strong>, instead, considers the product of the components:</p>
+<p><span class="math display">\[
+Y_t = T_t \cdot C_t \cdot S_t \cdot I_t
+\]</span>
+While the additive models are a good choice for series that (even if not trend-stationary) present changing variance, the multiplicative models are better suited to deal with time series whose variance changes over time.</p>
+</div>
+<div id="official-programs-for-seasonal-adjustment" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Official programs for seasonal adjustment</h2>
+<p>Seasonal adjustment is usually performed by official statistics institutions, which publish already-deseasonalized time series. There are two standard software and procedures for seasonal adjustment:</p>
+<ul>
+<li>X-13-ARIMA, developed by the Census Bureau. It uses a filter-based, non-parametric approach to estimate the seasonal component.</li>
+<li>TRAMO-SEATS, developed by the Bank of Spain.It uses a model-based, parametric method to decompose the time series.</li>
+</ul>
+<p>The software JDemetra+, developed by Eurostat, easily allows to perform the seasonal adjustment with both the X13-ARIMA and TRAMO-SEATS methods. In what follows, we will show how to use the R interface to JDemetra+ provided by the <code>RJDemetra</code> package. Before doing that, we will present a simple example giving an intuition of the procedure.</p>
+</div>
+<div id="illustrative-example" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Illustrative example</h2>
+<p>We will now display a simple procedure to seasonally adjust a time series.</p>
+<p>Consider the following time series (which we will denote as <code>time_series</code>), collecting observations over four years, measured with a quarter-year frequency. If we plot it we can see that it displays a clear recurring pattern.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="seasonal-adjustment.html#cb153-1" aria-hidden="true" tabindex="-1"></a>time_series <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>,<span class="dv">21</span>,<span class="dv">34</span>,<span class="dv">9</span>,<span class="dv">15</span>,<span class="dv">18</span>,<span class="dv">39</span>,<span class="dv">11</span>,<span class="dv">19</span>,<span class="dv">22</span>,<span class="dv">31</span>,<span class="dv">13</span>,<span class="dv">19</span>,<span class="dv">18</span>,<span class="dv">31</span>,<span class="dv">11</span>)</span>
+<span id="cb153-2"><a href="seasonal-adjustment.html#cb153-2" aria-hidden="true" tabindex="-1"></a>T_ts <span class="ot">&lt;-</span> <span class="fu">length</span>(time_series)</span>
+<span id="cb153-3"><a href="seasonal-adjustment.html#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(time_series, <span class="at">type=</span><span class="st">&quot;b&quot;</span>, <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Quarter&quot;</span>)</span>
+<span id="cb153-4"><a href="seasonal-adjustment.html#cb153-4" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span>T_ts, <span class="at">labels=</span><span class="fu">rep</span>(<span class="fu">paste0</span>(<span class="st">&quot;Q&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), T_ts<span class="sc">/</span><span class="dv">4</span>), <span class="at">cex.axis=</span><span class="fl">0.7</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-21.png" width="672" /></p>
+<p>As a first step, we collect the data into a table. As already highlighted by the plot, we can note that, in every year, the highest observation is the one corresponding to the third quarter, and the lowest corresponds to the fourth quarter.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="seasonal-adjustment.html#cb154-1" aria-hidden="true" tabindex="-1"></a>tble <span class="ot">&lt;-</span> time_series</span>
+<span id="cb154-2"><a href="seasonal-adjustment.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(tble)<span class="ot">=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>)</span>
+<span id="cb154-3"><a href="seasonal-adjustment.html#cb154-3" aria-hidden="true" tabindex="-1"></a>tble <span class="ot">&lt;-</span> <span class="fu">t</span>(tble)</span>
+<span id="cb154-4"><a href="seasonal-adjustment.html#cb154-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(tble) <span class="ot">&lt;-</span> <span class="dv">1990</span><span class="sc">:</span><span class="dv">1993</span></span>
+<span id="cb154-5"><a href="seasonal-adjustment.html#cb154-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tble) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;Q&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb154-6"><a href="seasonal-adjustment.html#cb154-6" aria-hidden="true" tabindex="-1"></a>tble</span></code></pre></div>
+<pre><code>##      Q1 Q2 Q3 Q4
+## 1990 19 21 34  9
+## 1991 15 18 39 11
+## 1992 19 22 31 13
+## 1993 19 18 31 11</code></pre>
+<p>We can then compute the average value of the series for every year:</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="seasonal-adjustment.html#cb156-1" aria-hidden="true" tabindex="-1"></a>average<span class="ot">=</span><span class="fu">rowMeans</span>(tble)</span>
+<span id="cb156-2"><a href="seasonal-adjustment.html#cb156-2" aria-hidden="true" tabindex="-1"></a>tble_1<span class="ot">=</span><span class="fu">cbind</span>(tble, average)</span>
+<span id="cb156-3"><a href="seasonal-adjustment.html#cb156-3" aria-hidden="true" tabindex="-1"></a>tble_1</span></code></pre></div>
+<pre><code>##      Q1 Q2 Q3 Q4 average
+## 1990 19 21 34  9   20.75
+## 1991 15 18 39 11   20.75
+## 1992 19 22 31 13   21.25
+## 1993 19 18 31 11   19.75</code></pre>
+<p>We then divide each value by the average of its corresponding year. In doing so, we obtain a table collecting all the percentage deviations from each year’s average.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="seasonal-adjustment.html#cb158-1" aria-hidden="true" tabindex="-1"></a>tble_2 <span class="ot">&lt;-</span> tble_1[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]<span class="sc">/</span>average</span>
+<span id="cb158-2"><a href="seasonal-adjustment.html#cb158-2" aria-hidden="true" tabindex="-1"></a>tble_2</span></code></pre></div>
+<pre><code>##             Q1        Q2       Q3        Q4
+## 1990 0.9156627 1.0120482 1.638554 0.4337349
+## 1991 0.7228916 0.8674699 1.879518 0.5301205
+## 1992 0.8941176 1.0352941 1.458824 0.6117647
+## 1993 0.9620253 0.9113924 1.569620 0.5569620</code></pre>
+<p>We now average over each quarter to get what are called “Seasonal Indices”. These express, for each quarter, how much the corresponding observations tend to deviate from the average. They are therefore a measure of the seasonal effect present in the series.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="seasonal-adjustment.html#cb160-1" aria-hidden="true" tabindex="-1"></a>SIndex <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(tble_2)</span>
+<span id="cb160-2"><a href="seasonal-adjustment.html#cb160-2" aria-hidden="true" tabindex="-1"></a>tble_3 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(tble_2, SIndex)</span>
+<span id="cb160-3"><a href="seasonal-adjustment.html#cb160-3" aria-hidden="true" tabindex="-1"></a>tble_3</span></code></pre></div>
+<pre><code>##               Q1        Q2       Q3        Q4
+## 1990   0.9156627 1.0120482 1.638554 0.4337349
+## 1991   0.7228916 0.8674699 1.879518 0.5301205
+## 1992   0.8941176 1.0352941 1.458824 0.6117647
+## 1993   0.9620253 0.9113924 1.569620 0.5569620
+## SIndex 0.8736743 0.9565511 1.636629 0.5331455</code></pre>
+<p>Interestingly, the sum of the indices is always equal to the number of “seasons” (in our case of quarters) present.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="seasonal-adjustment.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(SIndex)</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p>Finally, to deseasonalize the original series (that is to remove the “seasonal effect” as summarized by the seasonal indices), we divide each observation by the corresponding seasonal indicex according to the formula:</p>
+<p><span class="math display">\[
+\text{Deseasonalized} = \frac{\text{Observed}}{\text{Seasonal Index}}
+\]</span></p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="seasonal-adjustment.html#cb164-1" aria-hidden="true" tabindex="-1"></a>tble_4 <span class="ot">&lt;-</span> tble<span class="sc">/</span>SIndex[<span class="fu">col</span>(tble)]</span>
+<span id="cb164-2"><a href="seasonal-adjustment.html#cb164-2" aria-hidden="true" tabindex="-1"></a>tble_4</span></code></pre></div>
+<pre><code>##            Q1       Q2       Q3       Q4
+## 1990 21.74723 21.95387 20.77441 16.88094
+## 1991 17.16887 18.81760 23.82947 20.63226
+## 1992 21.74723 22.99929 18.94137 24.38359
+## 1993 21.74723 18.81760 18.94137 20.63226</code></pre>
+<p>We can finally plot the resulting series:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="seasonal-adjustment.html#cb166-1" aria-hidden="true" tabindex="-1"></a>result<span class="ot">=</span><span class="fu">as.vector</span>(<span class="fu">t</span>(tble_4))</span>
+<span id="cb166-2"><a href="seasonal-adjustment.html#cb166-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result, <span class="at">type=</span><span class="st">&quot;b&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">40</span>), <span class="at">xlab=</span><span class="st">&quot;Quarter&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Deseasonalized time_series&quot;</span>, <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb166-3"><a href="seasonal-adjustment.html#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span>T_ts, <span class="at">labels=</span><span class="fu">rep</span>(<span class="fu">paste0</span>(<span class="st">&quot;Q&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), T_ts<span class="sc">/</span><span class="dv">4</span>), <span class="at">cex.axis=</span><span class="fl">0.7</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>We can appreciate how the resulting time series is way smoother than the original and, more importantly, no longer exhibits a clear seasonal pattern.</p>
+<p>The actual algorithms and models employed to perform seasonal adjustment are more sophisticated, but the previous example can still gives good insight of what seasonal adjustment is about.</p>
+</div>
+<div id="rjdemetra-package" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> RJDemetra package</h2>
+<p><strong>Remark:</strong> the RJDemetra package requires the preliminary installation of Java SE 8 (or later versions) and the R pakcage <a href="https://cran.r-project.org/package=rJava">rJava</a>.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="seasonal-adjustment.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;rJava&quot;)</span></span>
+<span id="cb167-2"><a href="seasonal-adjustment.html#cb167-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;RJDemetra&quot;)</span></span>
+<span id="cb167-3"><a href="seasonal-adjustment.html#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RJDemetra)</span></code></pre></div>
+<p>To illustrate the functioning of the package we will usa the dataset embedded in it, <code>ipi_c_eu</code>, which collects monthly industrial production indices in manifacturing in the EU. The baseline year is 2015 and the series are unadjusted.</p>
+<p>When using your own data, you shall transform them in a Time-Series object. Here we provide an example:</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="seasonal-adjustment.html#cb168-1" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1943.1</span>,<span class="fl">1951.53</span>,<span class="fl">1983.23</span>,<span class="fl">1927.27</span>,<span class="fl">2054.57</span>,<span class="fl">2056.27</span>,<span class="fl">2019.18</span>,<span class="fl">2072.2</span>,<span class="fl">2069.99</span>,<span class="fl">2082.86</span>,<span class="fl">2111.94</span>,<span class="fl">2099.29</span>,<span class="fl">2094.14</span>,<span class="fl">2039.87</span>,<span class="fl">1944.41</span>,<span class="fl">2024.81</span>,<span class="fl">2080.62</span>,<span class="fl">2054.08</span>,<span class="fl">1918.6</span>,<span class="fl">1904.42</span>,<span class="fl">2021.95</span>,<span class="fl">2075.54</span>,<span class="fl">2065.55</span>,<span class="fl">2083.89</span>,<span class="fl">2148.9</span>,<span class="fl">2170.95</span>,<span class="fl">2157.69</span>,<span class="fl">2143.02</span>,<span class="fl">2164.99</span>,<span class="fl">2246.63</span>,<span class="fl">2275.12</span>,<span class="fl">2329.91</span>,<span class="fl">2366.82</span>,<span class="fl">2359.31</span>,<span class="fl">2395.35</span>,<span class="fl">2433.99</span>)</span>
+<span id="cb168-2"><a href="seasonal-adjustment.html#cb168-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-3"><a href="seasonal-adjustment.html#cb168-3" aria-hidden="true" tabindex="-1"></a>example_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(example_data, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>,<span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb168-4"><a href="seasonal-adjustment.html#cb168-4" aria-hidden="true" tabindex="-1"></a>example_ts</span></code></pre></div>
+<pre><code>##          Jan     Feb     Mar     Apr     May     Jun     Jul     Aug     Sep     Oct     Nov     Dec
+## 2010 1943.10 1951.53 1983.23 1927.27 2054.57 2056.27 2019.18 2072.20 2069.99 2082.86 2111.94 2099.29
+## 2011 2094.14 2039.87 1944.41 2024.81 2080.62 2054.08 1918.60 1904.42 2021.95 2075.54 2065.55 2083.89
+## 2012 2148.90 2170.95 2157.69 2143.02 2164.99 2246.63 2275.12 2329.91 2366.82 2359.31 2395.35 2433.99</code></pre>
+<p>We take as an example the data for France from <code>ipi_c_eu</code>:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="seasonal-adjustment.html#cb170-1" aria-hidden="true" tabindex="-1"></a>ipi_fr <span class="ot">&lt;-</span> ipi_c_eu[,<span class="st">&quot;FR&quot;</span>]  </span>
+<span id="cb170-2"><a href="seasonal-adjustment.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ipi_fr)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p>As explained in the first section, the two most common procedures are the X-13ARIMA-SEATS method and the TRAMO-SEATS method. They both consist of two linked parts: the preprocessing step and the decomposition step. The first is common to both procedures and is based on fitting a RegARIMA model to estimate the effect of trading day variations and outliers and remove them from the original series.</p>
+</div>
+<div id="preprocessing" class="section level2" number="2.8">
+<h2><span class="header-section-number">2.8</span> Preprocessing</h2>
+<p>The RegARIMA model (model with ARIMA errors) is specified as</p>
+<p><span class="math display">\[
+z_t=y_t \cdot \beta+x_t
+\]</span>
+where</p>
+<p>• <span class="math inline">\(z_t\)</span> is the original series;</p>
+<p>• <span class="math inline">\(β = (β_1, ..., β_n)\)</span> is a vector of regression coefficients;</p>
+<p>• <span class="math inline">\(y_t = (y_{1t}, ..., y_{nt})\)</span> are <span class="math inline">\(n\)</span> regression variables (outliers, calendar effects, user-defined variables);</p>
+<p>• <span class="math inline">\(x_t\)</span> is a disturbance that follows the general ARIMA process.</p>
+<p>Note that the automatically identified specification of the RegARIMA model might differ between X-13 and TRAMO-SEATS (meaning that the number of RA or MA components can be different) but the fitting procedure is the same.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="seasonal-adjustment.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">x13</span>(ipi_fr)<span class="sc">$</span>regarima</span></code></pre></div>
+<pre><code>## y = regression model + arima (2, 1, 1, 0, 1, 1)
+## Log-transformation: no
+## Coefficients:
+##             Estimate Std. Error
+## Phi(1)     0.0003269      0.108
+## Phi(2)     0.1688192      0.074
+## Theta(1)  -0.5485606      0.102
+## BTheta(1) -0.6660849      0.042
+## 
+##               Estimate Std. Error
+## Monday         0.55932      0.228
+## Tuesday        0.88221      0.228
+## Wednesday      1.03996      0.229
+## Thursday       0.04943      0.229
+## Friday         0.91132      0.230
+## Saturday      -1.57769      0.228
+## Leap year      2.15403      0.705
+## Easter [1]    -2.37950      0.454
+## TC (4-2020)  -35.59245      2.173
+## AO (3-2020)  -20.89026      2.180
+## AO (5-2011)   13.49850      1.857
+## LS (11-2008) -12.54901      1.636
+## 
+## 
+## Residual standard error: 2.218 on 342 degrees of freedom
+## Log likelihood = -799.1, aic =  1632 aicc =  1634, bic(corrected for length) = 1.855</code></pre>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="seasonal-adjustment.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tramoseats</span>(ipi_fr)<span class="sc">$</span>regarima</span></code></pre></div>
+<pre><code>## y = regression model + arima (2, 1, 0, 0, 1, 1)
+## Log-transformation: no
+## Coefficients:
+##           Estimate Std. Error
+## Phi(1)      0.4032      0.051
+## Phi(2)      0.2883      0.051
+## BTheta(1)  -0.6641      0.042
+## 
+##             Estimate Std. Error
+## Week days     0.6994      0.032
+## Leap year     2.3231      0.690
+## Easter [6]   -2.5154      0.436
+## AO (5-2011)  13.4679      1.787
+## TC (4-2020) -22.2128      2.205
+## TC (3-2020) -21.0391      2.217
+## AO (5-2000)   6.7386      1.794
+## 
+## 
+## Residual standard error: 2.326 on 348 degrees of freedom
+## Log likelihood = -816.1, aic =  1654 aicc =  1655, bic(corrected for length) = 1.852</code></pre>
+<p>As we can see, the functions <code>x13</code> and <code>tramoseats</code> automatically fit the best RegARIMA model for the given time series. For the regressive part (<span class="math inline">\(y_t\)</span>), the functions include several dummy variables to check for the effects of the weekdays (Monday-Saturday) and outliers. The outliers are reported in parentheses and classified according to their type (Additive Outliers, Transitory Change, Level Shift). The ARIMA model is automatically selected to best fit the data, by choosing the number of autoregressive and moving average components (both regular and seasonal). Regular components are constrained to be at most 3, while seasonal components can be at most 1 per type. The frequency of observations per year (that is, the number of observations per year) is automatically detected. The output reports the estimated coefficients and the standard errors.</p>
+</div>
+<div id="decomposition" class="section level2" number="2.9">
+<h2><span class="header-section-number">2.9</span> Decomposition</h2>
+<p>The second part instead differs across the two procedures. X-13 is based on a non-parametric filter approach and exploits the X-11 algorithm, while TRAMO-SEATS is parametric.</p>
+<p>The main idea here is that a time series, depending on its characteristics, can be decomposed into trend, cycle, seasonal component and residual. That is:</p>
+<p><span class="math display">\[
+x_t  = T_t + C_t + S_t + I_t
+\]</span></p>
+<p>An alternative model is the multiplicative one, which is used when the variance of the time series is not constant but increases over time:</p>
+<p><span class="math display">\[
+x_t  = T_t\cdot C_t \cdot S_t \cdot I_t
+\]</span>
+or</p>
+<p><span class="math display">\[
+x_t  = T_t\cdot (1 + C_t) \cdot (1 + S_t) \cdot (1 + I_t)
+\]</span>
+For this example we use the X-13 procedure.</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="seasonal-adjustment.html#cb175-1" aria-hidden="true" tabindex="-1"></a>x13_model <span class="ot">&lt;-</span> <span class="fu">x13</span>(ipi_fr)</span></code></pre></div>
+<p>We begin by plotting the series, and noting right away that the seasonal component is very strong: every year, during summer, industrial production in France is notably lower than during the rest of the year</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="seasonal-adjustment.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Original series</span></span>
+<span id="cb176-2"><a href="seasonal-adjustment.html#cb176-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x13_model<span class="sc">$</span>final<span class="sc">$</span>series[,<span class="dv">1</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p>Next, the trend is recovered by means of an n-order polynomial smoothing procedure. This can be thought of as a simple approximation of the series’ shape.</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="seasonal-adjustment.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Trend of the series</span></span>
+<span id="cb177-2"><a href="seasonal-adjustment.html#cb177-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x13_model<span class="sc">$</span>final<span class="sc">$</span>series[,<span class="dv">3</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p>By subtracting the trend to the original series we are left with the seasonal component:</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="seasonal-adjustment.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Seasonal component</span></span>
+<span id="cb178-2"><a href="seasonal-adjustment.html#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x13_model<span class="sc">$</span>final<span class="sc">$</span>series[,<span class="dv">4</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p>At this stage, the seasonal components are averaged across every year to get the Seasonal Indices (one per month in our case).</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="seasonal-adjustment.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Seasonal indices</span></span>
+<span id="cb179-2"><a href="seasonal-adjustment.html#cb179-2" aria-hidden="true" tabindex="-1"></a>seasonal_index <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(<span class="fu">matrix</span>(x13_model<span class="sc">$</span>final<span class="sc">$</span>series[,<span class="dv">4</span>], <span class="at">nrow =</span> <span class="dv">30</span>, <span class="at">ncol =</span> <span class="dv">12</span>, <span class="at">byrow =</span> T))</span></code></pre></div>
+<pre><code>## Warning in matrix(x13_model$final$series[, 4], nrow = 30, ncol = 12, byrow = T): data length [372] is not a
+## sub-multiple or multiple of the number of rows [30]</code></pre>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="seasonal-adjustment.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(seasonal_index, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p>which repeated for every year gives</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="seasonal-adjustment.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Overall period</span></span>
+<span id="cb182-2"><a href="seasonal-adjustment.html#cb182-2" aria-hidden="true" tabindex="-1"></a>seasonal_index_repeated <span class="ot">&lt;-</span> <span class="fu">rep</span>(seasonal_index, <span class="at">times =</span> <span class="dv">30</span>)</span>
+<span id="cb182-3"><a href="seasonal-adjustment.html#cb182-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(seasonal_index_repeated, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p>By subtracting the last series to the original data we obtain the seasonally adjusted series (that is the series where the seasonal component has been removed).</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="seasonal-adjustment.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Seasonally adjusted series</span></span>
+<span id="cb183-2"><a href="seasonal-adjustment.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x13_model<span class="sc">$</span>final<span class="sc">$</span>series[,<span class="dv">2</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p>Finally, this resulting series is newly approximated with the polynomial smoothing procedure and the difference between the seasonally adjusted series and this last result gives the residuals:</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="seasonal-adjustment.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Residuals</span></span>
+<span id="cb184-2"><a href="seasonal-adjustment.html#cb184-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x13_model<span class="sc">$</span>final<span class="sc">$</span>series[,<span class="dv">5</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+</div>
+<div id="additional-output-and-forecast" class="section level2" number="2.10">
+<h2><span class="header-section-number">2.10</span> Additional output and forecast</h2>
+<p><strong>M and Q statistics</strong></p>
+<p>The X-13 function also provides the M-statistic and the Q-statistic. These can be found under the <code>decomposition</code> section of the output:</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="seasonal-adjustment.html#cb185-1" aria-hidden="true" tabindex="-1"></a>x13_model[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## $decomposition
+## [1m Monitoring and Quality Assessment Statistics: [22m 
+##       M stats
+## M(1)    0.163
+## M(2)    0.089
+## M(3)    1.181
+## M(4)    0.558
+## M(5)    1.020
+## M(6)    0.090
+## M(7)    0.083
+## M(8)    0.244
+## M(9)    0.062
+## M(10)   0.272
+## M(11)   0.256
+## Q       0.368
+## Q-M2    0.402
+## 
+## Final filters: 
+## Seasonal filter:  3x5
+## Trend filter:  13 terms Henderson moving average</code></pre>
+<p>The M-statistics are a set of 11 statistics that check the quality of the seasonal adjustment. Their value varies between 0 and 3 but only values smaller than 1 are considered acceptable. The statistics from M1 to M6 check the characteristics of the irregular component; M7 the presence of seasonality; M8 to M11 the stability of the seasonal component. The Q-statistics are linear combinations of the M-statistics that summarize in a single number all theis information on the decomposition.</p>
+<p><strong>Filters</strong></p>
+<p>Under the <code>decomposition</code> section it’s also possible to find the specification of the filters that have been used in the estimation of the different factors. These include seasonal filters and trend filters.</p>
+<p>The main idea of a filter is that of smoothing the observations of a time series. This is usually done by replacing each original value with linear combinations of its adjacent values.</p>
+<p>Trend filters smooth the original series to isolate stable trends in the data. For example, a 2x4 filter can be outlined as follows:</p>
+$$
+<span class="math display">\[\begin{aligned}
+2002.1 &amp;+&amp; 2002.2 &amp;+&amp; 2002.3 &amp;+&amp; 2003.4 \\
+&amp;&amp; 2002.2 &amp;+&amp; 2002.3 &amp;+&amp; 2002.4 &amp;+&amp; 2003.1\\
+
+\hline
+&amp;&amp; &amp;&amp; 8 &amp;&amp;   &amp;&amp; 
+\end{aligned}\]</span>
+<p>$$
+2x4 in the above example refers to the number of “sliding windows” (2) and the number of observations in each window (4).</p>
+<p>Seasonal filters are instead applied only to observations pertaining to the same season. For example, a 3x5 seasonal filter works as follows:</p>
+<p><span class="math display">\[
+\begin{aligned}
+2002.1 &amp;+&amp; 2003.1 &amp;+&amp; 2004.1 &amp;+&amp; 2005.1 &amp;+&amp; 2006.1 \\
+&amp;&amp; 2003.1 &amp;+&amp; 2004.1 &amp;+&amp; 2005.1 &amp;+&amp; 2006.1 &amp;+&amp; 2007.1 \\
+&amp;&amp; &amp;&amp; 2004.1 &amp;+&amp; 2005.1 &amp;+&amp; 2006.1 &amp;+&amp; 2007.1 &amp;+&amp; 2008.1 \\
+\hline
+&amp;&amp; &amp;&amp; &amp;&amp;  15 &amp;&amp; &amp;&amp;
+\end{aligned}
+\]</span>
+Here, the value of observation for the first quarter of 2005 is replaced with a linear combination of the previous and subsequent values of the series during the same season.</p>
+<p><strong>Forecast</strong></p>
+<p>The <code>Final</code> section of the X-13 function’s output lists the final part of the original series, its adjusted version and explicits the different components’ contribution (trend, seasonal, irregular) to each observation of the time series.</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="seasonal-adjustment.html#cb187-1" aria-hidden="true" tabindex="-1"></a>x13_model[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## $final
+## Last observed values
+##              y        sa        t            s             i
+## Jan 2020 101.0 102.95613 102.9586  -1.95613209  -0.002494203
+## Feb 2020 100.1 103.50876 102.9592  -3.40875640   0.549602816
+## Mar 2020  91.8  82.87617 103.1664   8.92382800 -20.290271773
+## Apr 2020  66.7  66.65243 103.5971   0.04756625 -36.944710027
+## May 2020  73.7  78.87836 104.0393  -5.17835604 -25.160905985
+## Jun 2020  98.2  87.34544 104.3804  10.85456021 -17.034985133
+## Jul 2020  97.4  92.47436 104.5319   4.92563707 -12.057551871
+## Aug 2020  71.7  97.47245 104.3751 -25.77244698  -6.902636199
+## Sep 2020 104.7  97.37717 103.9182   7.32282919  -6.541070626
+## Oct 2020 106.7  98.24194 103.3047   8.45805540  -5.062719500
+## Nov 2020 101.6 100.26862 102.7746   1.33138152  -2.506014899
+## Dec 2020  96.6  99.66730 102.5133  -3.06729670  -2.845961796
+## 
+## Forecasts:
+##                y_f     sa_f      t_f          s_f        i_f
+## Jan 2021  94.53021 101.0902 102.4794  -6.56002888 -1.3891608
+## Feb 2021  97.90024 101.7395 102.5246  -3.83928384 -0.7850772
+## Mar 2021 114.09983 102.3065 102.5087  11.79328397 -0.2021598
+## Apr 2021 102.16781 102.2220 102.3759  -0.05422341 -0.1538967
+## May 2021  96.01612 101.5450 102.2100  -5.52888123 -0.6650098
+## Jun 2021 112.76658 101.3438 102.0725  11.42275939 -0.7286526
+## Jul 2021 104.13805 101.6681 102.0297   2.46989932 -0.3615193
+## Aug 2021  79.13003 102.3617 102.1360 -23.23171595  0.2257112
+## Sep 2021 109.06438 102.4772 102.3249   6.58713572  0.1523168
+## Oct 2021 108.64207 102.1329 102.5185   6.50921416 -0.3856588
+## Nov 2021 106.46022 102.5908 102.6996   3.86943752 -0.1088338
+## Dec 2021  99.79901 103.0831 102.8580  -3.28410831  0.2251086</code></pre>
+<p>This section also provides forecast for a period after the last observations. This is based on the ARIMA model.</p>
+<p><strong>Diagnostics</strong></p>
+<p>The final part of the output of the X-13 function provides some additional statistics such as the Kruskall-Wallis test, the test for the presence of seasonality assuming stability, the Evolutive Seasonality test and Residual seasonality tests.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="arma-modeling-an-overview.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="temporal-aggregation-and-disaggregation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aciancetta/Euorostat-EMOS-TimeSeries/edit/master/02-seasonal_adjustment.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/aciancetta/Euorostat-EMOS-TimeSeries/blob/master/02-seasonal_adjustment.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

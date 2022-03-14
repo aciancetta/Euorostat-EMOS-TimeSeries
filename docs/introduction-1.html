@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 5 Introduction | Time Series for Official Statistics</title>
+  <meta name="description" content="Time Series methods for Official Statistics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 5 Introduction | Time Series for Official Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Time Series methods for Official Statistics" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 5 Introduction | Time Series for Official Statistics" />
+  
+  <meta name="twitter:description" content="Time Series methods for Official Statistics" />
+  
+
+<meta name="author" content="Alessandro Ciancetta and Daniele Colombo" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="a-caucus-race-and-a-long-tale.html"/>
+<link rel="next" href="illustrative-example.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EurostatTimeSeries</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-time-series-analysis.html"><a href="introduction-to-time-series-analysis.html"><i class="fa fa-check"></i><b>1</b> Introduction to Time Series Analysis</a></li>
+<li class="chapter" data-level="2" data-path="arma-modeling-an-overview.html"><a href="arma-modeling-an-overview.html"><i class="fa fa-check"></i><b>2</b> ARMA modeling: an overview</a></li>
+<li class="chapter" data-level="3" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>3</b> 1) INTRODUCTION</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction.html"><a href="introduction.html#time-series"><i class="fa fa-check"></i><b>3.1</b> Time series</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction.html"><a href="introduction.html#acf-and-pacf"><i class="fa fa-check"></i><b>3.2</b> ACF and PACF</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction.html"><a href="introduction.html#stationarity"><i class="fa fa-check"></i><b>3.3</b> Stationarity</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction.html"><a href="introduction.html#an-important-stationary-series-the-white-noise-process"><i class="fa fa-check"></i><b>3.4</b> An important stationary series: the white noise process</a></li>
+<li class="chapter" data-level="3.5" data-path="introduction.html"><a href="introduction.html#making-a-time-series-stationary"><i class="fa fa-check"></i><b>3.5</b> Making a time series stationary</a></li>
+<li class="chapter" data-level="3.6" data-path="introduction.html"><a href="introduction.html#wold-representation"><i class="fa fa-check"></i><b>3.6</b> Wold representation</a></li>
+<li class="chapter" data-level="3.7" data-path="introduction.html"><a href="introduction.html#ar1"><i class="fa fa-check"></i><b>3.7</b> AR(1)</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="introduction.html"><a href="introduction.html#estimation-and-prediction"><i class="fa fa-check"></i><b>3.7.1</b> Estimation and prediction</a></li>
+<li class="chapter" data-level="3.7.2" data-path="introduction.html"><a href="introduction.html#real-world-example-gdp-series"><i class="fa fa-check"></i><b>3.7.2</b> Real world example: GDP series</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="introduction.html"><a href="introduction.html#arp"><i class="fa fa-check"></i><b>3.8</b> AR(p)</a></li>
+<li class="chapter" data-level="3.9" data-path="introduction.html"><a href="introduction.html#ma1"><i class="fa fa-check"></i><b>3.9</b> MA(1)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>4</b> A caucus-race and a long tale</a></li>
+<li class="chapter" data-level="5" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>5</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="introduction-1.html"><a href="introduction-1.html#the-components-of-a-time-series"><i class="fa fa-check"></i><b>5.0.1</b> The components of a time series</a></li>
+<li class="chapter" data-level="5.0.2" data-path="introduction-1.html"><a href="introduction-1.html#the-causes-of-seasonality"><i class="fa fa-check"></i><b>5.0.2</b> The causes of seasonality</a></li>
+<li class="chapter" data-level="5.0.3" data-path="introduction-1.html"><a href="introduction-1.html#why-to-adjust-for-seasonality"><i class="fa fa-check"></i><b>5.0.3</b> Why to adjust for seasonality</a></li>
+<li class="chapter" data-level="5.1" data-path="introduction-1.html"><a href="introduction-1.html#decomposition-models"><i class="fa fa-check"></i><b>5.1</b> Decomposition models</a></li>
+<li class="chapter" data-level="5.2" data-path="introduction-1.html"><a href="introduction-1.html#official-programs-for-seasonal-adjustment"><i class="fa fa-check"></i><b>5.2</b> Official programs for seasonal adjustment</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="illustrative-example.html"><a href="illustrative-example.html"><i class="fa fa-check"></i><b>6</b> Illustrative example</a></li>
+<li class="chapter" data-level="7" data-path="rjdemetra-package.html"><a href="rjdemetra-package.html"><i class="fa fa-check"></i><b>7</b> RJDemetra package</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="rjdemetra-package.html"><a href="rjdemetra-package.html#preprocessing"><i class="fa fa-check"></i><b>7.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="7.2" data-path="rjdemetra-package.html"><a href="rjdemetra-package.html#decomposition"><i class="fa fa-check"></i><b>7.2</b> Decomposition</a></li>
+<li class="chapter" data-level="7.3" data-path="rjdemetra-package.html"><a href="rjdemetra-package.html#additional-output-and-forecast"><i class="fa fa-check"></i><b>7.3</b> Additional output and forecast</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series for Official Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-1" class="section level1" number="5">
+<h1><span class="header-section-number">Topic 5</span> Introduction</h1>
+<p>Many socio-economic time series present seasonal patterns. Agricultural production is inherently related with seasonal climatic conditions, the sales of many goods are higher during the Christmas period, air traffic is heavier during the summer… We can easily think of many such real-world examples.</p>
+<p>Indeed, seasonal variations are a main component in many observed time series and they depend on the relative importance that a specific month or quarter has for an activity. Of course, these variations cannot be observed in time series collected at an annual frequency (for which there are no observations in different periods of the year), so that seasonal adjustment is needed only for data with more than one observation per year.</p>
+<p>There are other sources of seasonality that can be harder to handle, for example moving-holidays and trading days variations.</p>
+<p>The <strong>moving-holiday</strong> component depends on holidays that are not always on the same day of a month and that vary according to each country’s religion and tradition. It has a strong impact on many variables: consider, for instance, the level of sales, car and air traffic, gasoline sales, etc. during Easter, the Chineese New Year, or the effect that Ramadan has on the food industry in Islamic countries. On the other hand, <strong>trading-days variations</strong> refer to the number of working days and weekends in the considered period. Many economic events occur with different frequency or intensity during Saturday or Sunday, making it important to correct the series for the number of weekends in the given month or quarter. Indeed, when we are given the observations of two different periods, this procedure allows distinguishing between the variations due merely to the presence of more weekends and the differences testifying deeper trends.</p>
+<div id="the-components-of-a-time-series" class="section level3" number="5.0.1">
+<h3><span class="header-section-number">5.0.1</span> The components of a time series</h3>
+<p>A time series can be considered as made up by one or more of the following components: a <strong>trend</strong> component, which is the long term dynamics of the time series; a <strong>cycle</strong> components, which accounts for a repeating pattern in the stochastic process and is typical of macroeconomic time series such as GDP; a <strong>seasonal</strong> component, which gathers the fluctuations that repeat with a certain degree of regularity from year to year; a <strong>calendar-effect</strong> component, which is related to the <em>working-days variations</em> (one more Saturday or Sunday in a month could have some effects: consider for instance the higher consumption of gasoline during the week-end) and to the <em>moving-holidays</em>; an <strong>irregular</strong> component, formed by the residuals and that does not depend on other systematic components; <strong>outliers</strong>, which need to be specifically treated when estimating the models and are not removed by the procedure of seasonal adjustment.</p>
+<p>Outliers can be classified into three categories:</p>
+<ul>
+<li><em>Additive Outlier (AO)</em>: a single value outside the expected range of the time series. It can be caused by random effects or by an identifiable event, such as a strike or a flood.</li>
+<li><em>Temporary Change (TC)</em>: after an extremely high or low value is observed, it takes some time for the series to come back to its initial level. The Covid-19 pandemic could be considered as such.</li>
+<li><em>Level Shift (LS)</em>: a sudden and permanent change in the level of the time series after a given period. It often depends on changes in the definition of the survey population and in the collection method.</li>
+</ul>
+</div>
+<div id="the-causes-of-seasonality" class="section level3" number="5.0.2">
+<h3><span class="header-section-number">5.0.2</span> The causes of seasonality</h3>
+<p>Seasonality can arise for different reasons, as in the examples above. It can be caused by <strong>climatic cycles</strong>, as the differences in temperature and weather in different seasons, or by <strong>institutions</strong>, namely the social habits, traditional festivals and also administrative rules and deadlines.</p>
+</div>
+<div id="why-to-adjust-for-seasonality" class="section level3" number="5.0.3">
+<h3><span class="header-section-number">5.0.3</span> Why to adjust for seasonality</h3>
+<p>The main reason for seasonal adjustment is to distinguish between the seasonal component and the other sources of variability in the original data. Indeed, seasonally-adjusted data reflect the variations due only to the other components. This allows for a more consisten <strong>comparation</strong> across time and space. For instance, we can use adjusted data to compare the industrial production in March with that of the Christmas holidays, or to compare countries with different climates or vacations. Moreover, the seasonally adjusted series gives far more perspicuous information about current economic conditions, which is essential to <strong>business cycle analysis</strong>. For this reason, it is the ground for forecasting and decision making.</p>
+</div>
+<div id="decomposition-models" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Decomposition models</h2>
+<p>We can think the different components of a time series to build the series in different ways.</p>
+<p>The <strong>additive model</strong> consider the series as the sum of the components:</p>
+<p><span class="math display">\[
+Y_t = T_t + C_t + S_t + I_t
+\]</span>
+The <strong>multiplicative mode</strong>, instead, considers the product of the components:</p>
+<p><span class="math display">\[
+Y_t = T_t \cdot C_t \cdot S_t \cdot I_t
+\]</span>
+While the additive models are a good choice for series that (even if not trend-stationary) present changing variance, the multiplicative models are better suited to deal with time series whose variance changes over time.</p>
+</div>
+<div id="official-programs-for-seasonal-adjustment" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Official programs for seasonal adjustment</h2>
+<p>Seasonal adjustment is usually performed by official statistics institutions, which publish already-deseasonalized time series. There are two standard software and procedures for seasonal adjustment:</p>
+<ul>
+<li>X-13-ARIMA, developed by the Census Bureau. It uses a filter-based, non-parametric approach to estimate the seasonal component.</li>
+<li>TRAMO-SEATS, developed by the Bank of Spain.It uses a model-based, parametric method to decompose the time series.</li>
+</ul>
+<p>The software JDemetra+, developed by Eurostat, easily allows to perform the seasonal adjustment with both the X13-ARIMA and TRAMO-SEATS methods. In what follows, we will show how to use the R interface to JDemetra+ provided by the <code>RJDemetra</code> package. Before doing that, we will present a simple example giving an intuition of the procedure.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="a-caucus-race-and-a-long-tale.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="illustrative-example.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/aciancetta/Euorostat-EMOS-TimeSeries/edit/master/04-seasonal_adjustment.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/aciancetta/Euorostat-EMOS-TimeSeries/blob/master/04-seasonal_adjustment.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

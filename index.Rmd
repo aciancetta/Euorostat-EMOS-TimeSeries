@@ -1,9 +1,12 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
-date: "`r Sys.Date()`"
+title: "Time Series Methods for Official Statistics"
+author: "Alessandro Ciancetta and Daniele Colombo"
+date: "April, 2021"
 site: bookdown::bookdown_site
+documentclass: book
+description: "Time Series Methods for Official Statistics"
 ---
+# Abstract {-}
+This book is an introduction to Time Series Analysis methods for Official Statistics. The book is divided into four chapters. Chapter 1 offers a brief introducion to time series analysis and presents ARMA models, with applications in Julia. Chapter 2 discusses the problem of seasonality in time series and some techniques for seasonal adjustment using the RJDemetra package. Chapter 3 is about aggregation and disaggregation of series having different frequencies, with examples using Eurostat data. Chapter 4 discusses the best-practices in data publication and review, with a focus on revisions analysis. 
 
-# Down the rabbit-hole
-
+This book has been realized on behalf of Eurostat and the University of Pisa (Italy) as a teaching material for the European Masters in Official Statistics (EMOS).
